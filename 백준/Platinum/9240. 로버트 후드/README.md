@@ -1,0 +1,12 @@
+# [Platinum IV] 로버트 후드 - 9240 
+
+[문제 링크](https://www.acmicpc.net/problem/9240) 
+
+### 성능 요약
+
+메모리: 2808 KB, 시간: 40 ms
+
+### 분류
+
+볼록 껍질(convex_hull), 기하학(geometry), 회전하는 캘리퍼스(rotating_calipers)
+
