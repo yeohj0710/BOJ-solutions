@@ -1,5 +1,8 @@
 # BOJ_solutions
-(This is a auto push repository for Baekjoon Online Judge created with BaekjoonHub.)
+My Baekjoon Online Judge Programming Problems Solutions (2021.11.16 ~ Present)
+Solutions are classified by level of difficulty (bronze <silver < gold < platinum < diamond), and this repository contains approximately 1100 solutions.
+Thank you!
+** This is a auto push repository for Baekjoon Online Judge created with BaekjoonHub
 <br/>
 ### Baekjoon Online Judge Rank/Tier<br/>
 <img align='left' src="http://mazassumnida.wtf/api/v2/generate_badge?boj=yeohj0710"><br/>
