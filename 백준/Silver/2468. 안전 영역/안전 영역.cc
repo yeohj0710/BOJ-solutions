@@ -28,11 +28,15 @@ int main() {
 
     cin >> N;
 
+    int maxh = 0;
     for(int i=0; i<N; i++)
-        for(int j=0; j<N; j++) cin >> arr[i][j];
+        for(int j=0; j<N; j++) {
+            cin >> arr[i][j];
+            maxh = max(maxh, arr[i][j]);
+        }
 
     int ans = 0;
-    for(int k=0; k<100; k++) {
+    for(int k=0; k<maxh; k++) {
         int cnt = 0;
         memset(visited, false, sizeof(visited));
 
