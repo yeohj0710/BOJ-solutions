@@ -4,22 +4,17 @@ using namespace std;
 
 double dp[MAX] = {};
 
-double DP(int N) {
-    if(N <= 0) return 0;
-    return dp[N];
-}
-
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
     int N; cin >> N;
 
     for(int i=1; i<=N; i++)
-        for(int j=1; j<=6; j++) dp[i] += (DP(i-j) + 1)/6;
+        for(int j=1; j<=6; j++) {
+            if(i-j <= 0) dp[i] += 1.0/6.0;
+            else dp[i] += (dp[i-j] + 1.0)/6.0;
+        }
 
     cout << fixed;
     cout.precision(10);
 
-    cout << DP(N);
+    cout << dp[N];
 }
