@@ -6,11 +6,6 @@ double dp[MAX] = {};
 
 double DP(int N) {
     if(N <= 0) return 0;
-    if(dp[N] != 0) return dp[N];
-
-    for(int i=1; i<=6; i++)
-        dp[N] += (DP(N-i) + 1)/6;
-
     return dp[N];
 }
 
@@ -19,6 +14,9 @@ int main() {
     cin.tie(NULL), cout.tie(NULL);
 
     int N; cin >> N;
+
+    for(int i=1; i<=N; i++)
+        for(int j=1; j<=6; j++) dp[i] += (DP(i-j) + 1)/6;
 
     cout << fixed;
     cout.precision(10);
