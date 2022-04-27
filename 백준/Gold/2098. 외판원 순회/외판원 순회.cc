@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
-#define MAX 16
-#define INF 20000000
 using namespace std;
+
+const int MAX = 16;
+const int INF = 20000000;
 
 int N;
 int cost[MAX][MAX], dp[MAX][1 << MAX];
@@ -15,7 +16,9 @@ int DP(int curr, int status) {
     if(dp[curr][status] != -1) return dp[curr][status];
 
     dp[curr][status] = INF;
-    for(int next=0; next<N; next++) {
+    for(int i=0; i<N; i++) {
+        int next = i;
+
         if(cost[curr][next] == 0) continue;
         if((status & (1 << next)) == (1 << next)) continue;
 
@@ -31,8 +34,7 @@ int main() {
 
     cin >> N;
 
-    for(int i=0; i<N; i++)
-        for(int j=0; j<(1<<N); j++) dp[i][j] = -1;
+    memset(dp, -1, sizeof(dp));
 
     for(int i=0; i<N; i++)
         for(int j=0; j<N; j++) cin >> cost[i][j];
