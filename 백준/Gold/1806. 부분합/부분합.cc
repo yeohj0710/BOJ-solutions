@@ -1,24 +1,33 @@
-#include <cstdio>
-#define INF 100005
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int N, S, left = 0, right = 0, sum = 0, length = INF;
-    int arr[100005] = {0, };
-    scanf("%d %d", &N, &S);
-    for(int i=0; i<N; i++) scanf("%d", &arr[i]);
-    sum = arr[0];
-    while(left <= right && right < N) {
-        if(sum < S) sum += arr[++right];
-        else if(sum == S) {
-            if(right-left+1 < length) length = right-left+1;
-            sum += arr[++right];
-        }
-        else if(sum > S) {
-            if(right-left+1 < length) length = right-left+1;
-            sum -= arr[left++];
-        }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, S; cin >> N >> S;
+
+    vector<int> sum(N+1);
+    for(int i=1; i<=N; i++) {
+        int x; cin >> x;
+
+        sum[i] = sum[i-1] + x;
     }
-    if(length == INF) printf("0");
-    else printf("%d", length);
+
+    int i = 0, j = 0;
+    int sec = INT_MAX;
+
+    while(i <= j && j <= N) {
+        int part = sum[j] - sum[i];
+
+        if(part >= S) {
+            sec = min(sec, j - i);
+            i++;
+        }
+        else j++;
+    }
+
+    if(sec != INT_MAX) cout << sec << "\n";
+    else cout << 0 << "\n";
 }
+
