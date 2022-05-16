@@ -7,7 +7,7 @@ main() {
     cin.tie(NULL), cout.tie(NULL);
 
     cout << fixed;
-    cout.precision(7);
+    cout.precision(6);
 
     int T; cin >> T;
 
