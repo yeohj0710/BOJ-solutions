@@ -38,10 +38,8 @@ main() {
 
     int N, M, K; cin >> N >> M >> K;
 
-    for(int i=0; i<N; i++) {
-        int x; cin >> x;
-        v.push_back(x);
-    }
+    v.resize(N+1);
+    for(int i=1; i<=N; i++) cin >> v[i];
 
     for(int i=0; i<M+K; i++) {
         int a, b, c; cin >> a >> b >> c;
@@ -52,15 +50,15 @@ main() {
     int s = (1 << (h+1));
     tree.resize(s);
 
-    init(0, N-1, 1);
+    init(1, N, 1);
 
     for(int i=0; i<q.size(); i++) {
         if(q[i].a == 1) {
-            int idx = q[i].b - 1;
+            int idx = q[i].b;
             int diff = q[i].c - v[idx];
             v[idx] = q[i].c;
-            update(0, N-1, 1, idx, diff);
+            update(1, N, 1, idx, diff);
         }
-        else cout << f(0, N-1, 1, q[i].b-1, q[i].c-1) << "\n";
+        else cout << f(1, N, 1, q[i].b, q[i].c) << "\n";
     }
 }
