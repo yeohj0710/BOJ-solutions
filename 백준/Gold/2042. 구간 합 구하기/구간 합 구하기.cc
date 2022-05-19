@@ -1,62 +1,66 @@
-#include <cstdio>
-#include <cmath>
-#include <vector>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<long long> Arr;
-vector<long long> SegmentTree;
-vector<pair<int, pair<int, long long>>> Query;
+vector<int> v, tree;
+struct Q { int a, b, c; }; vector<Q> q;
 
+int init(int b, int e, int n) {
+    if(b == e) return tree[n] = v[b];
 
-long long CreateSegmentTree(int Begin, int End, int Node) {
-    if(Begin == End) return SegmentTree[Node] = Arr[Begin];
-    long long LeftKey = CreateSegmentTree(Begin, (Begin+End)/2, Node*2);
-    long long RightKey = CreateSegmentTree((Begin+End)/2+1, End, Node*2+1);
-    SegmentTree[Node] = LeftKey + RightKey;
-    return SegmentTree[Node];
+    int l = init(b, (b+e)/2, n*2);
+    int r = init((b+e)/2 + 1, e, n*2 + 1);
+
+    return tree[n] = l + r;
 }
 
-void UpdateSegmentTree(int Begin, int End, int Node, int Index, long long Diff) {
-    if(Index < Begin || Index > End) return;
-    SegmentTree[Node] += Diff;
-    if(Begin < End) {
-        UpdateSegmentTree(Begin, (Begin+End)/2, Node*2, Index, Diff);
-        UpdateSegmentTree((Begin+End)/2+1, End, Node*2+1, Index, Diff);
+void update(int b, int e, int n, int idx, int diff) {
+    if(idx < b || idx > e) return;
+
+    tree[n] += diff;
+
+    if(b < e) {
+        update(b, (b+e)/2, n*2, idx, diff);
+        update((b+e)/2 + 1, e, n*2 + 1, idx, diff);
     }
 }
 
-long long SumOfSegmentTree(int Begin, int End, int Node, int Left, int Right) {
-    if(Left > End || Right < Begin) return 0;
-    if(Left <= Begin && Right >= End) return SegmentTree[Node];
-    long long LeftKey = SumOfSegmentTree(Begin, (Begin+End)/2, Node*2, Left, Right);
-    long long RightKey = SumOfSegmentTree((Begin+End)/2+1, End, Node*2+1, Left, Right);
-    return LeftKey + RightKey;
+int f(int b, int e, int n, int l, int r) {
+    if(l > e || r < b) return 0;
+    if(l <= b && r >= e) return tree[n];
+
+    return f(b, (b+e)/2, n*2, l, r) + f((b+e)/2 + 1, e, n*2 + 1, l, r);
 }
 
-int main() {
-    int N, M, K;
-    scanf("%d %d %d", &N, &M, &K);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M, K; cin >> N >> M >> K;
+
     for(int i=0; i<N; i++) {
-        long long data;
-        scanf("%lld", &data);
-        Arr.push_back(data);
+        int x; cin >> x;
+        v.push_back(x);
     }
+
     for(int i=0; i<M+K; i++) {
-        int a, b; long long c;
-        scanf("%d %d %lld", &a, &b, &c);
-        Query.push_back({a, {b, c}});
+        int a, b, c; cin >> a >> b >> c;
+        q.push_back({a, b, c});
     }
-    int TreeHeight = (int)ceil(log2(N));
-    int TreeSize = (1 << (TreeHeight+1));
-    SegmentTree.resize(TreeSize);
-    CreateSegmentTree(0, N-1, 1);
-    for(int i=0; i<Query.size(); i++) {
-        if(Query[i].first == 1) {
-            int Index = Query[i].second.first-1;
-            long long Diff = Query[i].second.second - Arr[Index];
-            Arr[Index] = Query[i].second.second;
-            UpdateSegmentTree(0, N-1, 1, Index, Diff);
+
+    int h = (int)ceil(log2(N));
+    int s = (1 << (h+1));
+    tree.resize(s);
+
+    init(0, N-1, 1);
+
+    for(int i=0; i<q.size(); i++) {
+        if(q[i].a == 1) {
+            int idx = q[i].b - 1;
+            int diff = q[i].c - v[idx];
+            v[idx] = q[i].c;
+            update(0, N-1, 1, idx, diff);
         }
-        else printf("%lld\n", SumOfSegmentTree(0, N-1, 1, Query[i].second.first-1, Query[i].second.second-1));
+        else cout << f(0, N-1, 1, q[i].b-1, q[i].c-1) << "\n";
     }
 }
