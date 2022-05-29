@@ -1,37 +1,49 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int A[1000005] = {0, }, D[1000005] = {0, 1}, subSeq[1000005] = {-1000000001, }, exSeq[1000005] = {0, };
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int N, subLen = 1, low, mid, high, subLen2;
-    scanf("%d", &N);
-    for(int i=1; i<=N; i++) scanf("%d", &A[i]);
-    subSeq[1] = A[1];
-    for(int i=2; i<=N; i++) {
-        low = 0, high = subLen;
-        while(low <= high) {
-            mid = (low + high)/2;
-            if(A[i] > subSeq[mid] && mid == subLen) {
-                subSeq[++subLen] = A[i];
-                D[i] = subLen;
-                break;
-            }
-            else if(A[i] > subSeq[mid] && A[i] < subSeq[mid+1]) {
-                subSeq[mid+1] = A[i];
-                D[i] = mid+1;
-                break;
-            }
-            else if(A[i] < subSeq[mid]) high = mid - 1;
-            else if(A[i] > subSeq[mid]) low = mid + 1;
-            else break;
+    int N; cin >> N;
+
+    vector<int> v(N);
+    for(int i=0; i<N; i++) cin >> v[i];
+
+    vector<int> u;
+    u.push_back(v[0]);
+
+    int cnt = 0;
+
+    vector<pair<int, int>> dp(N);
+    dp[0] = {v[0], 0};
+
+    for(int i=1; i<N; i++) {
+        if(v[i] > u.back()) {
+            u.push_back(v[i]);
+            cnt++;
+
+            dp[i] = {v[i], cnt};
+        }
+        else {
+            int x = lower_bound(u.begin(), u.end(), v[i]) - u.begin();
+            u[x] = v[i];
+
+            dp[i] = {v[i], x};
         }
     }
-    printf("%d\n", subLen);
-    subLen2 = subLen;
-    for(int i=N; i>0; i--) {
-        if(D[i] == subLen2) {
-            exSeq[subLen2--] = A[i];
+
+    cout << cnt + 1 << "\n";
+
+    vector<int> ans;
+
+    for(int i=N-1; i>=0; i--)
+        if(cnt == dp[i].second) {
+            ans.push_back(dp[i].first);
+            cnt--;
         }
-    }
-    for(int i=1; i<=subLen; i++) printf("%d ", exSeq[i]);
+
+    for(int i=ans.size()-1; i>=0; i--) cout << ans[i] << " ";
+    cout << "\n";
 }
