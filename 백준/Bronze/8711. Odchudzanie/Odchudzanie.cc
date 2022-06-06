@@ -8,26 +8,14 @@ main() {
 
     int N; cin >> N;
 
-    vector<int> v(N);
-    for(int i=0; i<N; i++) cin >> v[i];
+    int Max = 0, ans = 0;
 
-    vector<int> a(N), b(N);
-
-    int Max = 0;
     for(int i=0; i<N; i++) {
-        Max = max(Max, v[i]);
-        a[i] = Max;
-    }
+        int x; cin >> x;
 
-    int Min = INT_MAX;
-    for(int i=N-1; i>=0; i--) {
-        Min = min(Min, v[i]);
-        b[i] = Min;
+        ans = max(ans, Max - x);
+        Max = max(Max , x);
     }
-
-    int ans = 0;
-    for(int i=0; i<N-1; i++)
-        ans = max(ans , a[i] - b[i+1]);
 
     cout << ans << "\n";
 }
