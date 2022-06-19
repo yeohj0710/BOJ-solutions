@@ -3,37 +3,34 @@
 using namespace std;
 
 int N;
-vector<int> v, tree;
+vector<int> v, u;
 
-void init(int b, int e, int n) {
-    if(b == e) {
-        tree[n] = b;
-        return;
-    }
+int init(int b, int e, int n) {
+    if(b == e) return u[n] = b;
 
-    init(b, (b+e)/2, n*2);
-    init((b+e)/2 + 1, e, n*2 + 1);
+    int lv = init(b, (b+e)/2, n*2);
+    int rv = init((b+e)/2 + 1, e, n*2 + 1);
 
-    if(v[tree[n*2]] < v[tree[n*2 + 1]]) tree[n] = tree[n*2];
-    else tree[n] = tree[n*2 + 1];
+    if(v[lv] < v[rv]) return u[n] = lv;
+    else return u[n] = rv;
 }
 
-int fidx(int b, int e, int n, int l, int r) {
-    if(l > e || r < b) return -1;
-    if(l <= b && r >= e) return tree[n];
+int g(int b, int e, int n, int l, int r) {
+    if(r < b || e < l) return -1;
+    if(l <= b && e <= r) return u[n];
 
-    int lidx = fidx(b, (b+e)/2, n*2, l, r);
-    int ridx = fidx((b+e)/2 + 1, e, n*2 + 1, l, r);
+    int lv = g(b, (b+e)/2, n*2, l, r);
+    int rv = g((b+e)/2 + 1, e, n*2 + 1, l, r);
 
-    if(lidx < 0) return ridx;
-    if(ridx < 0) return lidx;
+    if(lv < 0) return rv;
+    if(rv < 0) return lv;
 
-    if(v[lidx] < v[ridx]) return lidx;
-    else return ridx;
+    if(v[lv] < v[rv]) return lv;
+    else return rv;
 }
 
 int f(int l, int r) {
-    int idx = fidx(1, N, 1, l, r);
+    int idx = g(1, N, 1, l, r);
     int ret = (r-l+1)*v[idx];
 
     if(idx+1 <= r) ret = max(ret, f(idx+1, r));
@@ -53,7 +50,7 @@ main() {
         v.resize(N+1);
         for(int i=1; i<=N; i++) cin >> v[i];
 
-        tree.resize(N*4);
+        u.resize(N*4);
         init(1, N, 1);
 
         cout << f(1, N) << "\n";
