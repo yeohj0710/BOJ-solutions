@@ -1,52 +1,56 @@
-#include <cstdio>
-#include <vector>
-#define MODULER 1000000007
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<long long> Arr, Tree;
+vector<int> v, u;
+int mod = 1e9 + 7;
 
-long long initTree(int Begin, int End, int Node) {
-    if(Begin == End) return Tree[Node] = Arr[Begin];
-    int Mid = (Begin+End)/2;
-    long long leftKey = initTree(Begin, Mid, Node*2);
-    long long rightKey = initTree(Mid+1, End, Node*2+1);
-    return Tree[Node] = (leftKey * rightKey) % MODULER;
+int init(int b, int e, int n) {
+    if(b == e) return u[n] = v[b];
+
+    int lv = init(b, (b+e)/2, n*2);
+    int rv = init((b+e)/2 + 1, e, n*2 + 1);
+
+    return u[n] = (lv * rv) % mod;
 }
 
-long long updateTree(int Begin, int End, int Node, int Index, int Value) {
-    if(Index > End || Index < Begin) return Tree[Node];
-    if(Begin == End) return Tree[Node] = Value;
-    int Mid = (Begin+End)/2;
-    long long leftKey = updateTree(Begin, Mid, Node*2, Index, Value);
-    long long rightKey = updateTree(Mid+1, End, Node*2+1, Index, Value);
-    return Tree[Node] = (leftKey * rightKey) % MODULER;
+int upd(int b, int e, int n, int idx, int val) {
+    if(idx < b || e < idx) return u[n];
+    if(b == e) return u[n] = val;
+
+    int lv = upd(b, (b+e)/2, n*2, idx, val);
+    int rv = upd((b+e)/2 + 1, e, n*2 + 1, idx, val);
+
+    return u[n] = (lv * rv) % mod;
 }
 
-long long calcAns(int Begin, int End, int Node, int Left, int Right) {
-    if(Left > End || Right < Begin) return 1;
-    if(Left <= Begin && Right >= End) return Tree[Node];
-    int Mid = (Begin+End)/2;
-    long long leftKey = calcAns(Begin, Mid, Node*2, Left, Right);
-    long long rightKey = calcAns(Mid+1, End, Node*2+1, Left, Right);
-    return (leftKey * rightKey) % MODULER;
+int mul(int b, int e, int n, int l, int r) {
+    if(r < b || e < l) return 1;
+    if(l <= b && e <= r) return u[n];
+
+    int lv = mul(b, (b+e)/2, n*2, l, r);
+    int rv = mul((b+e)/2 + 1, e, n*2 + 1, l, r);
+
+    return (lv * rv) % mod;
 }
 
-int main() {
-    int N, M, K, a, b, c;
-    scanf("%d %d %d", &N, &M, &K);
-    Arr.resize(N);
-    for(int i=0; i<N; i++) scanf("%lld", &Arr[i]);
-    Tree.resize(N*4);
-    initTree(0, N-1, 1);
-    for(int i=0; i<M+K; i++) {
-        scanf("%d", &a);
-        if(a == 1) {
-            scanf("%d %d", &b, &c);
-            updateTree(0, N-1, 1, b-1, c);
-        }
-        else {
-            scanf("%d %d", &b, &c);
-            printf("%lld\n", calcAns(0, N-1, 1, b-1, c-1));
-        }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M, K; cin >> N >> M >> K;
+
+    v.resize(N+1);
+    for(int i=1; i<=N; i++) cin >> v[i];
+
+    u.resize(N*4);
+    init(1, N, 1);
+
+    M += K;
+    while(M--) {
+        int Q, a, b; cin >> Q >> a >> b;
+
+        if(Q == 1) upd(1, N, 1, a, b);
+        else if(Q == 2) cout << mul(1, N, 1, a, b) << "\n";
     }
 }
