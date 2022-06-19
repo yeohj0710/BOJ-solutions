@@ -1,46 +1,53 @@
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-#define INF 1000000001
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<pair<int, int>> Data; // first : value, second : index
-vector<int> Tree;
+vector<pair<int, int>> v;
+vector<int> u;
 
-void updateTree(int Node, int Begin, int End, int Index) {
-    if(Begin == End) {
-        Tree[Node] = 1;
+void upd(int n, int b, int e, int idx) {
+    if(b == e) {
+        u[n] = 1;
         return;
     }
-    int Mid = (Begin+End)/2;
-    if(Index <= Mid) updateTree(Node*2, Begin, Mid, Index);
-    else updateTree(Node*2+1, Mid+1, End, Index);
-    Tree[Node] = Tree[Node*2] + Tree[Node*2+1];
+
+    if(idx <= (b+e)/2) upd(n*2, b, (b+e)/2, idx);
+    else upd(n*2 + 1, (b+e)/2 + 1, e, idx);
+
+    u[n] = u[n*2] + u[n*2 + 1];
 }
 
-int cntLess(int Node, int Begin, int End, int Left, int Right) {
-    if(Left > End || Right < Begin) return 0;
-    if(Left <= Begin && Right >= End) return Tree[Node];
-    int Mid = (Begin+End)/2;
-    int leftCnt = cntLess(Node*2, Begin, Mid, Left, Right);
-    int rightCnt = cntLess(Node*2+1, Mid+1, End, Left, Right);
-    return leftCnt + rightCnt;
+int cnt(int n, int b, int e, int l, int r) {
+    if(r < b || e < l) return 0;
+    if(l <= b && e <= r) return u[n];
+
+    int lv = cnt(n*2, b, (b+e)/2, l, r);
+    int rv = cnt(n*2 + 1, (b+e)/2 + 1, e, l, r);
+
+    return lv + rv;
 }
 
-int main() {
-    int N, Value;
-    long long Ans = 0;
-    scanf("%d", &N);
-    Tree.resize(N*4+1);
-    Data.push_back({-INF, 0});
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    v.resize(N+1);
     for(int i=1; i<=N; i++) {
-        scanf("%d", &Value);
-        Data.push_back({Value, i});
+        cin >> v[i].first;
+        v[i].second = i;
     }
-    sort(Data.begin(), Data.end());
+
+    sort(v.begin()+1, v.end());
+
+    u.resize(N*4);
+    int ans = 0;
+
     for(int i=1; i<=N; i++) {
-        Ans += (long long)cntLess(1, 1, N, Data[i].second+1, N);
-        updateTree(1, 1, N, Data[i].second);
+        ans += cnt(1, 1, N, v[i].second+1, N);
+        upd(1, 1, N, v[i].second);
     }
-    printf("%lld", Ans);
+
+    cout << ans << "\n";
 }
