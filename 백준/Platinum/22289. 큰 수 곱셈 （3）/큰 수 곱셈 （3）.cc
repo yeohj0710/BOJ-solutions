@@ -1,14 +1,15 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
 const double PI = acos(-1);
 typedef complex<double> cpx;
 
-void FFT(vector<cpx> &f, bool inv) {
-    int N = f.size();
+void FFT(vector<cpx> &v, bool inv) {
+    int S = v.size();
 
-    for(int i=1, j=0; i<N; i++) {
-        int bit = N/2;
+    for(int i=1, j=0; i<S; i++) {
+        int bit = S/2;
 
         while(j >= bit) {
             j -= bit;
@@ -16,22 +17,22 @@ void FFT(vector<cpx> &f, bool inv) {
         }
         j += bit;
 
-        if(i < j) swap(f[i], f[j]);
+        if(i < j) swap(v[i], v[j]);
     }
 
-    for(int k=1; k<N; k*=2) {
+    for(int k=1; k<S; k*=2) {
         double angle = (inv ? PI/k : -PI/k);
         cpx dir(cos(angle), sin(angle));
 
-        for(int i=0; i<N; i+=k*2) {
+        for(int i=0; i<S; i+=k*2) {
             cpx unit(1, 0);
 
             for(int j=0; j<k; j++) {
-                cpx u = f[i+j];
-                cpx v = f[i+j+k] * unit;
+                cpx a = v[i+j];
+                cpx b = v[i+j+k] * unit;
 
-                f[i+j] = u + v;
-                f[i+j+k] = u - v;
+                v[i+j] = a + b;
+                v[i+j+k] = a - b;
 
                 unit *= dir;
             }
@@ -39,57 +40,58 @@ void FFT(vector<cpx> &f, bool inv) {
     }
 
     if(inv)
-        for(int i=0; i<N; i++) f[i] /= N;
+        for(int i=0; i<S; i++) v[i] /= S;
 }
 
-vector<cpx> multiply(vector<cpx> &a, vector<cpx> &b) {
-    int N = 1;
-    while(N < a.size() + b.size()) N *= 2;
+vector<cpx> mul(vector<cpx> &v, vector<cpx> &u) {
+    int S = 2;
+    while(S < v.size() + u.size()) S *= 2;
 
-    a.resize(N); FFT(a, false);
-    b.resize(N); FFT(b, false);
+    v.resize(S); FFT(v, false);
+    u.resize(S); FFT(u, false);
 
-    vector<cpx> c(N);
-    for(int i=0; i<N; i++) c[i] = a[i] * b[i];
-    FFT(c, true);
+    vector<cpx> w(S);
+    for(int i=0; i<S; i++) w[i] = v[i] * u[i];
+    FFT(w, true);
 
-    return c;
+    return w;
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    string a_str, b_str; cin >> a_str >> b_str;
+    string a, b; cin >> a >> b;
 
-    vector<cpx> a, b;
-    for(int i=0; i<a_str.length(); i++) a.push_back(cpx(a_str[i] - '0', 0));
-    for(int i=0; i<b_str.length(); i++) b.push_back(cpx(b_str[i] - '0', 0));
+    vector<cpx> v, u;
+    for(int i=0; i<a.length(); i++) v.push_back(cpx(a[i] - '0', 0));
+    for(int i=0; i<b.length(); i++) u.push_back(cpx(b[i] - '0', 0));
 
-    reverse(a.begin(), a.end());
-    reverse(b.begin(), b.end());
+    reverse(v.begin(), v.end());
+    reverse(u.begin(), u.end());
 
-    vector<cpx> c_ = multiply(a, b);
+    vector<cpx> w = mul(v, u);
 
-    vector<int> c;
-    for(int i=0; i<c_.size(); i++) c.push_back(round(c_[i].real()));
+    vector<int> ans(w.size());
+    for(int i=0; i<ans.size(); i++) ans[i] = round(w[i].real());
 
-    for(int i=0; i<c.size(); i++) {
-        if(c[i] < 10) continue;
+    for(int i=0; i<ans.size(); i++) {
+        if(ans[i] < 10) continue;
 
-        if(i < c.size()-1) c[i+1] += c[i]/10;
-        else c.push_back(c[i]/10);
+        if(i < ans.size()-1) ans[i+1] += ans[i]/10;
+        else ans.push_back(ans[i]/10);
 
-        c[i] %= 10;
+        ans[i] %= 10;
     }
 
-    reverse(c.begin(), c.end());
+    reverse(ans.begin(), ans.end());
 
-    int i = 0; while(c[i] == 0) i++;
-    if(i >= c.size()) cout << "0";
+    int i=0; while(ans[i] == 0) i++;
+    if(i >= ans.size()) cout << 0 << "\n";
 
-    while(i < c.size()) {
-        cout << c[i];
+    while(i < ans.size()) {
+        cout << ans[i];
         i++;
     }
+    cout << "\n";
 }
