@@ -1,13 +1,15 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-void fft(vector<complex<double>> &v, bool inv) {
-    int N = v.size();
-    vector<complex<double>> roots(N/2);
+const double PI = acos(-1);
+typedef complex<double> cpx;
 
-    int j = 0;
-    for(int i=1; i<N; i++) {
-        int bit = N/2;
+void FFT(vector<cpx> &v, bool inv) {
+    int S = v.size();
+
+    for(int i=1, j=0; i<S; i++) {
+        int bit = S/2;
 
         while(j >= bit) {
             j -= bit;
@@ -18,69 +20,63 @@ void fft(vector<complex<double>> &v, bool inv) {
         if(i < j) swap(v[i], v[j]);
     }
 
-    double angle;
-    if(!inv) angle = 2 * M_PI / N;
-    else angle = (-1) * 2 * M_PI / N;
+    for(int k=1; k<S; k*=2) {
+        double angle = (inv ? PI/k : -PI/k);
+        cpx dir(cos(angle), sin(angle));
 
-    for(int i=0; i<N/2; i++)
-        roots[i] = complex<double>(cos(angle * i), sin(angle * i));
+        for(int i=0; i<S; i+=k*2) {
+            cpx unit(1, 0);
 
-    for(int i=2; i<=N; i*=2) {
-        int step = N / i;
+            for(int j=0; j<k; j++) {
+                cpx a = v[i+j];
+                cpx b = v[i+j+k] * unit;
 
-        for(int j=0; j<N; j+=i)
-            for(int k=0; k<i/2; k++) {
-                complex<double> a = v[j + k];
-                complex<double> b = v[j + k + i/2] * roots[step * k];
+                v[i+j] = a + b;
+                v[i+j+k] = a - b;
 
-                v[j + k] = a + b;
-                v[j + k + i/2] = a - b;
+                unit *= dir;
             }
+        }
     }
 
     if(inv)
-        for(int i=0; i<N; i++) v[i] /= N;
+        for(int i=0; i<S; i++) v[i] /= S;
 }
 
-vector<long long> multiply(vector<long long> &v, vector<long long> &w) {
-    vector<complex<double>> fv(v.begin(), v.end());
-    vector<complex<double>> fw(w.begin(), w.end());
+vector<cpx> mul(vector<cpx> &v, vector<cpx> &u) {
+    int S = 1;
+    while(S < max(v.size(), u.size())) S *= 2;
 
-    int Size = 2;
-    while(Size < v.size() + w.size()) Size *= 2;
+    v.resize(S); FFT(v, false);
+    u.resize(S); FFT(u, false);
 
-    fv.resize(Size); fft(fv, false);
-    fw.resize(Size); fft(fw, false);
+    vector<cpx> w(S);
+    for(int i=0; i<S; i++) w[i] = v[i] * u[i];
+    FFT(w, true);
 
-    vector<complex<double>> mul(Size);
-    for(int i=0; i<Size; i++) mul[i] = fv[i] * fw[i];
-    fft(mul, true);
-
-    vector<long long> mul_(Size);
-    for(int i=0; i<Size; i++) mul_[i] = (long long)round(mul[i].real());
-
-    return mul_;
+    return w;
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N; cin >> N;
-
-    vector<long long> v(N*2), w(N);
+    vector<cpx> v(N*2), u(N);
 
     for(int i=0; i<N; i++) {
-        cin >> v[i];
-        v[i + N] = v[i];
+        int x; cin >> x;
+        v[i] = v[i+N] = cpx(x, 0);
     }
-    for(int i=1; i<=N; i++) cin >> w[N - i];
+    for(int i=0; i<N; i++) {
+        int x; cin >> x;
+        u[N-1-i] = cpx(x, 0);
+    }
 
-    vector<long long> mul = multiply(v, w);
+    vector<cpx> w = mul(v, u);
 
-    long long ans = 0;
-    for(int i=0; i<mul.size(); i++)
-        ans = max(ans, mul[i]);
+    int ans = 0;
+    for(int i=0; i<w.size(); i++) ans = max(ans, (int)round(w[i].real()));
 
-    cout << ans;
+    cout << ans << "\n";
 }
