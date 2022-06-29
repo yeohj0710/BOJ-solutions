@@ -48,7 +48,7 @@ vector<int> mul(vector<int> &v, vector<int> &u) {
     vector<cpx> uc(u.begin(), u.end());
 
     int S = 2;
-    while(S <= max(v.size(), u.size())) S *= 2;
+    while(S < v.size() + u.size()) S *= 2;
 
     vc.resize(S); FFT(vc, false);
     uc.resize(S); FFT(uc, false);
