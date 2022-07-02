@@ -1,11 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-    int n;
-    scanf("%d", &n);
-    if(n >= 90) printf("A");
-    else if(n >= 80) printf("B");
-    else if(n >= 70) printf("C");
-    else if(n >= 60) printf("D");
-    else printf("F");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    if(N >= 90) cout << "A\n";
+    else if(N >= 80) cout << "B\n";
+    else if(N >= 70) cout << "C\n";
+    else if(N >= 60) cout << "D\n";
+    else cout << "F\n";
 }
