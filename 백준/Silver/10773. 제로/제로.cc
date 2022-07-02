@@ -1,14 +1,26 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, arr[100005], digit, location = 0;
-    long long int sum = 0;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) {
-        scanf("%d", &digit);
-        if(digit == 0 && location != 0) arr[--location] = 0;
-        else if(digit != 0) arr[location++] = digit;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    stack<int> s;
+    while(N--) {
+        int x; cin >> x;
+
+        if(x != 0) s.push(x);
+        else s.pop();
     }
-    for(int i=0; i<location; i++) sum += arr[i];
-    printf("%d", sum);
+
+    int ans = 0;
+    while(!s.empty()) {
+        ans += s.top();
+        s.pop();
+    }
+
+    cout << ans << "\n";
 }
