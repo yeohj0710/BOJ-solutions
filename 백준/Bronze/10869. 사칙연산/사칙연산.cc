@@ -1,7 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-    int A, B;
-    scanf("%d %d", &A, &B);
-    printf("%d\n%d\n%d\n%d\n%d", A+B, A-B, A*B, A/B, A%B);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b; cin >> a >> b;
+
+    cout << a + b << "\n";
+    cout << a - b << "\n";
+    cout << a * b << "\n";
+    cout << a / b << "\n";
+    cout << a % b << "\n";
 }
