@@ -1,15 +1,22 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, digit, check, sum = 0;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) {
-        scanf("%d", &digit);
-        check = 0;
-        for(int j=2; j<digit; j++) {
-            if(!(digit%j)) check = 1;
-        }
-        if(!check && digit >= 2) sum++;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<bool> prime(1001, true); prime[1] = false;
+    for(int i=2; i*i<=1000; i++)
+        for(int j=2; i*j<=1000; j++) prime[i*j] = false;
+
+    int N; cin >> N;
+
+    int ans = 0;
+    while(N--) {
+        int x; cin >> x;
+        if(prime[x]) ans++;
     }
-    printf("%d", sum);
+
+    cout << ans << "\n";
 }
