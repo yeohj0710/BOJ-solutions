@@ -1,21 +1,29 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, state = 0, isVPS;
-    char c;
-    scanf("%d\n", &N);
-    for(int i=0; i<N; i++) {
-        state = 0;
-        isVPS = 1;
-        while(1) {
-            scanf("%c", &c);
-            if(c == '\n') break;
-            if(c == '(') state++;
-            else if(c == ')') state--;
-            if(state < 0) isVPS = 0;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T; cin >> T;
+
+    while(T--) {
+        string str; cin >> str;
+
+        bool check = true;
+        int cnt = 0;
+
+        for(int i=0; i<str.length(); i++) {
+            if(str[i] == '(') cnt++;
+            else cnt--;
+
+            if(cnt < 0) check = false;
         }
-        if(state) isVPS = 0;
-        if(isVPS) printf("YES\n");
-        else printf("NO\n");
+
+        if(cnt != 0) check = false;
+
+        if(check) cout << "YES\n";
+        else cout << "NO\n";
     }
 }
