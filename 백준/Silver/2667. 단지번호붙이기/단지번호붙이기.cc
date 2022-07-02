@@ -1,26 +1,52 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, map[30][30] = {0, }, visit[30][30] = {0, }, households[900] = {0, }, var[3][5] = {{1, -1, 0, 0}, {0, 0, 1, -1}}, count = 1, temp;
+int N, cnt;
+vector<vector<char>> v;
+vector<vector<bool>> vis;
 
-void DFS(int X, int Y) {
-    visit[X][Y] = 1;
-    households[count]++;
-    for(int i=0; i<4; i++) if(map[X+var[0][i]][Y+var[1][i]] && !visit[X+var[0][i]][Y+var[1][i]]) DFS(X+var[0][i], Y+var[1][i]);
+void DFS(int x, int y) {
+    vis[x][y] = true;
+    cnt++;
+
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+
+    for(int i=0; i<4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if(nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+        if(vis[nx][ny] || v[nx][ny] != v[x][y]) continue;
+
+        DFS(nx, ny);
+    }
 }
 
-int main() {
-    scanf("%d", &N);
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=N; j++) scanf("%1d", &map[i][j]);
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=N; j++) if(map[i][j] && !visit[i][j]) DFS(i, j), count++;
-    printf("%d\n", --count);
-    for(int i=1; i<=count; i++)
-        for(int j=i+1; j<=count; j++)
-            if(households[i] > households[j]) {
-                temp = households[i];
-                households[i] = households[j];
-                households[j] = temp;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N;
+
+    v.resize(N, vector<char>(N));
+    for(int i=0; i<N; i++)
+        for(int j=0; j<N; j++) cin >> v[i][j];
+
+    vis.resize(N, vector<bool>(N));
+    vector<int> ans;
+
+    for(int i=0; i<N; i++)
+        for(int j=0; j<N; j++)
+            if(v[i][j] > '0' && !vis[i][j]) {
+                cnt = 0;
+                DFS(i, j);
+                ans.push_back(cnt);
             }
-    for(int i=1; i<=count; i++) printf("%d\n", households[i]);
+
+    sort(ans.begin(), ans.end());
+
+    cout << ans.size() << "\n";
+    for(int i=0; i<ans.size(); i++) cout << ans[i] << "\n";
 }
