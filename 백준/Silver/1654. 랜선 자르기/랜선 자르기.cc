@@ -1,31 +1,30 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    long long K, N; cin >> K >> N;
+    int N, M; cin >> N >> M;
 
-    vector<long long> arr(K);
-    long long Max = 0;
-    for(int i=0; i<K; i++) {
-        cin >> arr[i];
-        Max = max(Max, arr[i]);
-    }
+    vector<int> v(N);
+    for(int i=0; i<N; i++) cin >> v[i];
 
-    long long Left = 1, Right = Max, Mid, ans = 0;
-    while(Left <= Right) {
-        Mid = (Left + Right)/2;
+    int l = 0, h = INT_MAX, ans = 0;
 
-        long long cnt = 0;
-        for(int i=0; i<K; i++) cnt += arr[i]/Mid;
+    while(l <= h) {
+        int m = (l + h)/2;
 
-        if(cnt >= N) {
-            Left = Mid + 1;
-            ans = max(ans, Mid);
+        int cnt = 0;
+        for(int i=0; i<N; i++) cnt += v[i] / m;
+
+        if(cnt >= M) {
+            ans = max(ans, m);
+            l = m + 1;
         }
-        else Right = Mid - 1;
+        else h = m - 1;
     }
-    cout << ans;
+
+    cout << ans << "\n";
 }
