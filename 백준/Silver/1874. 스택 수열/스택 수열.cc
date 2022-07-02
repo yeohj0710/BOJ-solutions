@@ -1,38 +1,36 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int stack[100005], check[100005] = {0, }, top = -1, yet = 1, ans_count = 0, exist;
-char ans[1000005];
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int n, target, impossible = 0;
-    scanf("%d", &n);
-    for(int i=0; i<n; i++) {
-        scanf("%d", &target);
-        if(target >= yet) {
-            while(yet <= target) {
-                stack[++top] = yet++;
-                ans[ans_count++] = '+';
-            }
-            top--;
-            ans[ans_count++] = '-';
+    int N; cin >> N;
+
+    vector<int> v(N);
+    for(int i=0; i<N; i++) cin >> v[i];
+
+    stack<int> s;
+    vector<char> ans;
+    int nex = 1;
+
+    for(int i=0; i<N; i++) {
+        while(nex <= v[i]) {
+            s.push(nex++);
+            ans.push_back('+');
         }
-        else if(!check[target]) {
-            exist = 0;
-            for(int i=0; i<=top; i++) if(stack[i] == target) exist = 1;
-            if(!exist) {
-                impossible = 1;
-                break;
-            }
-            while(stack[top] != target) {
-                top--;
-                ans[ans_count++] = '-';
-            }
-            top--;
-            ans[ans_count++] = '-';
-            check[target] = 1;
+
+        if(!s.empty() && s.top() == v[i]) {
+            s.pop();
+            ans.push_back('-');
         }
-        else impossible = 1;
+        else {
+            cout << "NO\n";
+            return 0;
+        }
     }
-    if(impossible) printf("NO");
-    else for(int i=0; i<ans_count; i++) printf("%c\n", ans[i]);
+
+
+    for(int i=0; i<ans.size(); i++) cout << ans[i] << "\n";
 }
