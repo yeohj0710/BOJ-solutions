@@ -1,11 +1,16 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int arr[1000005] = {1, 1, };
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int M, N;
-    scanf("%d %d", &M, &N);
-    for(int i=2; i*i<=N; i++)
-        for(int j=2; i*j<=N; j++) arr[i*j] = 1;
-    for(int i=M; i<=N; i++) if(!arr[i]) printf("%d\n", i);
+    vector<bool> prime(1000001, true); prime[1] = false;
+    for(int i=2; i*i<=1000000; i++)
+        for(int j=2; i*j<=1000000; j++) prime[i*j] = false;
+
+    int N, M; cin >> N >> M;
+    for(int i=N; i<=M; i++)
+        if(prime[i]) cout << i << "\n";
 }
