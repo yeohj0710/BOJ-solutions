@@ -1,13 +1,14 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-    int n = 1;
-    char str[1000001];
-    scanf("%[^\n]s", str);
-    for(int i=0; i<strlen(str); i++)
-        if(str[i] == ' ') n++;
-    if(str[0] == ' ' && n) n--;
-    if(str[strlen(str)-1] == ' ' && n) n--;
-    printf("%d", n);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int ans = 0;
+
+    string str;
+    while(cin >> str) ans++;
+
+    cout << ans << "\n";
 }
