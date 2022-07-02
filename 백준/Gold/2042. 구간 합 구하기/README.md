@@ -4,11 +4,11 @@
 
 ### 성능 요약
 
-메모리: 27132 KB, 시간: 224 ms
+메모리: 41088 KB, 시간: 228 ms
 
 ### 분류
 
-자료 구조(data_structures), 세그먼트 트리(segtree)
+세그먼트 트리(segtree), 자료 구조(data_structures)
 
 ### 문제 설명
 
