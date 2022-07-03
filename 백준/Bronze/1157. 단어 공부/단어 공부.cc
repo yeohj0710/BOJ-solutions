@@ -1,17 +1,33 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int freq[26] = {0, }, max = 0, check = 0;
-    char c, ans;
-    while(scanf("%c", &c) != EOF) {
-        if(c >= 'a' && c <= 'z') freq[c - 'a']++;
-        else if(c >= 'A' && c <= 'Z') freq[c - 'A']++;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    vector<int> cnt(26);
+
+    for(int i=0; i<str.length(); i++) {
+        if(str[i] >= 'A' && str[i] <= 'Z') cnt[str[i] - 'A']++;
+        else if(str[i] >= 'a' && str[i] <= 'z') cnt[str[i] - 'a']++;
     }
-    for(int i=0; i<26; i++) if(freq[i] > max) max = freq[i];
-    for(int i=0; i<26; i++) if(freq[i] == max) {
-        ans = 'A' + i;
-        check++;
+
+    int Max = 0;
+    for(int i=0; i<26; i++) Max = max(Max, cnt[i]);
+
+    int max_cnt = 0;
+    for(int i=0; i<26; i++)
+        if(cnt[i] == Max) max_cnt++;
+
+    if(max_cnt == 1) {
+        for(int i=0; i<26; i++)
+            if(cnt[i] == Max) {
+                cout << char('A' + i) << "\n";
+                break;
+            }
     }
-    if(check > 1) printf("?");
-    else printf("%c", ans);
+    else cout << "?\n";
 }
