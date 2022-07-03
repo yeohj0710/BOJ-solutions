@@ -1,52 +1,74 @@
-#include <cstdio>
-#include <algorithm>
-#include <vector>
-#include <queue>
-#define MAX 1000
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int N;
-vector<int> Graph[MAX+1];
-vector<bool> Visit;
+vector<vector<int>> adj;
+vector<bool> vis;
+vector<int> v, u;
 
-void DFS(int V) {
-    Visit[V] = true;
-    printf("%d ", V);
-    for(int i=0; i<Graph[V].size(); i++) {
-        int Next = Graph[V][i];
-        if(!Visit[Next]) DFS(Next);
+void DFS(int x) {
+    vis[x] = true;
+    v.push_back(x);
+
+    for(int i=0; i<adj[x].size(); i++) {
+        int nex = adj[x][i];
+
+        if(!vis[nex]) DFS(nex);
     }
 }
 
-void BFS(int V) {
-    Visit[V] = true;
-    queue<int> Queue;
-    Queue.push(V);
-    while(!Queue.empty()) {
-        int Pop = Queue.front();
-        printf("%d ", Pop);
-        Queue.pop();
-        for(int i=0; i<Graph[Pop].size(); i++) {
-            int Next = Graph[Pop][i];
-            if(!Visit[Next]) {
-                Visit[Next] = true;
-                Queue.push(Next);
-            }
+void BFS(int x) {
+    vis[x] = true;
+
+    queue<int> q;
+    q.push(x);
+
+    while(!q.empty()) {
+        int cur = q.front();
+        q.pop();
+
+        vis[cur] = true;
+        u.push_back(cur);
+
+        for(int i=0; i<adj[cur].size(); i++) {
+            int nex = adj[cur][i];
+
+            if(vis[nex]) continue;
+
+            q.push(nex);
+            vis[nex] = true;
         }
     }
 }
 
-int main() {
-    int M, Begin, X, Y;
-    scanf("%d %d %d", &N, &M, &Begin);
-    Visit.resize(N+1);
-    for(int i=0; i<M; i++) {
-        scanf("%d %d", &X, &Y);
-        Graph[X].push_back(Y);
-        Graph[Y].push_back(X);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M, K; cin >> N >> M >> K;
+
+    adj.resize(N+1);
+
+    while(M--) {
+        int a, b; cin >> a >> b;
+
+        adj[a].push_back(b);
+        adj[b].push_back(a);
     }
-    for(int i=1; i<=N; i++) sort(Graph[i].begin(), Graph[i].end());
-    DFS(Begin); printf("\n");
-    fill(Visit.begin(), Visit.end(), false);
-    BFS(Begin);
+
+    for(int i=1; i<=N; i++)
+        sort(adj[i].begin(), adj[i].end());
+
+    vis.resize(N+1);
+
+    DFS(K);
+
+    for(int i=1; i<=N; i++) vis[i] = false;
+
+    BFS(K);
+
+    for(int i=0; i<v.size(); i++) cout << v[i] << " ";
+    cout << "\n";
+    for(int i=0; i<u.size(); i++) cout << u[i] << " ";
+    cout << "\n";
 }
