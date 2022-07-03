@@ -1,31 +1,33 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N; cin >> N;
 
-    priority_queue<int, vector<int>, greater<int>> pQueue;
+    priority_queue<int, vector<int>, greater<int>> pq;
     for(int i=0; i<N; i++) {
-        int value; cin >> value;
-        pQueue.push(value);
+        int x; cin >> x;
+
+        pq.push(x);
     }
 
     int ans = 0;
-    while(true) {
-        int a = pQueue.top();
-        pQueue.pop();
+    while(!pq.empty()) {
+        int a = pq.top();
+        pq.pop();
 
-        if(pQueue.empty()) break;
+        if(pq.empty()) break;
 
-        int b = pQueue.top();
-        pQueue.pop();
+        int b = pq.top();
+        pq.pop();
 
-        pQueue.push(a+b);
-        ans += a+b;
+        pq.push(a + b);
+        ans += a + b;
     }
 
-    cout << ans;
+    cout << ans << "\n";
 }
