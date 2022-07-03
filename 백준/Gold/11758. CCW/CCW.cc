@@ -1,18 +1,20 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-struct Point { int x, y; };
+struct P { int x, y; };
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    Point p1, p2, p3;
-    cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y;
+    vector<P> v(3);
 
-    int ccw = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
+    for(int i=0; i<3; i++) cin >> v[i].x >> v[i].y;
 
-    if(ccw > 0) cout << "1\n";
-    else if(ccw < 0) cout << "-1\n";
-    else cout << "0\n";
+    int ccw = v[0].x * (v[1].y - v[2].y) + v[1].x * (v[2].y - v[0].y) + v[2].x * (v[0].y - v[1].y);
+
+    if(ccw > 0) cout << 1 << "\n";
+    else if(ccw < 0) cout << -1 << "\n";
+    else cout << 0 << "\n";
 }
