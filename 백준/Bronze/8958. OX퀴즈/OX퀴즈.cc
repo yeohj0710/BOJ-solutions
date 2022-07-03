@@ -1,17 +1,27 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int T, score, correct;
-    char ox[100];
-    scanf("%d", &T);
-    for(int i=0; i<T; i++) {
-        score = 0, correct = 0;
-        scanf("%s", ox);
-        for(int j=0; j<strlen(ox); j++) {
-            if(ox[j] == 'O') score += ++correct;
-            else correct = 0;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T; cin >> T;
+
+    while(T--) {
+        string str; cin >> str;
+
+        int cnt = 0, ans = 0;
+
+        for(int i=0; i<str.length(); i++) {
+            if(str[i] == 'O') cnt++;
+            else {
+                ans += cnt * (cnt + 1) / 2;
+                cnt = 0;
+            }
         }
-        printf("%d\n", score);
+        ans += cnt * (cnt + 1) / 2;
+
+        cout << ans << "\n";
     }
 }
