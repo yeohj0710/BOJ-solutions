@@ -17,13 +17,11 @@ main() {
 
     sort(v.begin(), v.end());
 
-    for(int i=0; i<v.size(); i++)
-        for(int j=i+1; j<v.size(); j++)
-            for(int k=j+1; k<v.size(); k++)
-                if(v[i] + v[j] > v[k]) {
-                    cout << v[i] << " " << v[j] << " " << v[k] << "\n";
-                    return 0;
-                }
+    for(int i=0; i<v.size()-2; i++)
+        if(v[i] + v[i+1] > v[i+2]) {
+            cout << v[i] << " " << v[i+1] << " " << v[i+2] << "\n";
+            return 0;
+        }
 
     cout << "NIE\n";
 }

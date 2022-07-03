@@ -1,14 +1,14 @@
-# [Silver IV] Triangles - 8117 
+# [Silver V] Triangles - 8117 
 
 [문제 링크](https://www.acmicpc.net/problem/8117) 
 
 ### 성능 요약
 
-메모리: 5224 KB, 시간: 40 ms
+메모리: 5224 KB, 시간: 36 ms
 
 ### 분류
 
-브루트포스 알고리즘(bruteforcing), 기하학(geometry), 수학(math), 정렬(sorting)
+브루트포스 알고리즘(bruteforcing), 기하학(geometry), 그리디 알고리즘(greedy), 수학(math), 정렬(sorting)
 
 ### 문제 설명
 
