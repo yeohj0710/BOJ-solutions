@@ -1,11 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, digit, sum = 0;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) {
-        scanf("%1d", &digit);
-        sum += digit;
-    }
-    printf("%d", sum);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    string str; cin >> str;
+
+    int ans = 0;
+    for(int i=0; i<N; i++) ans += str[i] - '0';
+
+    cout << ans << "\n";
 }
