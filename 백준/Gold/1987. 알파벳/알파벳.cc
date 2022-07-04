@@ -1,27 +1,42 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-char Map[25][25];
-bool check[26] = {0, };
-int unit[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-int R, C, Max = 0;
+vector<vector<char>> v;
+vector<bool> vis(26);
+int N, M, ans = 0;
 
-void DFS(int y, int x, int cnt) {
+int dx[4] = {1, -1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
+
+void DFS(int x, int y, int cnt) {
+    ans = max(ans, cnt);
+
     for(int i=0; i<4; i++) {
-        int next_y = y + unit[i][0], next_x = x + unit[i][1];
-        if(next_y >= 0 && next_y < R && next_x >= 0 && next_x < C && !check[Map[next_y][next_x]-'A']) {
-            check[Map[next_y][next_x]-'A'] = 1;
-            DFS(next_y, next_x, cnt+1);
-            check[Map[next_y][next_x]-'A'] = 0;
-        }
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+        if(vis[v[nx][ny] - 'A']) continue;
+
+        vis[v[nx][ny] - 'A'] = true;
+        DFS(nx, ny, cnt+1);
+        vis[v[nx][ny] - 'A'] = false;
     }
-    if(cnt > Max) Max = cnt;
 }
 
-int main() {
-    cin >> R >> C;
-    for(int i=0; i<R; i++) cin >> Map[i];
-    check[Map[0][0]-'A'] = 1;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N >> M;
+
+    v.resize(N, vector<char>(M));
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) cin >> v[i][j];
+
+    vis[v[0][0] - 'A'] = true;
     DFS(0, 0, 1);
-    cout << Max;
+
+    cout << ans << "\n";
 }
