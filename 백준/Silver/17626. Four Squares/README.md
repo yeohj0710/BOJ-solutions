@@ -1,4 +1,4 @@
-# [Silver IV] Four Squares - 17626 
+# [Silver III] Four Squares - 17626 
 
 [문제 링크](https://www.acmicpc.net/problem/17626) 
 
