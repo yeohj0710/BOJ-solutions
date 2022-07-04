@@ -11,11 +11,12 @@ main() {
     vector<int> v(N);
     for(int i=0; i<N; i++) cin >> v[i];
 
-    int a = 0;
-    for(int i=0; i<N; i++) a += v[i];
+    int sum = 0;
+    for(int i=0; i<N; i++) sum += v[i];
 
-    int b = 0;
-    for(int i=0; i<N; i++) b += v[i]*v[i];
+    int sq_sum = 0;
+    for(int i=0; i<N; i++) sq_sum += v[i] * v[i];
 
-    cout << (a*a - b)/2 << "\n";
+    int ans = (sum * sum - sq_sum) / 2;
+    cout << ans << "\n";
 }
