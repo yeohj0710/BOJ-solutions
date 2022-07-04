@@ -1,10 +1,10 @@
-# [Silver III] 제곱수의 합 - 1699 
+# [Silver II] 제곱수의 합 - 1699 
 
 [문제 링크](https://www.acmicpc.net/problem/1699) 
 
 ### 성능 요약
 
-메모리: 2412 KB, 시간: 36 ms
+메모리: 2680 KB, 시간: 36 ms
 
 ### 분류
 
