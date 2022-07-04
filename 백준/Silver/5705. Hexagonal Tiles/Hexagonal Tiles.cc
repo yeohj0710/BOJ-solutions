@@ -7,13 +7,12 @@ main() {
     cin.tie(NULL), cout.tie(NULL);
 
     int dp[41] = {0, 1, 2};
-
     for(int i=3; i<=40; i++) dp[i] = dp[i-1] + dp[i-2];
 
     while(true) {
-        int N; cin >> N;
-        if(N == 0) break;
+        int x; cin >> x;
+        if(x == 0) break;
 
-        cout << dp[N] << "\n";
+        cout << dp[x] << "\n";
     }
 }

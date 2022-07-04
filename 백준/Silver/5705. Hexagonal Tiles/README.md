@@ -1,4 +1,4 @@
-# [Silver III] Hexagonal Tiles - 5705 
+# [Silver IV] Hexagonal Tiles - 5705 
 
 [문제 링크](https://www.acmicpc.net/problem/5705) 
 
