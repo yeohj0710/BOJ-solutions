@@ -1,28 +1,31 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int n, m, check[10] = {0, }, arr[10], confirm;
+int N, M;
+vector<int> v;
 
-void search(int idx) {
-    if(idx <= 0) {
-        confirm = 1;
-        for(int i=1; i<m; i++) if(arr[i] <= arr[i-1]) confirm = 0;
-        if(confirm) {
-            for(int i=0; i<m; i++) printf("%d ", arr[i]);
-            printf("\n");
+void f(int idx) {
+    if(idx == N+1) {
+        if(v.size() == M) {
+            for(int i=0; i<v.size(); i++) cout << v[i] << " ";
+            cout << "\n";
         }
         return;
     }
-    for(int i=1; i<=n; i++) {
-        if(!check[i]) {
-            check[i] = 1;
-            arr[m-idx] = i;
-            search(idx-1);
-            check[i] = 0;
-        }
-    }
+
+    v.push_back(idx);
+    f(idx+1);
+    
+    v.pop_back();
+    f(idx+1);
 }
 
-int main() {
-    scanf("%d %d", &n, &m);
-    search(m);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N >> M;
+
+    f(1);
 }
