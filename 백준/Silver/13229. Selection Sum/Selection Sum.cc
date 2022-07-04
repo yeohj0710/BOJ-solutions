@@ -14,11 +14,10 @@ main() {
         v[i] = v[i-1] + x;
     }
 
-    int Q; cin >> Q;
+    int M; cin >> M;
 
-    while(Q--) {
+    while(M--) {
         int a, b; cin >> a >> b;
-
         cout << v[b+1] - v[a] << "\n";
     }
 }

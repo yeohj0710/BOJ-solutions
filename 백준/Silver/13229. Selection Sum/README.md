@@ -1,10 +1,10 @@
-# [Silver V] Selection Sum - 13229 
+# [Silver IV] Selection Sum - 13229 
 
 [문제 링크](https://www.acmicpc.net/problem/13229) 
 
 ### 성능 요약
 
-메모리: 2804 KB, 시간: 8 ms
+메모리: 2804 KB, 시간: 12 ms
 
 ### 분류
 
