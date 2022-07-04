@@ -1,16 +1,23 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int digit, max = 0, max_i, max_j;
-    for(int i=1; i<=9; i++)
-        for(int j=1; j<=9; j++) {
-            scanf("%d", &digit);
-            if(digit > max) {
-                max = digit;
-                max_i = i;
-                max_j = j;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int v[9][9] = {};
+    for(int i=0; i<9; i++)
+        for(int j=0; j<9; j++) cin >> v[i][j];
+
+    int Max = INT_MIN, a, b;
+    for(int i=0; i<9; i++)
+        for(int j=0; j<9; j++)
+            if(v[i][j] > Max) {
+                Max = v[i][j];
+                a = i+1, b = j+1;
             }
-        }
-    printf("%d\n%d %d", max, max_i, max_j);
+
+    cout << Max << "\n";
+    cout << a << " " << b << "\n";
 }
