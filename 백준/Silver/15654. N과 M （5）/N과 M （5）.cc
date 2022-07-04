@@ -1,31 +1,40 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int arr[10], check[10] = {0, }, print_arr[10], n, m, temp;
+int N, M;
+vector<int> v, u;
 
-void recursion(int count) {
-    if(!count) {
-        for(int i=0; i<m; i++) printf("%d ", print_arr[i]);
-        printf("\n");
+void f(int cnt) {
+    if(u.size() == M) {
+        bool check = true;
+        for(int i=0; i<u.size(); i++)
+            for(int j=i+1; j<u.size(); j++)
+                if(u[i] == u[j]) check = false;
+        if(!check) return;
+
+        for(int i=0; i<u.size(); i++) cout << u[i] << " ";
+        cout << "\n";
+        return;
     }
-    for(int i=0; i<n; i++) {
-        if(!check[i]) {
-            check[i] = 1;
-            print_arr[m-count] = arr[i];
-            recursion(count-1);
-            check[i] = 0;
-        }
+
+    for(int i=0; i<N; i++) {
+        u.push_back(v[i]);
+        f(cnt+1);
+        u.pop_back();
     }
 }
 
-int main() {
-    scanf("%d %d", &n, &m);
-    for(int i=0; i<n; i++) scanf("%d", &arr[i]);
-    for(int i=0; i<n; i++)
-        for(int j=i+1; j<n; j++)
-            if(arr[i] > arr[j]) {
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-    recursion(m);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N >> M;
+
+    v.resize(N);
+    for(int i=0; i<N; i++) cin >> v[i];
+
+    sort(v.begin(), v.end());
+
+    f(1);
 }
