@@ -13,11 +13,14 @@ main() {
 
     sort(v.begin(), v.end());
 
-    int i = 0, j = N-1, ans = INT_MAX;
-    while(i < j) {
-        if(abs(v[i] + v[j]) < abs(ans)) ans = v[i] + v[j];
+    int i = 0, j = N - 1, ans = INT_MAX;
 
-        if(v[i] + v[j] < 0) i++;
+    while(i < j) {
+        int sum = v[i] + v[j];
+
+        if(abs(sum) < abs(ans)) ans = sum;
+
+        if(sum < 0) i++;
         else j--;
     }
 
