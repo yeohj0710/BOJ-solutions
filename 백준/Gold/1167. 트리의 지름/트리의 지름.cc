@@ -1,33 +1,46 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int max_cost = 0, deep_node = 1;
-vector<pair<int, int>> node[100005];
+vector<vector<pair<int, int>>> adj;
+int Max = 0, node;
 
-void DFS(int cur, int prev, int cost) {
-    if(cost > max_cost) {
-        max_cost = cost;
-        deep_node = cur;
+void f(int cur, int pre, int sum) {
+    if(sum > Max) {
+        Max = sum;
+        node = cur;
     }
-    for(int i=0; i<node[cur].size(); i++)
-        if(node[cur][i].first != prev) DFS(node[cur][i].first, cur, cost+node[cur][i].second);
+
+    for(int i=0; i<adj[cur].size(); i++) {
+        int nex = adj[cur][i].first;
+        if(nex != pre) f(nex, cur, sum + adj[cur][i].second);
+    }
 }
 
-int main() {
-    int V, a, b, c;
-    cin >> V;
-    for(int i=0; i<V; i++) {
-        cin >> a;
-        while(1) {
-            cin >> b;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    adj.resize(N+1);
+
+    for(int i=0; i<N; i++) {
+        int a; cin >> a;
+        while(true) {
+            int b; cin >> b;
             if(b == -1) break;
-            cin >> c;
-            node[a].push_back(make_pair(b, c));
+
+            int c; cin >> c;
+
+            adj[a].push_back({b, c});
         }
     }
-    DFS(1, 0, 0);
-    max_cost = 0;
-    DFS(deep_node, 0, 0);
-    cout << max_cost;
+
+    f(1, 0, 0);
+
+    Max = 0;
+    f(node, 0, 0);
+
+    cout << Max << "\n";
 }
