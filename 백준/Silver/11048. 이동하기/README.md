@@ -1,10 +1,10 @@
-# [Silver I] 이동하기 - 11048 
+# [Silver II] 이동하기 - 11048 
 
 [문제 링크](https://www.acmicpc.net/problem/11048) 
 
 ### 성능 요약
 
-메모리: 9848 KB, 시간: 72 ms
+메모리: 17744 KB, 시간: 80 ms
 
 ### 분류
 
