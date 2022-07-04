@@ -1,24 +1,38 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-bool check[4000005] = {0, }, same;
-int N, prime[300005] = {0, }, prime_cnt = 1, ans_cnt = 0, Left, Right;
-long long sum = 0;
+bool prime[4000001] = {};
 
-int main() {
-    cin >> N;
-    for(int i=2; i*i<=N; i++)
-        for(int j=2; i*j<=N; j++) check[i*j] = 1;
-    for(int i=2; i<=N; i++)
-        if(!check[i]) prime[prime_cnt++] = i;
-    Left = Right = 0;
-    sum += prime[0];
-    while(Right < prime_cnt) {
-        if(sum < N) sum += prime[++Right];
-        else {
-            if(sum == N) ans_cnt++;
-            sum -= prime[++Left];
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    for(int i=2; i<=4000000; i++) prime[i] = true;
+    for(int i=2; i*i<=4000000; i++)
+        for(int j=2; i*j<=4000000; j++) prime[i*j] = false;
+
+    vector<int> v;
+    for(int i=2; i<=4000000; i++)
+        if(prime[i]) v.push_back(i);
+
+    vector<int> u(v.size() + 1);
+    for(int i=1; i<=v.size(); i++) u[i] = u[i-1] + v[i-1];
+
+    int N; cin >> N;
+
+    int i = 1, j = 1, ans = 0;
+    while(j <= u.size()) {
+        int sum = u[j] - u[i-1];
+
+        if(sum == N) ans++;
+
+        if(sum >= N) {
+            i++;
+            if(i > j) j = i;
         }
+        else j++;
     }
-    cout << ans_cnt;
+
+    cout << ans << "\n";
 }
