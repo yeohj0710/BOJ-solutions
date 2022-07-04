@@ -1,14 +1,24 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int max(int a, int b) { return a>b?a:b; }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int n, sum[305], score[305];
-    scanf("%d", &n);
-    for(int i=1; i<=n; i++) scanf("%d", &score[i]);
-    sum[0] = 0;
-    sum[1] = score[1];
-    sum[2] = score[1] + score[2];
-    for(int i=3; i<=n; i++) sum[i] = max(sum[i-3] + score[i-1] + score[i], sum[i-2] + score[i]);
-    printf("%d", sum[n]);
+    int N; cin >> N;
+
+    vector<int> v(N+1);
+    for(int i=1; i<=N; i++) cin >> v[i];
+
+    vector<int> dp(N+1);
+    dp[1] = v[1];
+    dp[2] = v[1] + v[2];
+
+    for(int i=3; i<=N; i++) {
+        dp[i] = max(dp[i], dp[i-2] + v[i]);
+        dp[i] = max(dp[i], dp[i-3] + v[i-1] + v[i]);
+    }
+
+    cout << dp[N] << "\n";
 }
