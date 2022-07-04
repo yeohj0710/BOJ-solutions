@@ -1,10 +1,10 @@
-# [Silver I] 이항 계수 2 - 11051 
+# [Silver III] 이항 계수 2 - 11051 
 
 [문제 링크](https://www.acmicpc.net/problem/11051) 
 
 ### 성능 요약
 
-메모리: 5964 KB, 시간: 4 ms
+메모리: 9848 KB, 시간: 12 ms
 
 ### 분류
 
