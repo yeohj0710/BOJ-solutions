@@ -1,32 +1,39 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, K, num[100005] = {0, }, queue[100005] = {0, };
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int BFS(int pos) {
-    int front = 0, rear = 1, pop;
-    queue[front] = pos;
-    while(front < rear) {
-        pop = queue[front++];
-        if(pop+1<=100000 && !num[pop+1] && pos!=pop+1) {
-            num[pop+1] = num[pop]+1;
-            queue[rear++] = pop+1;
-            if(pop+1 == K) break;
+    int N, M; cin >> N >> M;
+
+    vector<int> vis(100001, -1);
+    vis[N] = 0;
+
+    queue<int> q;
+    q.push(N);
+
+    while(!q.empty()) {
+        int x = q.front();
+        q.pop();
+
+        if(x == M) {
+            cout << vis[x] << "\n";
+            break;
         }
-        if(pop-1>=0 && !num[pop-1] && pos!=pop-1) {
-            num[pop-1] = num[pop]+1;
-            queue[rear++] = pop-1;
-            if(pop-1 == K) break;
+
+        if(x-1 >= 0 && vis[x-1] == -1) {
+            vis[x-1] = vis[x] + 1;
+            q.push(x-1);
         }
-        if(pop*2<=100000 && !num[pop*2] && pos!=pop*2) {
-            num[pop*2] = num[pop]+1;
-            queue[rear++] = pop*2;
-            if(pop*2 == K) break;
+        if(x+1 <= 100000 && vis[x+1] == -1) {
+            vis[x+1] = vis[x] + 1;
+            q.push(x+1);
+        }
+        if(x*2 <= 100000 && vis[x*2] == -1) {
+            vis[x*2] = vis[x] + 1;
+            q.push(x*2);
         }
     }
-    return num[K];
-}
-
-int main() {
-    scanf("%d %d", &N, &K);
-    printf("%d", BFS(N));
 }
