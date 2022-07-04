@@ -1,25 +1,39 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int n, connection[101][101], visit[101] = {0, }, count = 0;
+vector<vector<int>> adj;
+vector<bool> vis;
+int ans = 0;
 
-void dfs(int x) {
-    for(int i=1; i<=n; i++)
-        if(connection[x][i] && !visit[i]) {
-            visit[i] = 1;
-            dfs(i);
-            count++;
-        }
+void DFS(int x) {
+    vis[x] = true;
+    ans++;
+
+    for(int i=0; i<adj[x].size(); i++) {
+        int nex = adj[x][i];
+
+        if(!vis[nex]) DFS(nex);
+    }
 }
 
-int main() {
-    int m, x, y;
-    scanf("%d\n%d", &n, &m);
-    for(int i=0; i<m; i++) {
-        scanf("%d %d", &x, &y);
-        connection[x][y] = 1;
-        connection[y][x] = 1;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M; cin >> N >> M;
+
+    adj.resize(N+1);
+
+    while(M--) {
+        int a, b; cin >> a >> b;
+
+        adj[a].push_back(b);
+        adj[b].push_back(a);
     }
-    visit[1] = 1;
-    dfs(1);
-    printf("%d", count);
+
+    vis.resize(N+1);
+    DFS(1);
+
+    cout << ans-1 << "\n";
 }
