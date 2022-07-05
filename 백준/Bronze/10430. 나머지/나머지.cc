@@ -1,7 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c;
-    scanf("%d %d %d", &a, &b, &c);
-    printf("%d\n%d\n%d\n%d", (a+b)%c, (a%c+b%c)%c, (a*b)%c, ((a%c)*(b%c))%c);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b, c; cin >> a >> b >> c;
+
+    cout << (a + b) % c << "\n";
+    cout << ((a % c) + (b % c)) % c << "\n";
+    cout << (a * b) % c << "\n";
+    cout << ((a % c) * (b % c)) % c << "\n";
 }
