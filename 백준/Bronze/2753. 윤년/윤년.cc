@@ -1,10 +1,13 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n;
-    scanf("%d", &n);
-    if(n%400 == 0) printf("1");
-    else if(n%100 == 0) printf("0");
-    else if(n%4 == 0) printf("1");
-    else printf("0");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    if((N % 4 == 0 && N % 100 != 0) || N % 400 == 0) cout << 1 << "\n";
+    else cout << 0 << "\n";
 }
