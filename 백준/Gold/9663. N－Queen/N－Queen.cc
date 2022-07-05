@@ -1,20 +1,40 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, count = 0, queen[20], check;
-int abs(int a) { return a>=0?a:-a; }
+vector<int> v;
+int N, ans = 0;
 
-void search(int num) {
-    if(num == N+1) count++;
+void f(int cnt) {
+    if(cnt == N+1) {
+        ans++;
+        return;
+    }
+
     for(int i=1; i<=N; i++) {
-        queen[num] = i;
-        check = 1;
-        for(int j=1; j<num; j++) if(i == queen[j] || abs(i-queen[j]) == num-j) check = 0;
-        if(check) search(num+1);
+        bool check = true;
+        for(int j=1; j<cnt; j++) {
+            if(v[j] == i) check = false;
+            if(j - v[j] == cnt - i) check = false;
+            if(j + v[j] == cnt + i) check = false;
+        }
+
+        if(check) {
+            v[cnt] = i;
+            f(cnt+1);
+        }
     }
 }
 
-int main() {
-    scanf("%d", &N);
-    search(1);
-    printf("%d", count);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N;
+
+    v.resize(N+1);
+
+    f(1);
+
+    cout << ans << "\n";
 }
