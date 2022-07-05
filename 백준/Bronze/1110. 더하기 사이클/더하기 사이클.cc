@@ -1,13 +1,22 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, m, i=0;
-    scanf("%d", &n);
-    m = n;
-    while(1) {
-        m = m%10*10 + (m/10 + m%10)%10;
-        i++;
-        if(m == n) break;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+    int M = N;
+
+    int ans = 0;
+    while(true) {
+        N = (N % 10) * 10 + (N / 10 + N % 10) % 10;
+        ans++;
+
+        if(N == M) {
+            cout << ans << "\n";
+            break;
+        }
     }
-    printf("%d", i);
 }
