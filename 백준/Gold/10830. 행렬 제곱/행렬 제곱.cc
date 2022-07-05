@@ -1,42 +1,41 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int N;
-long long arr[5][5], ans[5][5];
+vector<vector<int>> mul(vector<vector<int>> v, vector<vector<int>> u) {
+    int N = v[0].size();
 
-void multiply(long long a[5][5], long long b[5][5]) {
-    long long temp[5][5] = {};
+    vector<vector<int>> w(N, vector<int>(N));
 
     for(int i=0; i<N; i++)
         for(int j=0; j<N; j++)
-            for(int k=0; k<N; k++)
-                temp[i][j] = (temp[i][j] + a[i][k]*b[k][j]) % 1000;
+            for(int k=0; k<N; k++) w[i][j] = (w[i][j] + v[i][k] * u[k][j]) % 1000;
 
-    for(int i=0; i<N; i++)
-        for(int j=0; j<N; j++) a[i][j] = temp[i][j];
+    return w;
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    long long Exp; cin >> N >> Exp;
+    int N, M; cin >> N >> M;
 
+    vector<vector<int>> v(N, vector<int>(N));
     for(int i=0; i<N; i++)
-        for(int j=0; j<N; j++) {
-            cin >> arr[i][j];
-            if(i == j) ans[i][j] = 1;
-        }
+        for(int j=0; j<N; j++) cin >> v[i][j];
 
-    while(Exp > 0) {
-        if(Exp%2 == 1) multiply(ans, arr);
-        multiply(arr, arr);
-        Exp /= 2;
+    vector<vector<int>> u(N, vector<int>(N));
+    for(int i=0; i<N; i++) u[i][i] = 1;
+
+    while(M > 0) {
+        if(M % 2 == 1) u = mul(u, v);
+
+        v = mul(v, v);
+        M /= 2;
     }
 
     for(int i=0; i<N; i++) {
-        for(int j=0; j<N; j++)
-            cout << ans[i][j] << " ";
+        for(int j=0; j<N; j++) cout << u[i][j] << " ";
         cout << "\n";
     }
 }
