@@ -1,28 +1,44 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<int> line[100005];
-int visited[100005] = {0, }, parent[100005];
+vector<vector<int>> adj;
+vector<bool> vis;
+vector<int> par;
 
-void DFS(int v) {
-    visited[v] = 1;
-    for(int i=0; i<line[v].size(); i++)
-        if(!visited[line[v][i]]) {
-            parent[line[v][i]] = v;
-            DFS(line[v][i]);
+void f(int x) {
+    vis[x] = true;
+
+    for(int i=0; i<adj[x].size(); i++) {
+        int y = adj[x][i];
+
+        if(!vis[y]) {
+            par[y] = x;
+            f(y);
         }
+    }
 }
 
-int main() {
-    int N, a, b;
-    cin >> N;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    adj.resize(N+1);
+
     for(int i=0; i<N-1; i++) {
-        cin >> a >> b;
-        line[a].push_back(b);
-        line[b].push_back(a);
+        int a, b; cin >> a >> b;
+
+        adj[a].push_back(b);
+        adj[b].push_back(a);
     }
-    DFS(1);
-    for(int i=2; i<=N; i++) cout << parent[i] << '\n';
+
+    par.resize(N+1);
+    for(int i=1; i<=N; i++) par[i] = i;
+
+    vis.resize(N+1);
+    f(1);
+
+    for(int i=2 ;i<=N; i++) cout << par[i] << "\n";
 }
