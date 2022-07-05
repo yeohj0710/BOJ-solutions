@@ -1,59 +1,87 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, M, next_x, next_y, max = 0;
-int map[10][10] = {0, }, map_copy[10][10] = {0, }, move_dir[2][4] = {{1, -1, 0, 0}, {0, 0, 1, -1}};
-struct node { int x, y; };
+int N, M, ans = 0;
+vector<vector<int>> v, w;
+vector<pair<int, int>> u;
+vector<vector<bool>> vis;
 
-void BFS() {
-    struct node queue[100];
-    int front = 0, rear = 1, count = 0;
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=M; j++) {
-            map_copy[i][j] = map[i][j];
-            if(map_copy[i][j] == 2) queue[rear].x = j, queue[rear++].y = i;
-        }
-    while(++front < rear) {
-        for(int i=0; i<4; i++) {
-            next_x = queue[front].x + move_dir[0][i];
-            next_y = queue[front].y + move_dir[1][i];
-            if(next_x >= 1 && next_x <= M && next_y >= 1 && next_y <= N && !map_copy[next_y][next_x]) {
-                map_copy[next_y][next_x] = 2;
-                queue[rear].x = next_x;
-                queue[rear++].y = next_y;
-            }
-        }
-    }
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=M; j++)
-            if(!map_copy[i][j]) count++;
-    if(count > max) {
-        max = count;
-        /*printf("\n");
-        for(int i=1; i<=N; i++) {
-                for(int j=1; j<=M; j++) printf("%d ", map_copy[i][j]);
-                printf("\n");
-        }*/
+int dx[4] = {1, -1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
+
+void h(int x, int y) {
+    vis[x][y] = true;
+
+    for(int i=0; i<4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+        if(w[nx][ny] != 0 || vis[nx][ny]) continue;
+
+        w[nx][ny] = 2;
+        h(nx, ny);
     }
 }
 
-void wall_select(int wall_count) {
-    if(wall_count == 3) {
-        BFS();
+void g() {
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) w[i][j] = v[i][j];
+
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) vis[i][j] = false;
+
+    for(int i=0; i<u.size(); i++)
+        w[u[i].first][u[i].second] = 1;
+
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++)
+            if(w[i][j] == 2 && !vis[i][j]) h(i, j);
+
+    int cnt = 0;
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++)
+            if(w[i][j] == 0) cnt++;
+
+    ans = max(ans, cnt);
+}
+
+void f(int cnt) {
+    if(cnt == 3) {
+        g();
         return;
     }
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=M; j++)
-            if(!map[i][j]) {
-                map[i][j] = 1;
-                wall_select(wall_count + 1);
-                map[i][j] = 0;
-            }
+
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) {
+            if(v[i][j] != 0) continue;
+
+            bool check = true;
+            for(int k=0; k<u.size(); k++)
+                if(i == u[k].first && j == u[k].second) check = false;
+            if(!check) continue;
+
+            u.push_back({i, j});
+            f(cnt + 1);
+            u.pop_back();
+        }
 }
 
-int main() {
-    scanf("%d %d", &N, &M);
-    for(int i=1; i<=N; i++)
-        for(int j=1; j<=M; j++) scanf("%d", &map[i][j]);
-    wall_select(0);
-    printf("%d", max);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N >> M;
+
+    v.resize(N, vector<int>(M));
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) cin >> v[i][j];
+
+    w.resize(N, vector<int>(M));
+    vis.resize(N, vector<bool>(M));
+
+    f(0);
+
+    cout << ans << "\n";
 }
