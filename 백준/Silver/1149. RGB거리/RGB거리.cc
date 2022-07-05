@@ -1,16 +1,29 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int min(int a, int b) { return a<b?a:b; }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int N, eachCost[1005][3], minCost[1005][3];
-    scanf("%d", &N);
-    for(int i=1; i<=N; i++) scanf("%d %d %d", &eachCost[i][0], &eachCost[i][1], &eachCost[i][2]);
-    for(int i=0; i<3; i++) minCost[1][i] = eachCost[1][i];
-    for(int i=2; i<=N; i++) {
-        minCost[i][0] = min(minCost[i-1][1], minCost[i-1][2]) + eachCost[i][0];
-        minCost[i][1] = min(minCost[i-1][2], minCost[i-1][0]) + eachCost[i][1];
-        minCost[i][2] = min(minCost[i-1][0], minCost[i-1][1]) + eachCost[i][2];
+    int N; cin >> N;
+
+    int v[1001][3] = {};
+    for(int i=1; i<=N; i++)
+        for(int j=0; j<3; j++) cin >> v[i][j];
+
+    int dp[1001][3] = {};
+    for(int i=0; i<3; i++) dp[1][i] = v[1][i];
+
+    for(int i=2; i<=1000; i++) {
+        dp[i][0] = min(dp[i-1][1], dp[i-1][2]) + v[i][0];
+        dp[i][1] = min(dp[i-1][2], dp[i-1][0]) + v[i][1];
+        dp[i][2] = min(dp[i-1][0], dp[i-1][1]) + v[i][2];
     }
-    printf("%d", min(min(minCost[N][0], minCost[N][1]), minCost[N][2]));
+
+    int ans = INT_MAX;
+    for(int i=0; i<3; i++)
+        ans = min(ans, dp[N][i]);
+
+    cout << ans << "\n";
 }
