@@ -1,46 +1,51 @@
 #include <bits/stdc++.h>
-#define MAX 20001
+#define int long long
 using namespace std;
-typedef pair<int, int> Pair;
 
-int dist[MAX];
-vector<Pair> edge[MAX];
+typedef pair<int, int> p;
+vector<vector<p>> adj;
+vector<int> dis;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int V, E, K; cin >> V >> E >> K;
+    int N, M, K; cin >> N >> M >> K;
 
-    for(int i=0; i<E; i++) {
-        int u, v, w; cin >> u >> v >> w;
-        edge[u].push_back({w, v});
+    adj.resize(N+1);
+
+    while(M--) {
+        int a, b, c; cin >> a >> b >> c;
+
+        adj[a].push_back({b, c});
     }
 
-    for(int i=1; i<=V; i++) dist[i] = INT_MAX;
-    dist[K] = 0;
+    priority_queue<p, vector<p>, greater<p>> pq;
+    pq.push({0, K});
 
-    priority_queue<Pair, vector<Pair>, greater<Pair>> pQueue;
-    pQueue.push({0, K});
+    dis.resize(N+1, INT_MAX);
+    dis[K] = 0;
 
-    while(!pQueue.empty()) {
-        Pair curr = pQueue.top();
-        pQueue.pop();
+    while(!pq.empty()) {
+        int dis1 = pq.top().first;
+        int cur = pq.top().second;
+        pq.pop();
 
-        int currDist = curr.first, currVertex = curr.second;
-        if(dist[currVertex] != currDist) continue;
-        for(int i=0; i<edge[currVertex].size(); i++) {
-            Pair next = edge[currVertex][i];
-            int nextDist = next.first, nextVertex = next.second;
-            if(currDist + nextDist < dist[nextVertex]) {
-                dist[nextVertex] = currDist + nextDist;
-                pQueue.push({dist[nextVertex], nextVertex});
+        if(dis[cur] < dis1) continue;
+
+        for(int i=0; i<adj[cur].size(); i++) {
+            int nex = adj[cur][i].first;
+            int dis2 = adj[cur][i].second;
+
+            if(dis1 + dis2 < dis[nex]) {
+                dis[nex] = dis1 + dis2;
+                pq.push({dis[nex], nex});
             }
         }
     }
 
-    for(int i=1; i<=V; i++) {
-        if(dist[i] == INT_MAX) cout << "INF\n";
-        else cout << dist[i] << "\n";
+    for(int i=1; i<=N; i++) {
+        if(dis[i] != INT_MAX) cout << dis[i] << "\n";
+        else cout << "INF\n";
     }
 }
