@@ -1,9 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n;
-    long long int ans = 1;
-    scanf("%d", &n);
-    for(int i=n; i>=1; i--) ans *= i;
-    printf("%d", ans);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    int ans = 1;
+    for(int i=1; i<=N; i++) ans *= i;
+
+    cout << ans << "\n";
 }
