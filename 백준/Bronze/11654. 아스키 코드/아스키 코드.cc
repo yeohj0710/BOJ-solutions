@@ -1,7 +1,12 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char c;
-    scanf("%c", &c);
-    printf("%d", c);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    char c; cin >> c;
+
+    cout << (int)c << "\n";
 }
