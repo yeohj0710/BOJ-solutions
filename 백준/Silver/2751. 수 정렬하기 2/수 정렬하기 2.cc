@@ -1,31 +1,54 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, arr[1000005], arrCopy[1000005];
+int N, M, cnt = 0;
+vector<int> v, u;
 
-void merge(int arr[], int left, int mid, int right) {
-    int i = left, j = mid+1, k = left;
-    while(i<=mid && j<=right) {
-        if(arr[i] <= arr[j]) arrCopy[k++] = arr[i++];
-        else arrCopy[k++] = arr[j++];
+void g(int l, int m, int r) {
+    int i = l, j = m+1, k = l;
+
+    while(i <= m && j <= r) {
+        if(v[i] <= v[j]) u[k++] = v[i++];
+        else u[k++] = v[j++];
     }
-    while(i<=mid) arrCopy[k++] = arr[i++];
-    while(j<=right) arrCopy[k++] = arr[j++];
-    for(int a=left; a<=right; a++) arr[a] = arrCopy[a];
+    while(i <= m) u[k++] = v[i++];
+    while(j <= r) u[k++] = v[j++];
+
+    for(i=l; i<=r; i++) {
+        v[i] = u[i];
+        cnt++;
+
+        /*
+        if(cnt == M) {
+            cout << u[i] << "\n";
+            exit(0);
+        }
+        */
+    }
 }
 
-void mergeSort(int arr[], int left, int right) {
-    int mid;
-    if(left < right) {
-        mid = (left+right)/2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid+1, right);
-        merge(arr, left, mid, right);
-    }
+void f(int l, int r) {
+    if(l == r) return;
+
+    int m = (l+r)/2;
+
+    f(l, m);
+    f(m+1, r);
+    g(l, m, r);
 }
 
-int main() {
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) scanf("%d", &arr[i]);
-    mergeSort(arr, 0, N-1);
-    for(int i=0; i<N; i++) printf("%d\n", arr[i]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cin >> N;
+
+    v.resize(N);
+    for(int i=0; i<N; i++) cin >> v[i];
+
+    u.resize(N);
+    f(0, N-1);
+
+    for(int i=0; i<N; i++) cout << v[i] << "\n";
 }
