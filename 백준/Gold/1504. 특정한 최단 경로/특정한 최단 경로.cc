@@ -1,82 +1,73 @@
 #include <bits/stdc++.h>
-#define MAX 805
+#define int long long
 using namespace std;
 
-int N, E;
-vector<pair<int, int>> adj[MAX];
-int dist[MAX];
+typedef pair<int, int> p;
+vector<vector<p>> adj;
+vector<int> dis;
+priority_queue<p, vector<p>, greater<p>> pq;
 
-void Dijkstra(int start) {
-    for(int i=1; i<=N; i++) dist[i] = INT_MAX;
-    dist[start] = 0;
+void f() {
+    while(!pq.empty()) {
+        int dis1 = pq.top().first;
+        int cur = pq.top().second;
+        pq.pop();
 
-    priority_queue<pair<int, int>> pQueue;
-    pQueue.push({0, start});
+        if(dis[cur] < dis1) continue;
 
-    while(!pQueue.empty()) {
-        int dist1 = -pQueue.top().first;
-        int curr = pQueue.top().second;
+        for(int i=0; i<adj[cur].size(); i++) {
+            int nex = adj[cur][i].first;
+            int dis2 = adj[cur][i].second;
 
-        pQueue.pop();
-
-        for(int i=0; i<adj[curr].size(); i++) {
-            int next = adj[curr][i].first;
-            int dist2 = adj[curr][i].second;
-
-            if(dist1 + dist2 < dist[next]) {
-                dist[next] = dist1 + dist2;
-                pQueue.push({-dist[next], next});
+            if(dis1 + dis2 < dis[nex]) {
+                dis[nex] = dis1 + dis2;
+                pq.push({dis[nex], nex});
             }
         }
     }
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    cin >> N >> E;
+    int N, M; cin >> N >> M;
 
-    for(int i=0; i<E; i++) {
+    adj.resize(N+1);
+
+    while(M--) {
         int a, b, c; cin >> a >> b >> c;
 
         adj[a].push_back({b, c});
         adj[b].push_back({a, c});
     }
 
-    int A, B; cin >> A >> B;
+    int x, y; cin >> x >> y;
 
-    int route1 = 0, route2 = 0;
-    bool check1 = true, check2 = true;
+    pq.push({0, 1});
+    dis.resize(N+1, INT_MAX);
+    dis[1] = 0;
+    f();
+    int sum1 = dis[x], sum2 = dis[y];
 
-    Dijkstra(1);
+    pq.push({0, x});
+    dis.clear();
+    dis.resize(N+1, INT_MAX);
+    dis[x] = 0;
+    f();
+    sum1 += dis[y];
+    sum2 += dis[N];
 
-    if(dist[A] == INT_MAX) check1 = false;
-    if(check1) route1 += dist[A];
+    pq.push({0, y});
+    dis.clear();
+    dis.resize(N+1, INT_MAX);
+    dis[y] = 0;
+    f();
+    sum1 += dis[N];
+    sum2 += dis[x];
 
-    if(dist[B] == INT_MAX) check2 = false;
-    if(check2) route2 += dist[B];
-
-    Dijkstra(A);
-
-    if(dist[B] == INT_MAX) check1 = false;
-    if(check1) route1 += dist[B];
-
-    Dijkstra(B);
-
-    if(dist[N] == INT_MAX) check1 = false;
-    if(check1) route1 += dist[N];
-
-    if(dist[A] == INT_MAX) check2 = false;
-    if(check2) route2 += dist[A];
-
-    Dijkstra(A);
-
-    if(dist[N] == INT_MAX) check2 = false;
-    if(check2) route2 += dist[N];
-
-    if(!check1 && !check2) cout << "-1";
-    else if(!check1) cout << route2;
-    else if(!check2) cout << route1;
-    else cout << min(route1, route2);
+    if(sum1 >= INT_MAX && sum2 >= INT_MAX) cout << -1 << "\n";
+    else if(sum1 < INT_MAX && sum2 >= INT_MAX) cout << sum1 << "\n";
+    else if(sum1 >= INT_MAX && sum2 < INT_MAX) cout << sum2 << "\n";
+    else cout << min(sum1, sum2) << "\n";
 }
