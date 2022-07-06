@@ -1,26 +1,27 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N, M; cin >> N >> M;
 
-    map<string, int> Map1;
-    map<int, string> Map2;
+    map<string, int> ma;
+    map<int, string> mb;
 
-    for(int i=1; i<=N; i++) {
+    for(int i=0; i<N; i++) {
         string str; cin >> str;
 
-        Map1[str] = i;
-        Map2[i] = str;
+        ma[str] = i+1;
+        mb[i+1] = str;
     }
 
     while(M--) {
         string str; cin >> str;
 
-        if(str[0] >= '0' && str[0] <= '9') cout << Map2[stoi(str)] << "\n";
-        else cout << Map1[str] << "\n";
+        if(str[0] >= '0' && str[0] <= '9') cout << mb[stoi(str)] << "\n";
+        else cout << ma[str] << "\n";
     }
 }
