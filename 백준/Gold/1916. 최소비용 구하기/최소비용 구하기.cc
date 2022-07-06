@@ -1,54 +1,50 @@
-#include<bits/stdc++.h>
-#define MAX 1001
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
-typedef pair<int, int> Pair;
 
-int N, M;
-vector<pair<int, int>> adj[MAX];
-int dist[MAX];
+typedef pair<int, int> p;
+vector<vector<p>> adj;
+vector<int> dis;
 
-void Dijkstra(int sour) {
-    for(int i=1; i<=N; i++) dist[i] = INT_MAX;
-    dist[sour] = 0;
-
-    priority_queue<Pair, vector<Pair>, greater<Pair>> pq; // <distance, node>
-    pq.push({0, sour});
-
-    while(!pq.empty()) {
-        int dist1 = pq.top().first;
-        int curr = pq.top().second;
-
-        pq.pop();
-
-        if(dist[curr] < dist1) continue;
-
-        for(int i=0; i<adj[curr].size(); i++) {
-            int next = adj[curr][i].first;
-            int dist2 = adj[curr][i].second;
-
-            if(dist1 + dist2 < dist[next]) {
-                dist[next] = dist1 + dist2;
-                pq.push({dist[next], next});
-            }
-        }
-    }
-}
-
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    cin >> N >> M;
+    int N, M; cin >> N >> M;
 
-    for(int i=0; i<M; i++) {
-        int from, to, dist_; cin >> from >> to >> dist_;
+    adj.resize(N+1);
 
-        adj[from].push_back({to, dist_});
+    while(M--) {
+        int a, b, c; cin >> a >> b >> c;
+
+        adj[a].push_back({b, c});
     }
 
     int sour, dest; cin >> sour >> dest;
 
-    Dijkstra(sour);
+    priority_queue<p, vector<p>, greater<p>> pq;
+    pq.push({0, sour});
 
-    cout << dist[dest];
+    dis.resize(N+1, INT_MAX);
+    dis[sour] = 0;
+
+    while(!pq.empty()) {
+        int dis1 = pq.top().first;
+        int cur = pq.top().second;
+        pq.pop();
+
+        if(dis[cur] < dis1) continue;
+
+        for(int i=0; i<adj[cur].size(); i++) {
+            int nex = adj[cur][i].first;
+            int dis2 = adj[cur][i].second;
+
+            if(dis1 + dis2 < dis[nex]) {
+                dis[nex] = dis1 + dis2;
+                pq.push({dis[nex], nex});
+            }
+        }
+    }
+
+    cout << dis[dest] << "\n";
 }
