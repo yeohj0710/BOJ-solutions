@@ -1,33 +1,33 @@
 #include <bits/stdc++.h>
-#define MOD 1000000007
+#define int long long
 using namespace std;
 
-typedef vector<vector<long long>> matrix;
-
-matrix multiply(matrix& A, matrix& B) {
-    matrix C = {{0, 0}, {0, 0}};
+vector<vector<int>> mul(vector<vector<int>> v, vector<vector<int>> u) {
+    vector<vector<int>> w(2, vector<int>(2));
 
     for(int i=0; i<2; i++)
         for(int j=0; j<2; j++)
             for(int k=0; k<2; k++)
-                C[i][j] = (C[i][j] + A[i][k]*B[k][j]) % MOD;
+                w[i][j] = (w[i][j] + v[i][k] * u[k][j]) % (int)(1e9 + 7);
 
-    return C;
+    return w;
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    long long N; cin  >> N;
-    matrix ans = {{1, 0}, {0, 1}}, A = {{1, 1}, {1, 0}};
+    int N; cin >> N;
+
+    vector<vector<int>> v = {{0, 1}, {1, 1}};
+    vector<vector<int>> u = {{1, 0}, {0, 1}};
 
     while(N > 0) {
-        if(N % 2 == 1)
-            ans = multiply(ans, A);
-        A = multiply(A, A);
+        if(N % 2 == 1) u = mul(u, v);
+
+        v = mul(v, v);
         N /= 2;
     }
 
-    cout << ans[0][1];
+    cout << u[0][1] << "\n";
 }
