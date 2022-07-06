@@ -1,6 +1,11 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    printf("131\n");
-    printf("yeohj0710");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cout << 144 << "\n";
+    cout << "yuqi\n";
 }
