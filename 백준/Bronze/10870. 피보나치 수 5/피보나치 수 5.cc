@@ -1,9 +1,16 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int num[500], n;
-    num[0] = 0, num[1] = 1;
-    scanf("%d", &n);
-    for(int i=2; i<=n; i++) num[i] = num[i-1] + num[i-2];
-    printf("%d", num[n]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int v[21] = {0, 1, 1};
+
+    int N; cin >> N;
+
+    for(int i=3; i<=N; i++) v[i] = v[i-1] + v[i-2];
+
+    cout << v[N] << "\n";
 }
