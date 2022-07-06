@@ -1,22 +1,26 @@
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    int N, check, i = 100, cnt = 0;
-    string str;
-    cin >> N;
-    while(cnt < N) {
-        i++;
-        str = to_string(i);
-        check = 0;
-        for(int j=0; j<str.length()-2; j++) {
-            if(str[j] == '6' && str[j+1] == '6' && str[j+2] == '6') {
-                check = 1;
-                break;
-            }
-        }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    int cnt = 0;
+    for(int i=1; ; i++) {
+        string str = to_string(i);
+
+        bool check = false;
+        for(int j=2; j<str.length(); j++)
+            if(str[j-2] == '6' && str[j-1] == '6' && str[j] == '6') check = true;
+
         if(check) cnt++;
+
+        if(cnt == N) {
+            cout << i << "\n";
+            return 0;
+        }
     }
-    printf("%d", i);
 }
