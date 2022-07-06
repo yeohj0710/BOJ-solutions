@@ -2,8 +2,10 @@
 #define int long long
 using namespace std;
 
-vector<vector<int>> mul(vector<vector<int>> v, vector<vector<int>> u) {
-    vector<vector<int>> w(2, vector<int>(2));
+typedef vector<vector<int>> mat;
+
+mat mul(mat v, mat u) {
+    mat w(2, vector<int>(2));
 
     for(int i=0; i<2; i++)
         for(int j=0; j<2; j++)
@@ -19,8 +21,8 @@ main() {
 
     int N; cin >> N;
 
-    vector<vector<int>> v = {{0, 1}, {1, 1}};
-    vector<vector<int>> u = {{1, 0}, {0, 1}};
+    mat v = {{0, 1}, {1, 1}};
+    mat u = {{1, 0}, {0, 1}};
 
     while(N > 0) {
         if(N % 2 == 1) u = mul(u, v);
