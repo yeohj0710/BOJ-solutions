@@ -1,8 +1,12 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char word[105];
-    scanf("%s", word);
-    printf("%d", strlen(word));
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    cout << str.length() << "\n";
 }
