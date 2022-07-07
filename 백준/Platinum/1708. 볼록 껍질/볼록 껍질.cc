@@ -2,15 +2,16 @@
 #define int long long
 using namespace std;
 
-struct P { int x, y; };
-vector<P> v;
+struct p { double x, y; };
+vector<p> v;
 
-int ccw(P a, P b, P c) {
+double ccw(p a, p b, p c) {
     return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y);
 }
 
-bool cmp(P &a, P &b) {
-    int x = ccw(v[0], a, b);
+bool cmp(p a, p b) {
+    double x = ccw(v[0], a, b);
+
     if(x != 0) return x > 0;
     else if(a.y != b.y) return a.y < b.y;
     else return a.x < b.x;
@@ -30,15 +31,17 @@ main() {
 
     sort(v.begin()+1, v.end(), cmp);
 
-    stack<P> s;
 
+    stack<p> s;
     s.push(v[0]);
     s.push(v[1]);
 
     for(int i=2; i<N; i++) {
         while(s.size() >= 2) {
-            P a = s.top(); s.pop();
-            P b = s.top();
+            p a = s.top();
+            s.pop();
+
+            p b = s.top();
 
             if(ccw(b, a, v[i]) > 0) {
                 s.push(a);
