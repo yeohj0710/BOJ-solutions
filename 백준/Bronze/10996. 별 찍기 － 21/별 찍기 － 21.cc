@@ -1,13 +1,27 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n;
-    scanf("%d", &n);
-    for(int i=1; i<=2*n; i++) {
-        for(int j=1; j<=n; j++) {
-            if((i+j)%2 == 0) printf("*");
-            else printf(" ");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    for(int i=1; i<=N*2; i++) {
+        if(i % 2 == 1) {
+            for(int j=1; j<=N; j++) {
+                if(j % 2 == 1) cout << "*";
+                else cout << " ";
+            }
         }
-        printf("\n");
+        else {
+            for(int j=1; j<=N; j++) {
+                if(j % 2 == 1) cout << " ";
+                else cout << "*";
+            }
+        }
+
+        cout << "\n";
     }
 }
