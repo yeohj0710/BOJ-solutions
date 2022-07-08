@@ -1,12 +1,21 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, digit, max = -1000000, min = 1000000;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) {
-        scanf("%d", &digit);
-        if(digit > max) max = digit;
-        if(digit < min) min = digit;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    int Min = INT_MAX, Max = INT_MIN;
+
+    while(N--) {
+        int x; cin >> x;
+
+        Min = min(Min, x);
+        Max = max(Max, x);
     }
-    printf("%d %d", min, max);
+
+    cout << Min << " " << Max << "\n";
 }
