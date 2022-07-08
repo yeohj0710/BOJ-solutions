@@ -1,10 +1,16 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int T, a, b;
-    scanf("%d", &T);
-    for(int i=1; i<=T; i++) {
-        scanf("%d %d", &a, &b);
-        printf("Case #%d: %d + %d = %d\n", i, a, b, a+b);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T; cin >> T;
+
+    for(int t=1; t<=T; t++) {
+        int a, b; cin >> a >> b;
+
+        cout << "Case #" << t << ": " << a << " + " << b << " = " << a + b << "\n";
     }
 }
