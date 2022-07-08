@@ -1,29 +1,41 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int N, queue[10005] = {0, }, front = 0, rear = 1, digit;
-    char input[20];
-    queue[front] = -1, queue[rear] = -1;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) {
-        scanf("%s", input);
-        if(!strcmp(input, "push")) {
-            scanf("%d", &digit);
-            queue[rear++] = digit;
-            queue[rear] = -1;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    queue<int> q;
+
+    while(N--) {
+        string str; cin >> str;
+
+        if(str == "push") {
+            int x; cin >> x;
+            q.push(x);
         }
-        else if(!strcmp(input, "pop")) {
-            if(front+1 == rear) printf("-1\n");
-            else {
-                printf("%d\n", queue[front+1]);
-                queue[front++] = 0;
-                queue[front] = -1;
+        else if(str == "pop") {
+            if(!q.empty()) {
+                cout << q.front() << "\n";
+                q.pop();
             }
+            else cout << -1 << "\n";
         }
-        else if(!strcmp(input, "size")) printf("%d\n", rear-front-1);
-        else if(!strcmp(input, "empty")) printf("%d\n", front+1 == rear);
-        else if(!strcmp(input, "front")) printf("%d\n", queue[front+1]);
-        else if(!strcmp(input, "back")) printf("%d\n", queue[rear-1]);
+        else if(str == "size") cout << q.size() << "\n";
+        else if(str == "empty") {
+            if(q.empty()) cout << 1 << "\n";
+            else cout << 0 << "\n";
+        }
+        else if(str == "front") {
+            if(!q.empty()) cout << q.front() << "\n";
+            else cout << -1 << "\n";
+        }
+        else if(str == "back") {
+            if(!q.empty()) cout << q.back() << "\n";
+            else cout << -1 << "\n";
+        }
     }
 }
