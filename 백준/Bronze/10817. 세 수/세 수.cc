@@ -1,16 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int a, b, c;
-    scanf("%d %d %d", &a, &b, &c);
-    if(a < b) swap(&a, &b);
-    if(b < c) swap(&b, &c);
-    if(a < b) swap(&a, &b);
-    printf("%d", b);
+    vector<int> v(3);
+    for(int i=0; i<3; i++) cin >> v[i];
+
+    sort(v.begin(), v.end());
+
+    cout << v[1] << "\n";
 }
