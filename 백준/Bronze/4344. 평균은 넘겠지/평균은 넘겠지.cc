@@ -1,18 +1,30 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int T, n, arr[1005], sum, count;
-    float average;
-    scanf("%d", &T);
-    for(int i=0; i<T; i++) {
-        sum = 0, count = 0;
-        scanf("%d", &n);
-        for(int j=0; j<n; j++) {
-            scanf("%d", &arr[j]);
-            sum += arr[j];
-        }
-        average = (float)sum/n;
-        for(int j=0; j<n; j++) if(arr[j] > average) count++;
-        printf("%.3f%%\n", (float)count/n * 100);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    cout << fixed;
+    cout.precision(3);
+
+    int T; cin >> T;
+
+    while(T--) {
+        int N; cin >> N;
+
+        vector<double> v(N);
+        for(int i=0; i<N; i++) cin >> v[i];
+
+        double avg = 0;
+        for(int i=0; i<N; i++) avg += v[i];
+        avg /= N;
+
+        int cnt = 0;
+        for(int i=0; i<N; i++)
+            if(v[i] > avg) cnt++;
+
+        cout << ((double)cnt / N) * 100 << "%\n";
     }
 }
