@@ -1,11 +1,21 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int digit, remain[42] = {0, }, count = 0;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<bool> v(42);
+
     for(int i=0; i<10; i++) {
-        scanf("%d", &digit);
-        remain[digit%42]++;
+        int x; cin >> x;
+        v[x % 42] = true;
     }
-    for(int i=0; i<42; i++) if(remain[i]) count++;
-    printf("%d", count);
+
+    int ans = 0;
+    for(int i=0; i<42; i++)
+        if(v[i]) ans++;
+
+    cout << ans << "\n";
 }
