@@ -1,18 +1,31 @@
-#include<stdio.h>
-#define MAX 10000
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int m, n, sum = 0, arr[10005] = {0, }, check = 0, min;
-    scanf("%d %d", &m, &n);
-    arr[1] = 1;
-    for(int i=2; i*i<=MAX; i++)
-        for(int j=2; i*j<=MAX; j++) arr[i*j] = 1;
-    for(int i=m; i<=n; i++)
-        if(!arr[i]) {
-            sum += i;
-            if(!check) min = i;
-            check = 1;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<bool> prime(10001, true);
+    prime[1] = false;
+
+    for(int i=2; i*i<=10000; i++)
+        for(int j=2; i*j<=10000; j++) prime[i*j] = false;
+
+    int N, M; cin >> N >> M;
+
+    bool check = false;
+    int ans = 0, Min = -1;
+
+    for(int i=N; i<=M; i++) {
+        if(prime[i] && !check) {
+            Min = i;
+            check = true;
         }
-    if(!check) printf("-1");
-    else printf("%d\n%d", sum, min);
+
+        if(prime[i]) ans += i;
+    }
+
+    if(Min != -1) cout << ans << "\n" << Min << "\n";
+    else cout << -1 << "\n";
 }
