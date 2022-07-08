@@ -1,11 +1,22 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int score[5], average = 0;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(5);
     for(int i=0; i<5; i++) {
-        scanf("%d", &score[i]);
-        if(score[i] < 40) score[i] = 40;
-        average += score[i];
+        cin >> v[i];
+
+        v[i] = max(v[i], (int)40);
     }
-    printf("%d", average/5);
+
+    int ans = 0;
+    for(int i=0; i<5; i++) ans += v[i];
+
+    ans /= 5;
+
+    cout << ans << "\n";
 }
