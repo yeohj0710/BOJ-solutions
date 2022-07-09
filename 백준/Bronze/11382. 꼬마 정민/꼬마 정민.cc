@@ -1,7 +1,12 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    long long int a, b, c;
-    scanf("%lld %lld %lld", &a, &b, &c);
-    printf("%lld", a+b+c);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b, c; cin >> a >> b >> c;
+
+    cout << a + b + c << "\n";
 }
