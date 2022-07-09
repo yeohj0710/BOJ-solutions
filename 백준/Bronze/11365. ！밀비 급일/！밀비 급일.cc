@@ -1,12 +1,17 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char sentence[505];
-    while(1) {
-        scanf(" %[^\n]s", sentence);
-        if(!strcmp(sentence, "END")) break;
-        for(int i=0; i<strlen(sentence); i++) printf("%c", sentence[strlen(sentence)-i-1]);
-        printf("\n");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    while(true) {
+        string str; getline(cin, str);
+        if(str == "END") break;
+
+        reverse(str.begin(), str.end());
+
+        cout << str << "\n";
     }
 }
