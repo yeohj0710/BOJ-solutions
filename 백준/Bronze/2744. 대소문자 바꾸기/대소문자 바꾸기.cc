@@ -1,11 +1,17 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char word[105];
-    scanf("%s", word);
-    for(int i=0; i<strlen(word); i++) {
-        if(word[i] >= 'a' && word[i] <= 'z') printf("%c", word[i]-'a'+'A');
-        else if(word[i] >= 'A' && word[i] <= 'Z') printf("%c", word[i]-'A'+'a');
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    for(int i=0; i<str.length(); i++) {
+        if(str[i] >= 'a' && str[i] <= 'z')
+            cout << char(str[i] - 'a' + 'A');
+        else cout << char(str[i] - 'A' + 'a');
     }
+    cout << "\n";
 }
