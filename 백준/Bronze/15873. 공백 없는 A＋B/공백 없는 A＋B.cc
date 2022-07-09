@@ -1,8 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int num;
-    scanf("%d", &num);
-    if(num%10 == 0) printf("%d", num/100 + num%100);
-    else printf("%d", num/10 + num%10);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    if(str.length() == 2) cout << (str[0] - '0' + str[1] - '0') << "\n";
+    else if(str.length() == 3) {
+        if(str[1] == '0') cout << 10 + (str[2] - '0') << "\n";
+        else if(str[2] == '0') cout << (str[0] - '0') + 10 << "\n";
+    }
+    else if(str.length() == 4) cout << 20 << "\n";
 }
