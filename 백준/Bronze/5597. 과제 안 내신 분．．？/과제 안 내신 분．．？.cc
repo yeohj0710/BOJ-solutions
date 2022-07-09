@@ -1,11 +1,18 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int input, check[50] = {0, };
-    for(int i=1; i<=28; i++) {
-        scanf("%d", &input);
-        check[input]++;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<bool> v(31);
+
+    for(int i=0; i<28; i++) {
+        int x; cin >> x;
+        v[x] = true;
     }
+
     for(int i=1; i<=30; i++)
-        if(!check[i]) printf("%d\n", i);
+        if(!v[i]) cout << i << "\n";
 }
