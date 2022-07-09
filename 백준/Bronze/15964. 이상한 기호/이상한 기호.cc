@@ -1,7 +1,14 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    long long int a, b;
-    scanf("%lld %lld", &a, &b);
-    printf("%lld", (a+b)*(a-b));
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b; cin >> a >> b;
+
+    int ans = (a + b) * (a - b);
+
+    cout << ans << "\n";
 }
