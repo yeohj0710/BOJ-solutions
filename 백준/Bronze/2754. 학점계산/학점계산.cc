@@ -1,18 +1,27 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char grade[3];
-    float score;
-    scanf("%s", grade);
-    if(grade[0] == 'A') score = 4;
-    else if(grade[0] == 'B') score = 3;
-    else if(grade[0] == 'C') score = 2;
-    else if(grade[0] == 'D') score = 1;
-    else {
-        printf("0.0");
-        return 0;
-    }
-    if(grade[1] == '+') score += 0.3;
-    else if(grade[1] == '-') score -= 0.3;
-    printf("%.1f", score);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    cout << fixed;
+    cout.precision(1);
+
+    if(str == "A+") cout << 4.3 << "\n";
+    else if(str == "A0") cout << 4.0 << "\n";
+    else if(str == "A-") cout << 3.7 << "\n";
+    else if(str == "B+") cout << 3.3 << "\n";
+    else if(str == "B0") cout << 3.0 << "\n";
+    else if(str == "B-") cout << 2.7 << "\n";
+    else if(str == "C+") cout << 2.3 << "\n";
+    else if(str == "C0") cout << 2.0 << "\n";
+    else if(str == "C-") cout << 1.7 << "\n";
+    else if(str == "D+") cout << 1.3 << "\n";
+    else if(str == "D0") cout << 1.0 << "\n";
+    else if(str == "D-") cout << 0.7 << "\n";
+    else if(str == "F") cout << 0.0 << "\n";
 }
