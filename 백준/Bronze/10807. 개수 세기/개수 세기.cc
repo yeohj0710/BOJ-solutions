@@ -1,14 +1,21 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, v, cnt[205] = {0, };
-    scanf("%d", &n);
-    for(int i=0; i<n; i++) {
-        scanf("%d", &v);
-        if(v >= 0  && v <= 100) cnt[v]++;
-        else cnt[-v+100]++;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    map<int, int> m;
+
+    while(N--) {
+        int x; cin >> x;
+        m[x]++;
     }
-    scanf("%d", &v);
-    if(v >= 0 && v <= 100) printf("%d", cnt[v]);
-    else printf("%d", cnt[-v+100]);
+
+    int M; cin >> M;
+
+    cout << m[M] << "\n";
 }
