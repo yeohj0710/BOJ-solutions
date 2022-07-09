@@ -1,8 +1,13 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c;
-    scanf("%d %d %d", &a, &b, &c);
-    if(c-b <= 0) printf("-1");
-    else printf("%d", a/(c-b) + 1);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b, c; cin >> a >> b >> c;
+
+    if(b >= c) cout << -1 << "\n";
+    else cout << a / (c - b) + 1 << "\n";
 }
