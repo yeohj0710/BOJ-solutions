@@ -1,8 +1,13 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n;
-    scanf("%d", &n);
-    if(n) printf("Leading the Way to the Future");
-    else printf("YONSEI");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int x; cin >> x;
+
+    if(x == 0) cout << "YONSEI\n";
+    else cout << "Leading the Way to the Future\n";
 }
