@@ -1,7 +1,12 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, m, k;
-    scanf("%d %d %d", &n, &m, &k);
-    printf("%d %d", k/m, k%m);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b, c; cin >> a >> b >> c;
+
+    cout << c / b << " " << c % b << "\n";
 }
