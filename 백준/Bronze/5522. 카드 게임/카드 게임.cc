@@ -1,10 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int sum = 0, a;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int ans = 0;
+
     for(int i=0; i<5; i++) {
-        scanf("%d", &a);
-        sum += a;
+        int x; cin >> x;
+        ans += x;
     }
-    printf("%d", sum);
+
+    cout << ans << "\n";
 }
