@@ -1,7 +1,16 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, d, e, f;
-    scanf("%d %d %d %d %d %d", &a, &b, &c, &d, &e, &f);
-    printf("%d %d %d %d %d %d", 1-a, 1-b, 2-c, 2-d, 2-e, 8-f);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int v[6] = {};
+    int u[6] = {1, 1, 2, 2, 2, 8};
+
+    for(int i=0; i<6; i++) cin >> v[i];
+
+    for(int i=0; i<6; i++) cout << u[i] - v[i] << " ";
+    cout << "\n";
 }
