@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 2020 KB, 시간: 0 ms
+메모리: 4528 KB, 시간: 0 ms
 
 ### 분류
 
@@ -38,9 +38,9 @@
 
 ### 입력 
 
- <p>첫 줄에 UCPC 개최 연도 $y$가 주어집니다. $(2\,018 \le y \le \textbf{2}\,\textbf{022})$</p>
+ <p>첫 줄에 UCPC 개최 연도 <mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D466 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$y$</span></mjx-container>가 주어집니다. <mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mo class="mjx-n"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-mn class="mjx-n"><mjx-c class="mjx-c32"></mjx-c></mjx-mn><mjx-mstyle><mjx-mspace style="width: 0.167em;"></mjx-mspace></mjx-mstyle><mjx-mn class="mjx-n"><mjx-c class="mjx-c30"></mjx-c><mjx-c class="mjx-c31"></mjx-c><mjx-c class="mjx-c38"></mjx-c></mjx-mn><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c2264"></mjx-c></mjx-mo><mjx-mi class="mjx-i" space="4"><mjx-c class="mjx-c1D466 TEX-I"></mjx-c></mjx-mi><mjx-mo class="mjx-n" space="4"><mjx-c class="mjx-c2264"></mjx-c></mjx-mo><mjx-mtext class="mjx-b" space="4"><mjx-c class="mjx-c1D7D0 TEX-B"></mjx-c></mjx-mtext><mjx-mstyle><mjx-mspace style="width: 0.167em;"></mjx-mspace></mjx-mstyle><mjx-mtext class="mjx-b"><mjx-c class="mjx-c1D7CE TEX-B"></mjx-c><mjx-c class="mjx-c1D7D0 TEX-B"></mjx-c><mjx-c class="mjx-c1D7D0 TEX-B"></mjx-c></mjx-mtext><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>2</mn><mstyle scriptlevel="0"><mspace width="0.167em"></mspace></mstyle><mn>018</mn><mo>≤</mo><mi>y</mi><mo>≤</mo><mtext mathvariant="bold">2</mtext><mstyle scriptlevel="0"><mspace width="0.167em"></mspace></mstyle><mtext mathvariant="bold">022</mtext><mo stretchy="false">)</mo></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$(2\,018 \le y \le \textbf{2}\,\textbf{022})$</span> </mjx-container></p>
 
 ### 출력 
 
- <p>$y$년도 UCPC 예선의 출제진이 의도한 가장 쉬운 문제의 번호를 영어 대문자 알파벳 한 글자로 출력하세요.</p>
+ <p><mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"> <mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D466 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$y$</span></mjx-container>년도 UCPC 예선의 출제진이 의도한 가장 쉬운 문제의 번호를 영어 대문자 알파벳 한 글자로 출력하세요.</p>
 
