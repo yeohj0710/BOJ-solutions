@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int a, b, c; cin >> a >> b >> c;
-    cout << int((a+1)*(b+1)/(c+1) - 1);
+    int n1, n2, n12; cin >> n1 >> n2 >> n12;
+
+    cout << (n1 + 1)*(n2 + 1)/(n12 + 1) -1 << "\n";
 }
