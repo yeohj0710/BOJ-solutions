@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int N; cin >> N;
-    cout << N*N*N;
+    int x; cin >> x;
+
+    cout << x * x * x << "\n";
 }
