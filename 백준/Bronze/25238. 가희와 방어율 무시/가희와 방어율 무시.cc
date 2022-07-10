@@ -8,6 +8,6 @@ main() {
 
     double a, b; cin >> a >> b;
 
-    if(a - a*(b/100) < 100) cout << 1 << "\n";
-    else cout << 0 << "\n";
+    if(a - a*(b/100) >= 100) cout << 0 << "\n";
+    else cout << 1 << "\n";
 }
