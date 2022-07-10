@@ -1,4 +1,4 @@
-# [Bronze III] 5의 수난 - 23037 
+# [Bronze V] 5의 수난 - 23037 
 
 [문제 링크](https://www.acmicpc.net/problem/23037) 
 
@@ -8,5 +8,5 @@
 
 ### 분류
 
-사칙연산(arithmetic), 수학(math)
+구현(implementation), 수학(math)
 
