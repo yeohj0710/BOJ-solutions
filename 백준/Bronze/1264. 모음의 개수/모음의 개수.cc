@@ -1,30 +1,22 @@
-#include<stdio.h> 
-#include<string.h> 
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main(void) { 
-	char sentence[260]={'\0', }, end[3]={'#','\n'}; 
-	fgets(sentence,sizeof(sentence),stdin); 
-	while(strcmp(sentence,end)!=0) { 
-		int count=0; 
-		for(int i=0;i<strlen(sentence);i++) 
-			switch(sentence[i]) { 
-				case 'a': 
-				case 'e': 
-				case 'i': 
-				case 'o': 
-				case 'u': 
-				case 'A': 
-				case 'E': 
-				case 'I': 
-				case 'O': 
-				case 'U': 
-					count++; 
-					break; 
-				default: 
-					break; 
-			} 
-		printf("%d\n", count); 
-		fgets(sentence,sizeof(sentence),stdin); 
-	} 
-	return 0; 
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string v = "AEIOUaeiou";
+
+    while(true) {
+        string str; getline(cin, str);
+        if(str == "#") break;
+
+        int ans = 0;
+        for(int i=0; i<str.length(); i++)
+            for(int j=0; j<v.length(); j++)
+                if(str[i] == v[j]) ans++;
+
+        cout << ans << "\n";
+    }
 }
