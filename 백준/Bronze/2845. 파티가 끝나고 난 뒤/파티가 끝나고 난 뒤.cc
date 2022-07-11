@@ -1,11 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, output[10];
-    scanf("%d %d", &a, &b);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b; cin >> a >> b;
+
     for(int i=0; i<5; i++) {
-        scanf("%d", &c);
-        output[i] = c - a*b;
+        int x; cin >> x;
+
+        cout << x - a*b << " ";
     }
-    for(int i=0; i<5; i++) printf("%d ", output[i]);
+    cout << "\n";
 }
