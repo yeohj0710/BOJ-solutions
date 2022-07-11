@@ -1,16 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c;
-    scanf("%d %d %d", &a, &b, &c);
-    if (a == b && b == c) printf("%d", 10000 + a * 1000);
-    else if (a == b) printf("%d", 1000 + a * 100);
-    else if (b == c) printf("%d", 1000 + b * 100);
-    else if (c == a) printf("%d", 1000 + c * 100);
-    else {
-        int max = a;
-        if (b > max) max = b;
-        if (c > max) max = c;
-        printf("%d", max * 100);
-    }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(3);
+    for(int i=0; i<3; i++) cin >> v[i];
+
+    sort(v.begin(), v.end(), greater<int>());
+
+    if(v[0] == v[1] && v[1] == v[2]) cout << 10000 + v[0]*1000 << "\n";
+    else if(v[0] == v[1] || v[1] == v[2]) cout << 1000 + v[1]*100 << "\n";
+    else cout << v[0]*100 << "\n";
 }
