@@ -1,12 +1,18 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, d, e, min = 10000, min2 = 10000;
-    scanf("%d %d %d %d %d", &a, &b, &c, &d, &e);
-    if(a < min) min = a;
-    if(b < min) min = b;
-    if(c < min) min = c;
-    if(d < min2) min2 = d;
-    if(e < min2) min2 = e;
-    printf("%d", min+min2-50);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(3), u(2);
+    for(int i=0; i<3; i++) cin >> v[i];
+    for(int i=0; i<2; i++) cin >> u[i];
+
+    int ans = INT_MAX;
+    for(int i=0; i<3; i++)
+        for(int j=0; j<2; j++) ans = min(ans, v[i] + u[j] - 50);
+
+    cout << ans << "\n";
 }
