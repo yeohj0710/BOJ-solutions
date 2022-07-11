@@ -1,10 +1,16 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int cnt[26] = {0, };
-    char word[105];
-    scanf("%s", word);
-    for(int i=0; i<strlen(word); i++) cnt[word[i]-'a']++;
-    for(int i=0; i<26; i++) printf("%d ", cnt[i]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    int cnt[26] = {};
+    for(int i=0; i<str.length(); i++) cnt[str[i] - 'a']++;
+
+    for(int i=0; i<26; i++) cout << cnt[i] << " ";
+    cout << "\n";
 }
