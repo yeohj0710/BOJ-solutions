@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int T; cin >> T;
+    int N; cin >> N;
 
-    while(T--) {
+    while(N--) {
         string str; cin >> str;
 
-        int last = str[str.length() - 1] - '0';
-
-        if(last % 2 == 0) cout << "even\n";
+        if(str.back() == '0' || str.back() == '2' || str.back() == '4'
+           || str.back() == '6' || str.back() == '8') cout << "even\n";
         else cout << "odd\n";
     }
 }
