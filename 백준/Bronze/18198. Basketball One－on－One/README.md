@@ -1,4 +1,4 @@
-# [Bronze II] Basketball One-on-One - 18198 
+# [Bronze IV] Basketball One-on-One - 18198 
 
 [문제 링크](https://www.acmicpc.net/problem/18198) 
 
@@ -8,7 +8,7 @@
 
 ### 분류
 
-구현(implementation), 문자열(string)
+문자열(string)
 
 ### 문제 설명
 

@@ -8,5 +8,6 @@ main() {
 
     string str; cin >> str;
 
-    cout << str[str.length()-2] << "\n";
+    if(str[str.length()-2] == 'A') cout << "A\n";
+    else cout << "B\n";
 }
