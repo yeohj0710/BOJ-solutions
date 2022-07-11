@@ -1,13 +1,15 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int a, b; cin >> a >> b;
-    int temp = a*8 + b*3;
 
-    if(temp <= 28) cout << "0";
-    else cout << temp - 28;
+    int sum = a*8 + b*3;
+
+    if(sum >= 28) cout << sum - 28 << "\n";
+    else cout << 0 << "\n";
 }
