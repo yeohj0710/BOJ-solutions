@@ -1,24 +1,24 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    bool exist = false;
-
+    int ans = 0;
     for(int i=0; i<5; i++) {
         string str; cin >> str;
 
-        if(str.length() < 3) continue;
+        bool check = false;
+        for(int i=2; i<str.length(); i++)
+            if(str[i-2] == 'F' && str[i-1] == 'B' && str[i] == 'I') check = true;
 
-        for(int j=2; j<str.length(); j++)
-            if(str[j-2] == 'F' && str[j-1] == 'B' && str[j] == 'I') {
-                cout << i+1 << " ";
-                exist = true;
-                break;
-            }
+        if(check) {
+            cout << i+1 << " ";
+            ans++;
+        }
     }
 
-    if(!exist) cout << "HE GOT AWAY!";
+    if(ans == 0) cout << "HE GOT AWAY!\n";
 }
