@@ -1,11 +1,18 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, a, count = 0;
-    scanf("%d", &n);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a; cin >> a;
+
+    int ans = 0;
     for(int i=0; i<5; i++) {
-        scanf("%d", &a);
-        if(n == a) count++;
+        int b; cin >> b;
+        if(a == b) ans++;
     }
-    printf("%d", count);
+
+    cout << ans << "\n";
 }
