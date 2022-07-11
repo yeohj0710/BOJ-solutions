@@ -1,4 +1,4 @@
-# [Bronze II] 母音を数える (Counting Vowels) - 18409 
+# [Bronze IV] 母音を数える (Counting Vowels) - 18409 
 
 [문제 링크](https://www.acmicpc.net/problem/18409) 
 

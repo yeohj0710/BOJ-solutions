@@ -7,15 +7,14 @@ main() {
     cin.tie(NULL), cout.tie(NULL);
 
     int N; cin >> N;
-
     string str; cin >> str;
 
-    string a = "aeiou";
+    string v = "aeiou";
 
     int ans = 0;
-    for(int i=0; i<str.length(); i++)
-        for(int j=0; j<5; j++)
-            if(str[i] == a[j]) ans++;
+    for(int i=0; i<N; i++)
+        for(int j=0; j<v.length(); j++)
+            if(str[i] == v[j]) ans++;
 
     cout << ans << "\n";
 }
