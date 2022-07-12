@@ -12,13 +12,12 @@ main() {
     for(int i=0; i<N; i++)
         for(int j=0; j<M; j++) cin >> v[i][j];
 
-    int ans = 0;
+    int cnt = 0;
     for(int i=0; i<N; i++)
         for(int j=0; j<M; j++) {
             char c; cin >> c;
-
-            if(c == v[i][j]) ans++;
+            if(c != v[i][j]) cnt++;
         }
 
-    cout << ans << "\n";
+    cout << N*M - cnt << "\n";
 }
