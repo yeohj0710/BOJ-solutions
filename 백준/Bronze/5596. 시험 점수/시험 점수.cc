@@ -1,10 +1,21 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, d, e, f, g, h, sum1 = 0, sum2 = 0;
-    scanf("%d %d %d %d %d %d %d %d", &a, &b, &c, &d, &e, &f, &g, &h);
-    sum1 = a+b+c+d;
-    sum2 = e+f+g+h;
-    if(sum1 > sum2) printf("%d", sum1);
-    else printf("%d", sum2);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a = 0, b = 0;
+
+    for(int i=0; i<4; i++) {
+        int x; cin >> x;
+        a += x;
+    }
+    for(int i=0; i<4; i++) {
+        int x; cin >> x;
+        b += x;
+    }
+
+    cout << max(a, b) << "\n";
 }
