@@ -1,8 +1,15 @@
-#include<stdio.h>
-#include<math.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    double n;
-    scanf("%lf", &n);
-    printf("%.7lf", sqrt(n)*4);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    double x; cin >> x;
+
+    cout << fixed;
+    cout.precision(6);
+
+    cout << sqrt(x) * 4 << "\n";
 }
