@@ -1,8 +1,12 @@
-#include <cstdio>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    int N;
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) printf("SciComLove\n");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    while(N--) cout << "SciComLove\n";
 }
