@@ -1,23 +1,15 @@
-#include <cstdio>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    int a, b, c, temp;
-    scanf("%d %d %d", &a, &b, &c);
-    if(a < b) {
-        temp = a;
-        a = b;
-        b = temp;
-    }
-    if(b < c) {
-        temp = b;
-        b = c;
-        c = temp;
-    }
-    if(a < b) {
-        temp = a;
-        a = b;
-        b = temp;
-    }
-    printf("%d", b);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(3);
+    for(int i=0; i<3; i++) cin >> v[i];
+
+    sort(v.begin(), v.end());
+
+    cout << v[1] << "\n";
 }
