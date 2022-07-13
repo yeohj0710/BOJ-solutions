@@ -1,13 +1,20 @@
-#include <cstdio>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    int a, one = 0, two = 0;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a = 0, b = 0;
+
     for(int i=0; i<3; i++) {
-        scanf("%d", &a);
-        if(a == 1) one++;
-        else two++;
+        int x; cin >> x;
+
+        if(x == 1) a++;
+        else b++;
     }
-    if(one > two) printf("1");
-    else printf("2");
+
+    if(a > b) cout << 1 << "\n";
+    else cout << 2 << "\n";
 }
