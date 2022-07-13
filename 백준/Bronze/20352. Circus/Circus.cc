@@ -1,9 +1,17 @@
-#include <cstdio>
-#include <cmath>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    double Area;
-    scanf("%lf", &Area);
-    printf("%.7lf", sqrt(Area/3.14159265358979)*2*3.14159265358979);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    double x; cin >> x;
+
+    double r = sqrt(x / M_PI);
+
+    cout << fixed;
+    cout.precision(6);
+
+    cout << 2 * M_PI * r << "\n";
 }
