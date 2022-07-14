@@ -1,33 +1,27 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int N, arr[100005], arrCopy[100005];
-char name[100005][105], nameCopy[100005][105];
+struct s { int age, num; string name; };
 
-void merge(int left, int mid, int right) {
-    int i = left, j = mid+1, k = left;
-    while(i<=mid && j<=right) {
-        if(arr[i] <= arr[j]) arrCopy[k] = arr[i], strcpy(nameCopy[k++], name[i++]);
-        else arrCopy[k] = arr[j], strcpy(nameCopy[k++], name[j++]);
-    }
-    while(i<=mid) arrCopy[k] = arr[i], strcpy(nameCopy[k++], name[i++]);
-    while(j<=right) arrCopy[k] = arr[j], strcpy(nameCopy[k++], name[j++]);
-    for(int a=left; a<=right; a++) arr[a] = arrCopy[a], strcpy(name[a], nameCopy[a]);
+bool cmp(s a, s b) {
+    if(a.age != b.age) return a.age < b.age;
+    else return a.num < b.num;
 }
 
-void mergeSort(int left, int right) {
-    int mid;
-    if(left < right) {
-        mid = (left+right)/2;
-        mergeSort(left, mid);
-        mergeSort(mid+1, right);
-        merge(left, mid, right);
-    }
-}
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    scanf("%d", &N);
-    for(int i=0; i<N; i++) scanf("%d %s", &arr[i], name[i]);
-    mergeSort(0, N-1);
-    for(int i=0; i<N; i++) printf("%d %s\n", arr[i], name[i]);
+    int N; cin >> N;
+
+    vector<s> v(N);
+    for(int i=0; i<N; i++) {
+        cin >> v[i].age >> v[i].name;
+        v[i].num = i;
+    }
+    sort(v.begin(), v.end(), cmp);
+
+    for(int i=0; i<N; i++)
+        cout << v[i].age << " " << v[i].name << "\n";
 }
