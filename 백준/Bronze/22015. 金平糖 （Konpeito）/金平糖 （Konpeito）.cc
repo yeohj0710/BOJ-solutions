@@ -1,10 +1,15 @@
-#include <cstdio>
-#include <algorithm>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
-    int Arr[3];
-    scanf("%d %d %d", &Arr[0], &Arr[1], &Arr[2]);
-    sort(Arr, Arr+3);
-    printf("%d", Arr[2]-Arr[0] + Arr[2]-Arr[1]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(3);
+    for(int i=0; i<3; i++) cin >> v[i];
+
+    sort(v.begin(), v.end(), greater<int>());
+
+    cout << (v[0] - v[1]) + (v[0] - v[2]) << "\n";
 }
