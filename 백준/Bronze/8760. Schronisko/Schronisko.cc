@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int t; cin >> t;
+    int T; cin >> T;
 
-    while(t--) {
+    while(T--) {
         int a, b; cin >> a >> b;
 
-        cout << (a*b)/2 << "\n";
+        cout << a * b / 2 << "\n";
     }
 }
