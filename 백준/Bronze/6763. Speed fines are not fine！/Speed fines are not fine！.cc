@@ -1,10 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    if(a >= b) printf("Congratulations, you are within the speed limit!");
-    else if(b-a >= 31) printf("You are speeding and your fine is $500.");
-    else if(b-a >= 21) printf("You are speeding and your fine is $270.");
-    else printf("You are speeding and your fine is $100.");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int a, b; cin >> a >> b;
+
+    if(b - a <= 0) cout << "Congratulations, you are within the speed limit!\n";
+    else if(b - a > 0 && b - a <= 20) cout << "You are speeding and your fine is $100.\n";
+    else if(b - a > 20 && b - a <= 30) cout << "You are speeding and your fine is $270.\n";
+    else if(b - a > 30) cout << "You are speeding and your fine is $500.\n";
 }
