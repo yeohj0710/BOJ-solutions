@@ -1,33 +1,29 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<int> parent;
+vector<int> v;
 
-int root(int v) {
-    if(parent[v] == v) return v;
-    return parent[v] = root(parent[v]);
+int f(int x) {
+    if(v[x] == x) return x;
+    else return v[x] = f(v[x]);
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N, M; cin >> N >> M;
 
-    parent.resize(N+1);
-    for(int i=0; i<=N; i++) parent[i] = i;
+    v.resize(N+1);
+    for(int i=0; i<=N; i++) v[i] = i;
 
     while(M--) {
-        int Q, u, v; cin >> Q >> u >> v;
+        int Q, a, b; cin >> Q >> a >> b;
 
-        if(Q == 0) {
-            u = root(u);
-            v = root(v);
-
-            if(u != v) parent[u] = v;
-        }
+        if(Q == 0) v[f(a)] = f(b);
         else if(Q == 1) {
-            if(root(u) == root(v)) cout << "YES\n";
+            if(f(a) == f(b)) cout << "YES\n";
             else cout << "NO\n";
         }
     }
