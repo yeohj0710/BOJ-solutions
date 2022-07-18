@@ -2,7 +2,8 @@
 #define int long long
 using namespace std;
 
-vector<int> v;
+vector<int> v(200001);
+vector<int> u;
 
 int f(int x) {
     if(v[x] == x) return x;
@@ -16,16 +17,14 @@ main() {
     int T; cin >> T;
 
     while(T--) {
-        int N; cin >> N;
-
-        v.clear();
-        v.resize(200001);
         for(int i=1; i<=200000; i++) v[i] = i;
 
-        vector<int> u(200001, 1);
+        int N; cin >> N;
+
+        u.clear();
+        u.resize(200001, 1);
 
         map<string, int> m;
-
         int cnt = 1;
 
         while(N--) {
@@ -34,9 +33,9 @@ main() {
             if(m[a] == 0) m[a] = cnt++;
             if(m[b] == 0) m[b] = cnt++;
 
-            if(f(m[a]) != f(m[b])) {
-                u[f(m[a])] += u[f(m[b])];
-                v[f(m[b])] = f(m[a]);
+            if(v[f(m[a])] != f(m[b])) {
+                u[f(m[b])] += u[f(m[a])];
+                v[f(m[a])] = f(m[b]);
             }
 
             cout << u[f(m[a])] << "\n";
