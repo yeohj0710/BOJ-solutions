@@ -2,34 +2,34 @@
 #define int long long
 using namespace std;
 
-vector<int> v, u;
-int mod = 1e9 + 7;
+vector<int> v, u; // v : vector, u : tree
+int mod = (int)(1e9 + 7);
 
-int init(int b, int e, int n) {
+int init(int n, int b, int e) {
     if(b == e) return u[n] = v[b];
 
-    int lv = init(b, (b+e)/2, n*2);
-    int rv = init((b+e)/2 + 1, e, n*2 + 1);
+    int lv = init(n*2, b, (b+e)/2);
+    int rv = init(n*2 + 1, (b+e)/2 + 1, e);
 
     return u[n] = (lv * rv) % mod;
 }
 
-int upd(int b, int e, int n, int idx, int val) {
+int upd(int n, int b, int e, int idx, int val) {
     if(idx < b || e < idx) return u[n];
     if(b == e) return u[n] = val;
 
-    int lv = upd(b, (b+e)/2, n*2, idx, val);
-    int rv = upd((b+e)/2 + 1, e, n*2 + 1, idx, val);
+    int lv = upd(n*2, b, (b+e)/2, idx, val);
+    int rv = upd(n*2 + 1, (b+e)/2 + 1, e, idx, val);
 
     return u[n] = (lv * rv) % mod;
 }
 
-int mul(int b, int e, int n, int l, int r) {
+int f(int n, int b, int e, int l, int r) {
     if(r < b || e < l) return 1;
     if(l <= b && e <= r) return u[n];
 
-    int lv = mul(b, (b+e)/2, n*2, l, r);
-    int rv = mul((b+e)/2 + 1, e, n*2 + 1, l, r);
+    int lv = f(n*2, b, (b+e)/2, l, r);
+    int rv = f(n*2 + 1, (b+e)/2 + 1, e, l, r);
 
     return (lv * rv) % mod;
 }
@@ -44,13 +44,13 @@ main() {
     for(int i=1; i<=N; i++) cin >> v[i];
 
     u.resize(N*4);
-    init(1, N, 1);
+    init(1, 1, N);
 
     M += K;
     while(M--) {
         int Q, a, b; cin >> Q >> a >> b;
 
-        if(Q == 1) upd(1, N, 1, a, b);
-        else if(Q == 2) cout << mul(1, N, 1, a, b) << "\n";
+        if(Q == 1) upd(1, 1, N, a, b);
+        else if(Q == 2) cout << f(1, 1, N, a, b) << "\n";
     }
 }
