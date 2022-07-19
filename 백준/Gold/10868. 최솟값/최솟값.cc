@@ -1,36 +1,43 @@
-#include <cstdio>
-#include <cmath>
-#include <vector>
-#define INF 1000000001
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<int> Arr;
-vector<int> Tree;
+vector<int> v, u; // v : vector, u : tree
 
-int initTreeMin(int Begin, int End, int Node) {
-    if(Begin == End) return Tree[Node] = Arr[Begin];
-    int Mid = (Begin+End)/2;
-    return Tree[Node] = min(initTreeMin(Begin, Mid, Node*2), initTreeMin(Mid+1, End, Node*2+1));
+int init(int n, int b, int e) {
+    if(b == e) return u[n] = v[b];
+
+    int lv = init(n*2, b, (b+e)/2);
+    int rv = init(n*2 + 1, (b+e)/2 + 1, e);
+
+    return u[n] = min(lv, rv);
 }
 
-int findMin(int Begin, int End, int Node, int Left, int Right) {
-    if(Left > End || Right < Begin) return INF;
-    if(Left <= Begin && Right >= End) return Tree[Node];
-    int Mid = (Begin+End)/2;
-    return min(findMin(Begin, Mid, Node*2, Left, Right), findMin(Mid+1, End, Node*2+1, Left, Right));
+int f(int n, int b, int e, int l, int r) {
+    if(r < b || e < l) return INT_MAX;
+    if(l <= b && e <= r) return u[n];
+
+    int lv = f(n*2, b, (b+e)/2, l, r);
+    int rv = f(n*2 + 1, (b+e)/2 + 1, e, l, r);
+
+    return min(lv, rv);
 }
 
-int main() {
-    int N, M, data, a, b;
-    scanf("%d %d", &N, &M);
-    for(int i=0; i<N; i++) {
-        scanf("%d", &data);
-        Arr.push_back(data);
-    }
-    Tree.resize(N*4);
-    initTreeMin(0, N-1, 1);
-    for(int i=0; i<M; i++) {
-        scanf("%d %d", &a, &b);
-        printf("%d\n", findMin(0, N-1, 1, a-1, b-1));
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M; cin >> N >> M;
+
+    v.resize(N+1);
+    for(int i=1; i<=N; i++) cin >> v[i];
+
+    u.resize(N*4);
+    init(1, 1, N);
+
+    while(M--) {
+        int a, b; cin >> a >> b;
+
+        cout << f(1, 1, N, a, b) << "\n";
     }
 }
