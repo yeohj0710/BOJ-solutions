@@ -1,36 +1,48 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<long long> arr;
-vector<long long> setA, setB;
+int N, M;
+vector<int> v, u, w;
 
-void combine(int Left, int Right, vector<long long>& Set, long long sum) {
-    if(Left > Right) {
-        Set.push_back(sum);
+void f(int idx, int sum) {
+    if(idx == N/2) {
+        u.push_back(sum);
         return;
     }
 
-    combine(Left + 1, Right, Set, sum);
-    combine(Left + 1, Right, Set, sum + arr[Left]);
+    f(idx + 1, sum);
+    f(idx + 1, sum + v[idx]);
 }
 
-int main() {
+void g(int idx, int sum) {
+    if(idx == N) {
+        w.push_back(sum);
+        return;
+    }
+
+    g(idx + 1, sum);
+    g(idx + 1, sum + v[idx]);
+}
+
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int N, C; cin >> N >> C;
+    cin >> N >> M;
 
-    arr.resize(N);
-    for(int i=0; i<N; i++) cin >> arr[i];
+    v.resize(N);
+    for(int i=0; i<N; i++) cin >> v[i];
 
-    combine(0, N/2, setA, 0);
-    combine(N/2 + 1, N-1, setB, 0);
+    f(0, 0);
+    g(N/2, 0);
 
-    sort(setB.begin(), setB.end());
+    sort(u.begin(), u.end());
+    sort(w.begin(), w.end());
 
-    long long ans = 0;
-    for(int i=0; i<setA.size(); i++)
-        ans += upper_bound(setB.begin(), setB.end(), C - setA[i]) - setB.begin();
+    int ans = 0;
+    for(int i=0; i<u.size(); i++)
+        ans += upper_bound(w.begin(), w.end(), M - u[i]) - w.begin();
 
-    cout << ans;
+    cout << ans << "\n";
 }
