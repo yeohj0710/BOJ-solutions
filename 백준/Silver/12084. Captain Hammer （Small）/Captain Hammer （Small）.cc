@@ -16,7 +16,7 @@ main() {
 
         double l = 0, r = 45;
 
-        for(int i=0; i<1e4; i++) {
+        for(int i=0; i<100; i++) {
             double m = (l + r)/2;
 
             double theta = m * M_PI / 180.0;
