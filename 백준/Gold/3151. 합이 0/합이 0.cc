@@ -14,13 +14,10 @@ main() {
     sort(v.begin(), v.end());
 
     int ans = 0;
-
-    for(int i=0; i<N-2; i++)
-        for(int j=i+1; j<N-1; j++) {
-            int key = -(v[i] + v[j]);
-            ans += upper_bound(v.begin()+j+1, v.end(), key) 
-                   - lower_bound(v.begin()+j+1, v.end(), key);
-        }
+    for(int i=0; i<N; i++)
+        for(int j=i+1; j<N; j++)
+            ans += upper_bound(v.begin()+j+1, v.end(), -v[i]-v[j])
+                   - lower_bound(v.begin()+j+1, v.end(),  -v[i]-v[j]);
 
     cout << ans << "\n";
 }
