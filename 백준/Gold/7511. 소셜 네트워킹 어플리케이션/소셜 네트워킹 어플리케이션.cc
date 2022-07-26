@@ -16,14 +16,10 @@ main() {
     int T; cin >> T;
 
     for(int t=1; t<=T; t++) {
-        cout << "Scenario " << t << ":\n";
-
-        int N; cin >> N;
+        int N, M; cin >> N >> M;
 
         v.resize(N);
         for(int i=0; i<N; i++) v[i] = i;
-
-        int M; cin >> M;
 
         while(M--) {
             int a, b; cin >> a >> b;
@@ -33,13 +29,14 @@ main() {
 
         int K; cin >> K;
 
+        cout << "Scenario " << t << ":\n";
+
         while(K--) {
             int a, b; cin >> a >> b;
 
             if(f(a) == f(b)) cout << 1 << "\n";
             else cout << 0 << "\n";
         }
-
         cout << "\n";
     }
 }
