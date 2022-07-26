@@ -8,13 +8,9 @@ main() {
 
     int N, M; cin >> N >> M;
 
-    N = (N - 2)/2;
+    int dp[2001] = {1, 1};
+    for(int i=2; i<=2000; i++)
+        for(int j=0; j<i; j++) dp[i] = (dp[i] + dp[j] * dp[i-1-j]) % M;
 
-    vector<int> dp(max(N+1, (int)2));
-    dp[0] = 1, dp[1] = 1;
-
-    for(int i=2; i<=N; i++)
-        for(int j=0; j<i; j++) dp[i] = (dp[i] + dp[j]*dp[i-1-j]) % M;
-
-    cout << dp[N] << "\n";
+    cout << dp[(N-2)/2] << "\n";
 }

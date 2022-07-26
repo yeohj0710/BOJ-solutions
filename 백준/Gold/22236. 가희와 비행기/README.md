@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 2156 KB, 시간: 28 ms
+메모리: 2020 KB, 시간: 28 ms
 
 ### 분류
 
@@ -18,13 +18,13 @@
 
 <p>비행기가 상승하거나 하강할 때에는 <strong>이동한 수평 거리 당, 고도 변화량이 동일</strong>합니다. 그림 1은 이 조건을 만족하지만, 그림 2는 그렇지 않습니다.</p>
 
-<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/1a30e9c0-21aa-4c1e-b046-8aafd51282be/-/preview/">    <img alt="" src="https://upload.acmicpc.net/48501960-e0d5-4c9e-82ce-7cbc3b10cf2e/-/preview/"></p>
+<p style="text-align: center;"><img alt="" src="">    <img alt="" src=""></p>
 
 <p style="text-align: center;"><strong>[그림 1] 비행기가 상승할 때와 하강할 때</strong></p>
 
 <p style="text-align: center;"> </p>
 
-<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/6b967991-2d5d-4f7c-b64e-575cb987bbc7/-/preview/"></p>
+<p style="text-align: center;"><img alt="" src=""></p>
 
 <p style="text-align: center;"><strong>[그림 2] 문제의 조건을 만족하지 않는 비행 경로 </strong></p>
 
@@ -32,7 +32,7 @@
 
 <p> </p>
 
-<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/d898742f-6e1e-4e1e-90bf-8bf44720cfb4/-/preview/"><br>
+<p style="text-align: center;"><img alt="" src=""><br>
 <strong>[그림 3] 김포공항에서 김해공항 방항으로 날아가는 비행기</strong></p>
 
 <ul>
