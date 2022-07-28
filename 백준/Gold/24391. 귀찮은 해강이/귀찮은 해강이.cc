@@ -5,7 +5,7 @@ using namespace std;
 vector<int> v;
 
 int f(int x) {
-    if(x == v[x]) return x;
+    if(v[x] == x) return x;
     else return v[x] = f(v[x]);
 }
 
