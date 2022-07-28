@@ -15,17 +15,22 @@ main() {
 
     int N, M; cin >> N >> M;
 
-    v.resize(N+1);
-    for(int i=1; i<=N; i++) v[i] = i;
+    vector<pair<int, int>> u(M);
+    for(int i=0; i<M; i++) cin >> u[i].first >> u[i].second;
 
-    int ans = 0;
-    for(int i=1; i<=M; i++) {
-        int a, b; cin >> a >> b;
+    v.resize(N);
+    for(int i=0; i<N; i++) v[i] = i;
 
-        if(f(a) == f(b) && ans == 0) ans = i;
+    for(int i=0; i<M; i++) {
+        int a = u[i].first, b = u[i].second;
+
+        if(f(a) == f(b)) {
+            cout << i+1 << "\n";
+            return 0;
+        }
 
         v[f(a)] = f(b);
     }
 
-    cout << ans << "\n";
+    cout << 0 << "\n";
 }
