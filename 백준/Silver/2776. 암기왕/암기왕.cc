@@ -11,18 +11,20 @@ main() {
     while(T--) {
         int N; cin >> N;
 
-        vector<int> v(N);
-        for(int i=0; i<N; i++) cin >> v[i];
+        unordered_map<int, bool> m;
+        while(N--) {
+            int x; cin >> x;
 
-        sort(v.begin(), v.end());
+            m[x] = true;
+        }
 
         int M; cin >> M;
 
-        for(int i=0; i<M; i++) {
+        while(M--) {
             int x; cin >> x;
 
-            if(upper_bound(v.begin(), v.end(), x) - lower_bound(v.begin(), v.end(), x) > 0) cout << "1\n";
-            else cout << "0\n";
+            if(m[x]) cout << 1 << "\n";
+            else cout << 0 << "\n";
         }
     }
 }
