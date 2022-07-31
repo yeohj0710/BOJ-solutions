@@ -1,14 +1,23 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a[5], temp, avg = 0;
-    for(int i=0; i<5; i++) scanf("%d", &a[i]), avg += a[i];
-    for(int i=0; i<5; i++)
-        for(int j=i+1; j<5; j++)
-            if(a[i] > a[j]) {
-                temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-            }
-    printf("%d\n%d", avg/5, a[2]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    vector<int> v(5);
+
+    int avg = 0;
+
+    for(int i=0; i<5; i++) {
+        cin >> v[i];
+        avg += v[i];
+    }
+
+    avg /= 5;
+
+    sort(v.begin(), v.end());
+
+    cout << avg << "\n" << v[2] << "\n";
 }
