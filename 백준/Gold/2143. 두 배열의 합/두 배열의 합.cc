@@ -26,21 +26,23 @@ main() {
         u[i] = u[i-1] + x;
     }
 
-    vector<int> vsum;
+    vector<int> sv, su;
+
     for(int i=1; i<=N; i++)
-        for(int j=0; j<i; j++) vsum.push_back(v[i] - v[j]);
+        for(int j=i; j<=N; j++) sv.push_back(v[j] - v[i-1]);
 
-    vector<int> usum;
     for(int i=1; i<=M; i++)
-        for(int j=0; j<i; j++) usum.push_back(u[i] - u[j]);
+        for(int j=i; j<=M; j++) su.push_back(u[j] - u[i-1]);
 
-    sort(vsum.begin(), vsum.end());
-    sort(usum.begin(), usum.end());
+    sort(sv.begin(), sv.end());
+    sort(su.begin(), su.end());
 
     int ans = 0;
-    for(int i=0; i<vsum.size(); i++)
-        ans += upper_bound(usum.begin(), usum.end(), K - vsum[i])
-               - lower_bound(usum.begin(), usum.end(), K - vsum[i]);
+
+    for(int i=0; i<sv.size(); i++) {
+        ans += upper_bound(su.begin(), su.end(), K - sv[i])
+               - lower_bound(su.begin(), su.end(), K - sv[i]);
+    }
 
     cout << ans << "\n";
 }
