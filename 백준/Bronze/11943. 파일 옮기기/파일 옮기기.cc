@@ -1,8 +1,15 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
     int a, b, c, d;
-    scanf("%d %d %d %d", &a, &b, &c, &d);
-    if(a+d < b+c) printf("%d", a+d);
-    else printf("%d", b+c);
+
+    cin >> a >> b >> c >> d;
+
+    if(a + d < b + c) cout << a + d << "\n";
+    else cout << b + c << "\n";
 }
