@@ -1,9 +1,12 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, max, min;
-    scanf("%d %d %d", &a, &b, &c);
-    max = b>c?b:c;
-    min = b<c?b:c;
-    printf("%d", min + (a-max));
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M, K; cin >> N >> M >> K;
+
+    cout << min(M, K) + (N - max(M, K)) << "\n";
 }
