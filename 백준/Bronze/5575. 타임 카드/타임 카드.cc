@@ -1,14 +1,17 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int a, b, c, d, e, f, sum1, sum2, h, m, s;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
     for(int i=0; i<3; i++) {
-        scanf("%d %d %d %d %d %d", &a, &b, &c, &d, &e, &f);
-        sum1 = a*60*60 + b*60 + c;
-        sum2 = d*60*60 + e*60 + f;
-        h = (sum2-sum1)/3600;
-        m = (sum2-sum1)%3600/60;
-        s = (sum2-sum1)%60;
-        printf("%d %d %d\n", h, m, s);
+        int a1, b1, c1; cin >> a1 >> b1 >> c1;
+        int a2, b2, c2; cin >> a2 >> b2 >> c2;
+
+        int sum = a2*60*60 + b2*60 + c2 - a1*60*60 - b1*60 - c1;
+
+        cout << sum/3600 << " " << (sum % 3600)/60 << " " << sum % 60 << "\n";
     }
 }
