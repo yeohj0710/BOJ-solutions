@@ -1,18 +1,25 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int T, digit, min, sum;
-    scanf("%d", &T);
-    for(int i=0; i<T; i++) {
-        min = 100;
-        sum = 0;
-        for(int j=0; j<7; j++) {
-            scanf("%d", &digit);
-            if(digit%2 == 0) {
-                sum += digit;
-                if(digit < min) min = digit;
-            }
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T; cin >> T;
+
+    while(T--) {
+        int sum = 0, Min = INT_MAX;
+
+        for(int i=0; i<7; i++) {
+            int x; cin >> x;
+
+            if(x % 2 == 1) continue;
+
+            sum += x;
+            Min = min(Min, x);
         }
-        printf("%d %d\n", sum, min);
+
+        cout << sum << " " << Min << "\n";
     }
 }
