@@ -1,31 +1,32 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N, M; cin >> N >> M;
 
-    vector<long long> arr(N+1), sum(N+1);
+    vector<int> v(N+1);
     for(int i=1; i<=N; i++) {
-        cin >> arr[i];
-        sum[i] = sum[i-1] + arr[i];
+        int x; cin >> x;
+
+        v[i] = v[i-1] + x;
     }
 
-    int i = 1, j = 1, cnt = 0;
+    int i = 1, j = 1, ans = 0;
+
     while(j <= N) {
-        long long part = sum[j] - sum[i-1];
+        int sum = v[j] - v[i-1];
 
-        if(part <= M) {
-            if(part == M) cnt++;
-            j++;
-        }
-        else {
+        if(sum >= M) {
+            if(sum == M) ans++;
+
             i++;
-            if(i > j) j = i;
         }
+        else j++;
     }
 
-    cout << cnt << "\n";
+    cout << ans << "\n";
 }

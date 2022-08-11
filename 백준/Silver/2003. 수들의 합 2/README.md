@@ -1,4 +1,4 @@
-# [Silver III] 수들의 합 2 - 2003 
+# [Silver IV] 수들의 합 2 - 2003 
 
 [문제 링크](https://www.acmicpc.net/problem/2003) 
 
