@@ -1,31 +1,48 @@
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int parent[10001], sum = 0;
-vector<pair<pair<int, int>, int>> line;
-bool compare(const pair<pair<int, int>, int>& a, const pair<pair<int, int>, int>& b) { return a.second < b.second; }
+struct s { int a, b, c; };
 
-int find_parent(int node) {
-    if(parent[node] == node) return node;
-    else return parent[node] = find_parent(parent[node]);
+bool cmp(s x, s y) { return x.c < y.c; }
+
+vector<int> v;
+
+int f(int x) {
+    if(v[x] == x) return x;
+    else return v[x] = f(v[x]);
 }
 
-int main() {
-    int V, E, A, B, C;
-    scanf("%d %d", &V, &E);
-    for(int i=0; i<E; i++) {
-        scanf("%d %d %d", &A, &B, &C);
-        line.push_back({{A, B}, C});
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N, M; cin >> N >> M;
+
+    vector<s> adj(M);
+
+    for(int i=0; i<M; i++)
+        cin >> adj[i].a >> adj[i].b >> adj[i].c;
+
+    sort(adj.begin(), adj.end(), cmp);
+
+    v.resize(N+1);
+    for(int i=1; i<=N; i++) v[i] = i;
+
+    int ans = 0, cnt = 0;
+
+    for(int i=0; i<M; i++) {
+        int a = adj[i].a, b = adj[i].b, c = adj[i].c;
+
+        if(f(a) == f(b)) continue;
+
+        v[f(a)] = f(b);
+
+        ans += c;
+        cnt++;
+
+        if(cnt == N-1) break;
     }
-    sort(line.begin(), line.end(), compare);
-    for(int i=1; i<=V; i++) parent[i] = i;
-    for(int i=0; i<E; i++) {
-        if(find_parent(line[i].first.first) != find_parent(line[i].first.second)) {
-            parent[find_parent(line[i].first.first)] = find_parent(line[i].first.second);
-            sum += line[i].second;
-        }
-    }
-    printf("%d", sum);
+
+    cout << ans << "\n";
 }
