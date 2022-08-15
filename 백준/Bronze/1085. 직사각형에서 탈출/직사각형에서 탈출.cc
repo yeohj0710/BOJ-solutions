@@ -1,11 +1,14 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int x, y, w, h, d;
-    scanf("%d %d %d %d", &x, &y, &w, &h);
-    d = x;
-    if(w-x < d) d = w-x;
-    if(y < d) d = y;
-    if(h-y < d) d= h-y;
-    printf("%d", d);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int x, y, a, b; cin >> x >> y >> a >> b;
+
+    int ans = min({x, y, a-x, b-y});
+
+    cout << ans << "\n";
 }
