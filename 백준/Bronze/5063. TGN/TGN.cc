@@ -1,12 +1,18 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, a, b, c;
-    scanf("%d", &n);
-    for(int i=0; i<n; i++) {
-        scanf("%d %d %d", &a, &b, &c);
-        if(b-c > a) printf("advertise\n");
-        else if(b-c < a) printf("do not advertise\n");
-        else printf("does not matter\n");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T; cin >> T;
+
+    while(T--) {
+        int a, b, c; cin >> a >> b >> c;
+
+        if(a < b - c) cout << "advertise\n";
+        else if(a > b - c) cout << "do not advertise\n";
+        else cout << "does not matter\n";
     }
 }
