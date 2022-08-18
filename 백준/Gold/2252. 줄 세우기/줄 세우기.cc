@@ -1,28 +1,46 @@
-#include <iostream>
-#include <queue>
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int degree[32005] = {0, };
-vector<int> node[32005];
-queue<int> Queue;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
 
-int main() {
-    int N, M, A, B, pop;
-    cin >> N >> M;
-    for(int i=0; i<M; i++) {
-        cin >> A >> B;
-        node[A].push_back(B);
-        degree[B]++;
+    int N, M; cin >> N >> M;
+
+    vector<vector<int>> adj(N+1);
+    vector<int> deg(N+1);
+
+    while(M--) {
+        int a, b; cin >> a >> b;
+
+        adj[a].push_back(b);
+
+        deg[b]++;
     }
+
+    queue<int> q;
+
     for(int i=1; i<=N; i++)
-        if(!degree[i]) Queue.push(i);
-    while(!Queue.empty()) {
-        pop = Queue.front();
-        Queue.pop();
-        cout << pop << " ";
-        for(int i=0; i<node[pop].size(); i++) {
-            degree[node[pop][i]]--;
-            if(!degree[node[pop][i]]) Queue.push(node[pop][i]);
+        if(deg[i] == 0) q.push(i);
+
+    vector<int> ord;
+
+    while(!q.empty()) {
+        int x = q.front();
+        q.pop();
+
+        ord.push_back(x);
+
+        for(int i=0; i<adj[x].size(); i++) {
+            int y = adj[x][i];
+
+            deg[y]--;
+
+            if(deg[y] == 0) q.push(y);
         }
     }
+
+    for(int i=0; i<ord.size(); i++) cout << ord[i] << " ";
+    cout << "\n";
 }
