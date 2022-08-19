@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
     int N, M; cin >> N >> M;
 
-    vector<int> arr(N+M);
+    vector<int> v(N+M);
 
-    for(int i=0; i<arr.size(); i++) cin >> arr[i];
+    for(int i=0; i<N+M; i++) cin >> v[i];
 
-    sort(arr.begin(), arr.end());
+    sort(v.begin(), v.end());
 
-    for(int i=0; i<arr.size(); i++) cout << arr[i] << " ";
+    for(int i=0; i<N+M; i++) cout << v[i] << " ";
     cout << "\n";
 }
