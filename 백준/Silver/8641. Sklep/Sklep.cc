@@ -9,7 +9,7 @@ main() {
     int N; cin >> N;
 
     vector<int> v;
-    map<int, int> m;
+    unordered_map<int, int> m;
 
     while(N--) {
         int a, b; cin >> a >> b;
