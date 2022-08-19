@@ -9,7 +9,7 @@ main() {
     int N; cin >> N;
 
     vector<pair<int, int>> v;
-    map<int, int> mx, my;
+    unordered_map<int, int> mx, my;
 
     for(int i=0; i<N; i++) {
         int x, y; cin >> x >> y;
