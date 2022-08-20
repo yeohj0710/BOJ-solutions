@@ -11,7 +11,7 @@ main() {
     while(T--) {
         int N; cin >> N;
 
-        map<string, int> m;
+        unordered_map<string, int> m;
         vector<string> v;
 
         while(N--) {
