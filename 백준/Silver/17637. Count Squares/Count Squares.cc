@@ -16,7 +16,7 @@ main() {
     sort(v.begin(), v.end());
     sort(u.begin(), u.end());
 
-    map<int, int> m;
+    unordered_map<int, int> m;
 
     for(int i=0; i<N; i++)
         for(int j=0; j<i; j++) m[v[i] - v[j]]++;
