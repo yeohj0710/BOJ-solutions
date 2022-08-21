@@ -1,9 +1,19 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char word[105];
-    scanf("%s", word);
-    for(int i=0; i<strlen(word); i++)
-        if(word[i] >= 'A' && word[i] <= 'Z') printf("%c", word[i]);
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+
+    string ans = "";
+
+    ans += str[0];
+
+    for(int i=0; i<str.length(); i++)
+        if(str[i] == '-') ans += str[i+1];
+
+    cout << ans << "\n";
 }
