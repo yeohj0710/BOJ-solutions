@@ -20,7 +20,7 @@ main() {
 
     sort(v.begin(), v.end(), cmp);
 
-    map<string, string> m1, m2;
+    unordered_map<string, string> m1, m2;
 
     for(int i=0; i<N; i+=3) {
         string a = v[i].first + ' ' + v[i].second;
