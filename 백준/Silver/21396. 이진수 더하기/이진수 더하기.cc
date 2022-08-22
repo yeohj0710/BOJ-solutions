@@ -11,7 +11,7 @@ main() {
     while(T--) {
         int N, M; cin >> N >> M;
 
-        map<int, int> m;
+        unordered_map<int, int> m;
         int ans = 0;
 
         while(N--) {
