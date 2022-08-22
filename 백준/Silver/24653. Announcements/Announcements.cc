@@ -13,7 +13,7 @@ main() {
 
     int M; cin >> M;
 
-    map<int, bool> m;
+    unordered_map<int, bool> m;
     int ans = 0;
 
     for(int i=0; i<N; i++) {
