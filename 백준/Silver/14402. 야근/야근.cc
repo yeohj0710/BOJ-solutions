@@ -8,7 +8,7 @@ main() {
 
     int N; cin >> N;
 
-    map<string, int> m;
+    unordered_map<string, int> m;
     set<string> s;
     int ans = 0;
 
