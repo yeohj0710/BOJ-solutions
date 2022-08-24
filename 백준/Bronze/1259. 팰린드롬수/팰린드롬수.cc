@@ -1,15 +1,21 @@
-#include<stdio.h>
-#include<string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    char n[100];
-    int check;
-    while(1) {
-        scanf("%s", n);
-        if(!strcmp(n, "0")) return 0;
-        check = 1;
-        for(int i=0; i<strlen(n)/2; i++) if(n[i] != n[strlen(n)-1-i]) check = 0;
-        if(check) printf("yes\n");
-        else printf("no\n");
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    while(true) {
+        string str; cin >> str;
+        if(str == "0") break;
+
+        bool check = true;
+
+        for(int i=0; i<str.length(); i++)
+            if(str[i] != str[str.length()-1-i]) check = false;
+
+        if(check) cout << "yes\n";
+        else cout << "no\n";
     }
 }
