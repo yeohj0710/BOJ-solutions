@@ -8,7 +8,7 @@ main() {
 
     int N; cin >> N;
 
-    map<int, bool> m;
+    unordered_map<int, bool> m;
 
     while(N--) {
         int x; cin >> x;
