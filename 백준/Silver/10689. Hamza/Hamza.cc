@@ -11,7 +11,7 @@ main() {
     for(int t=1; t<=T; t++) {
         int N; cin >> N;
 
-        map<int, bool> m;
+        unordered_map<int, bool> m;
         int ans = 0;
 
         for(int i=0; i<N; i++) {
