@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
@@ -11,19 +12,19 @@ int main() {
     while(T--) {
         string str; getline(cin, str);
 
-        int Left = 0, Right;
+        string tmp = "";
+
         for(int i=0; i<str.length(); i++) {
-            if(str[i+1] == ' ' || str[i+1] == '\0') {
-                Right = i;
+            if(str[i] == ' ') {
+                reverse(tmp.begin(), tmp.end());
+                cout << tmp << " ";
 
-                string temp = "";
-                for(int j=Left; j<=Right; j++) temp += str[j];
-                for(int j=Left; j<=Right; j++) str[j] = temp[Right - j];
-
-                if(i+2 < str.length()) Left = i+2;
+                tmp = "";
             }
+            else tmp += str[i];
         }
 
-        cout << str << "\n";
+        reverse(tmp.begin(), tmp.end());
+        cout << tmp << "\n";
     }
 }
