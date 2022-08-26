@@ -1,15 +1,22 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int ans = 0, B, temp;
-    char num[105];
-    scanf("%s %d", num, &B);
-    for(int i=strlen(num)-1; i>=0; i--) {
-        if(num[i] >= '0' && num[i] <= '9') temp = num[i]-'0';
-        else if(num[i] >= 'A' && num[i] <= 'Z') temp = num[i]-'A'+10;
-        for(int j=1; j<=strlen(num)-1-i; j++) temp *= B;
-        ans += temp;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    string str; cin >> str;
+    int x; cin >> x;
+
+    int ans = 0;
+
+    for(int i=0; i<str.length(); i++) {
+        ans *= x;
+
+        if(str[i] >= '0' && str[i] <= '9') ans += str[i] - '0';
+        else if(str[i] >= 'A' && str[i] <= 'Z') ans += str[i] - 'A' + 10;
     }
-    printf("%d", ans);
+
+    cout << ans << "\n";
 }
