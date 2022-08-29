@@ -1,22 +1,21 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    string x, y; cin >> x >> y;
+    string a, b; cin >> a >> b;
 
-    reverse(x.begin(), x.end());
-    reverse(y.begin(), y.end());
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
 
-    int temp = stoi(x) + stoi(y);
+    int x = stoi(a), y = stoi(b);
 
-    while(temp % 10 == 0) temp /= 10;
+    string c = to_string(x + y);
 
-    string temp_s = to_string(temp);
+    reverse(c.begin(), c.end());
 
-    reverse(temp_s.begin(), temp_s.end());
-
-    cout << temp_s;
+    cout << stoi(c) << "\n";
 }

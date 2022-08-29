@@ -1,4 +1,4 @@
-# [Bronze I] 뒤집힌 덧셈 - 1357 
+# [Bronze II] 뒤집힌 덧셈 - 1357 
 
 [문제 링크](https://www.acmicpc.net/problem/1357) 
 
