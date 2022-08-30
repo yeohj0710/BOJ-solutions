@@ -1,16 +1,27 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
 
-int main() {
-    int n, check;
-    char name[51][51], output[51];
-    scanf("%d", &n);
-    for(int i=0; i<n; i++) scanf("%s", name[i]);
-    for(int j=0; j<51
-    ; j++) {
-        check = 1;
-        for(int i=1; i<n; i++) if(name[i][j] != name[0][j]) check = 0;
-        if(check) output[j] = name[0][j];
-        else output[j] = '?';
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int N; cin >> N;
+
+    vector<string> v(N);
+    for(int i=0; i<N; i++) cin >> v[i];
+
+    string ans = "";
+
+    for(int i=0; i<v[0].length(); i++) {
+        bool check = true;
+
+        for(int j=1; j<N; j++)
+            if(v[j][i] != v[0][i]) check = false;
+
+        if(check) ans += v[0][i];
+        else ans += '?';
     }
-    printf("%s", output);
+
+    cout << ans << "\n";
 }
