@@ -1,4 +1,4 @@
-# [Bronze II] Dyslexia - 8387 
+# [Bronze III] Dyslexia - 8387 
 
 [문제 링크](https://www.acmicpc.net/problem/8387) 
 

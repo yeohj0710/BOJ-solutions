@@ -11,6 +11,7 @@ main() {
     string a, b; cin >> a >> b;
 
     int ans = 0;
+
     for(int i=0; i<N; i++)
         if(a[i] == b[i]) ans++;
 
