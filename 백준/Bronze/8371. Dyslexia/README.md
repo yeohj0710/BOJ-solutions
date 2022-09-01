@@ -1,4 +1,4 @@
-# [Bronze II] Dyslexia - 8371 
+# [Bronze III] Dyslexia - 8371 
 
 [문제 링크](https://www.acmicpc.net/problem/8371) 
 
