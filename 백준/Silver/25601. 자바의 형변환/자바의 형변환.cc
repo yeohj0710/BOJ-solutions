@@ -9,7 +9,7 @@ main() {
     int N; cin >> N;
 
     int cnt = 0;
-    map<string, int> m;
+    unordered_map<string, int> m;
     vector<int> v(N+1);
 
     for(int i=0; i<N-1; i++) {
