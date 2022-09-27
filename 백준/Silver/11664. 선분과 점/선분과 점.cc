@@ -28,12 +28,8 @@ main() {
         double a = f({m1*v[1].x + (1-m1)*v[0].x, m1*v[1].y + (1-m1)*v[0].y, m1*v[1].z + (1-m1)*v[0].z}, v[2]);
         double b = f({m2*v[1].x + (1-m2)*v[0].x, m2*v[1].y + (1-m2)*v[0].y, m2*v[1].z + (1-m2)*v[0].z}, v[2]);
 
-        if(a > b) l = m1;
-        else if(a < b) r = m2;
+        if(tr == 0) cout << a << "\n";
+        else if(a > b) l = m1;
+        else r = m2;
     }
-
-    double m = (l + r) / 2;
-    double ans = f({m*v[1].x + (1-m)*v[0].x, m*v[1].y + (1-m)*v[0].y, m*v[1].z + (1-m)*v[0].z}, v[2]);
-
-    cout << ans << "\n";
 }
