@@ -11,16 +11,18 @@ main() {
     while(T--) {
         int N; cin >> N;
 
-        vector<int> v(N+1);
-        for(int i=1; i<=N; i++) {
-            int x; cin >> x;
+        vector<int> v(N);
+        for(int i=0; i<N; i++) cin >> v[i];
 
-            v[i] = v[i-1] + x;
+        int sum = 0, Min = 0, ans = INT_MIN;
+
+        for(int i=0; i<N; i++) {
+            sum += v[i];
+
+            ans = max(ans, sum - Min);
+
+            Min = min(Min, sum);
         }
-
-        int ans = INT_MIN;
-        for(int i=1; i<=N; i++)
-            for(int j=i; j<=N; j++) ans = max(ans, v[j] - v[i-1]);
 
         cout << ans << "\n";
     }
