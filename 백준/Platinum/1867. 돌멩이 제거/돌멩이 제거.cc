@@ -1,39 +1,52 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
-const int MAX = 505;
 
-vector<int> Adj[MAX];
-int Left[MAX], Right[MAX];
-bool Visit[MAX];
+vector<vector<int>> adj;
+vector<int> l, r;
+vector<bool> vis;
 
-bool DFS(int from) {
-    Visit[from] = true;
-    for(int i=0; i<Adj[from].size(); i++) {
-        int to = Adj[from][i];
-        if(Right[to] == -1 || (!Visit[Right[to]] && DFS(Right[to]))) {
-            Left[from] = to, Right[to] = from;
+bool f(int x) {
+    vis[x] = true;
+
+    for(int i=0; i<adj[x].size(); i++) {
+        int y = adj[x][i];
+
+        if(r[y] == -1 || (!vis[r[y]] && f(r[y]))) {
+            l[x] = y, r[y] = x;
+
             return true;
         }
     }
+
     return false;
 }
 
-int main() {
+main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
-    int N, K; cin >> N >> K;
-    while(K--) {
+    int N, M; cin >> N >> M;
+
+    adj.resize(N+1);
+
+    while(M--) {
         int x, y; cin >> x >> y;
-        Adj[x].push_back(y);
+
+        adj[x].push_back(y);
     }
 
-    int match = 0;
-    fill(Left, Left+MAX, -1), fill(Right, Right+MAX, -1);
+    l.resize(N+1, -1);
+    r.resize(N+1, -1);
+
+    int ans = 0;
+
     for(int i=1; i<=N; i++) {
-        fill(Visit, Visit+MAX, false);
-        if(DFS(i)) match++;
+        vis.clear();
+        vis.resize(N+1);
+
+        if(f(i)) ans++;
     }
 
-    cout << match;
+    cout << ans << "\n";
 }
