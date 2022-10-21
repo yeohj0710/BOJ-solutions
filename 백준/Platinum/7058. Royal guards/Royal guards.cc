@@ -66,23 +66,20 @@ main() {
     r.resize(ccnt+1, -1);
 
     int ans = 0;
-    vector<pair<int, int>> vv;
 
     for(int i=1; i<=rcnt; i++) {
         vis.clear();
         vis.resize(rcnt+1);
 
-        if(f(i)) {
-            ans++;
-
-            vv.clear();
-
-            for(int i=1; i<=rcnt; i++)
-                if(i == r[l[i]]) vv.push_back({i, l[i]});
-        }
+        if(f(i)) ans++;
     }
 
     cout << ans << "\n";
+
+    vector<pair<int, int>> vv;
+
+    for(int i=1; i<=rcnt; i++)
+                if(i == r[l[i]]) vv.push_back({i, l[i]});
 
     for(int i=0; i<vv.size(); i++)
         for(int j=1; j<=N; j++)
