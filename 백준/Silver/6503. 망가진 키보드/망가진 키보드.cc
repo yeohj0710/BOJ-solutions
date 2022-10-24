@@ -13,7 +13,7 @@ main() {
 
         string str; getline(cin, str);
 
-        map<char, int> m;
+        unordered_map<char, int> m;
         int cnt = 0;
 
         int i = 0, j = 0, ans = 0;
