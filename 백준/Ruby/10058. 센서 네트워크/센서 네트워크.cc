@@ -58,21 +58,10 @@ main() {
             vector<s> u, w;
 
             for(int k=0; k<N; k++) {
-                if(k == i || k == j) continue;
                 if(dis(v[i], v[k]) > r || dis(v[j], v[k]) > r) continue;
 
-                if(v[i].x == v[j].x) {
-                    if(v[k].x >= v[i].x) u.push_back(v[k]);
-                    else w.push_back(v[k]);
-                }
-                else if(v[i].y == v[j].y) {
-                    if(v[k].y >= v[i].y) u.push_back(v[k]);
-                    else w.push_back(v[k]);
-                }
-                else {
-                    if(ccw(v[i], v[j], v[k]) >= 0) u.push_back(v[k]);
-                    else w.push_back(v[k]);
-                }
+                if(ccw(v[i], v[j], v[k]) >= 0) u.push_back(v[k]);
+                else w.push_back(v[k]);
             }
 
             adj.clear();
@@ -94,7 +83,7 @@ main() {
                 if(f(k)) match++;
             }
 
-            if(2 + u.size() + w.size() - match <= ans.size()) continue;
+            if(u.size() + w.size() - match <= ans.size()) continue;
 
             vector<bool> lvis(u.size()), rvis(w.size());
 
@@ -142,8 +131,6 @@ main() {
             }
 
             ans.clear();
-            ans.push_back(v[i].n);
-            ans.push_back(v[j].n);
 
             for(int k=0; k<u.size(); k++)
                 if(lvis[k]) ans.push_back(u[k].n);
