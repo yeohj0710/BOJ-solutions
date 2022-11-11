@@ -18,7 +18,5 @@ main() {
 
     int ans = lcm - M;
 
-    if(ans <= 0) ans = lcm + M;
-
     cout << ans << "\n";
 }
