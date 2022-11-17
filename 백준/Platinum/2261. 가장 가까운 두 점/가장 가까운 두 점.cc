@@ -19,10 +19,9 @@ int dis(s a, s b) {
 }
 
 vector<s> v;
-int ret = LLONG_MAX;
 
 int f(int l, int r) {
-    if(l == r) return ret;
+    if(l == r) return LLONG_MAX;
     if(l+1 == r) return dis(v[l], v[r]);
 
     int m = (l + r) / 2;
