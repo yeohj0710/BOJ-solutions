@@ -14,8 +14,7 @@ main() {
 
         int ans = 0;
 
-        for(int i=1; i<=N; i++)
-            ans += (int)pow(M, __gcd(N, i));
+        for(int i=1; i<=N; i++) ans += pow(M, __gcd(N, i));
 
         if(N % 2 == 0) ans += (N / 2) * (pow(M, N/2) + pow(M, N/2 + 1));
         else ans += N * pow(M, (N + 1)/2);
