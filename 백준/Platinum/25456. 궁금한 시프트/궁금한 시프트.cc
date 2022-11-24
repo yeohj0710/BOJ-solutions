@@ -71,15 +71,13 @@ main() {
     int N = a.length();
 
     vector<int> v(N*2), u(N);
-
+    
     for(int i=0; i<N; i++) v[i] = v[i+N] = a[i] - '0';
-
     for(int i=0; i<N; i++) u[N-1-i] = b[i] - '0';
 
     vector<int> w = mul(v, u);
 
     int ans = 0;
-
     for(int i=0; i<w.size(); i++) ans = max(ans, w[i]);
 
     cout << ans << "\n";
