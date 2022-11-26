@@ -16,7 +16,7 @@ void edge(int a, int b, int c, int d) {
     adj[b].emplace_back(a, adj[a].size()-1, 0, -d);
 }
 
-int mcmf(int sour, int sink) {
+void mcmf(int sour, int sink) {
     vector<int> pre(adj.size(), -1), idx(adj.size(), -1);
 
     vector<int> tco(adj.size(), INT_MAX);
@@ -50,7 +50,7 @@ int mcmf(int sour, int sink) {
             inq[y] = true;
         }
     }
-    if(pre[sink] == -1) return 0;
+    if(pre[sink] == -1) return;
 
     int sfl = INT_MAX;
 
@@ -59,8 +59,6 @@ int mcmf(int sour, int sink) {
 
         sfl = min(sfl, adj[a][b].cap);
     }
-
-    sfl = 1;
 
     for(int i=sink; i!=sour; i=pre[i]) {
         int a = pre[i], b = idx[i];
@@ -72,8 +70,6 @@ int mcmf(int sour, int sink) {
     }
 
     maxf += sfl;
-
-    return tco[sink];
 }
 
 main() {
@@ -100,7 +96,9 @@ main() {
 
     for(int i=0; i<2; i++) {
         maxf = 0, minc = 0;
-        ans += mcmf(sour, sink);
+        mcmf(sour, sink);
+
+        ans += minc;
     }
 
     cout << ans << "\n";
