@@ -1,77 +1,112 @@
-#include <cstdio>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#define MAX 1000
-#define INF 1000000000
-#define SOUR 1
-#define SINK 2
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int Count = 0, CostSum = 0;
-int Capacity[MAX][MAX], Flow[MAX][MAX], SDist[MAX][MAX];
-vector<int> Line[MAX];
+struct se {
+    int num, ord, cap, sco;
 
-void MaxFlow(int Sour, int Sink) {
+    se(int num, int ord, int cap, int sco) : num(num), ord(ord), cap(cap), sco(sco) {}
+};
+
+vector<vector<se>> adj;
+int maxf, minc;
+
+void edge(int a, int b, int c, int d) {
+    adj[a].emplace_back(b, adj[b].size(), c, d);
+    adj[b].emplace_back(a, adj[a].size()-1, 0, -d);
+}
+
+void mcmf(int sour, int sink) {
     while(true) {
-        bool isInQueue[MAX] = {};
-        int Parent[MAX] = {}, Dist[MAX];
-        fill(Dist, Dist+MAX, INF);
-        Dist[SOUR] = 0;
+        vector<int> pre(adj.size(), -1), idx(adj.size(), -1);
 
-        queue<int> Queue;
-        Queue.push(Sour);
-        isInQueue[Sour] = true;
+        vector<int> tco(adj.size(), INT_MAX);
+        tco[sour] = 0;
 
-        while(!Queue.empty()) {
-            int Cur = Queue.front();
-            Queue.pop();
-            isInQueue[Cur] = false;
-            for(int i=0; i<Line[Cur].size(); i++) {
-                int Next = Line[Cur][i];
-                if(Capacity[Cur][Next] - Flow[Cur][Next] > 0
-                   && Dist[Cur] + SDist[Cur][Next] < Dist[Next]) {
-                    Dist[Next] = Dist[Cur] + SDist[Cur][Next];
-                    Parent[Next] = Cur;
-                    if(!isInQueue[Next]) {
-                        Queue.push(Next);
-                        isInQueue[Next] = true;
-                    }
-                }
+        queue<int> q;
+        q.push(sour);
+
+        vector<bool> inq(adj.size());
+        inq[sour] = true;
+
+        while(!q.empty()) {
+            int x = q.front();
+            q.pop();
+            inq[x] = false;
+
+            for(int i=0; i<adj[x].size(); i++) {
+                int y = adj[x][i].num;
+                int cap = adj[x][i].cap;
+                int sco = adj[x][i].sco;
+
+                if(cap <= 0 || tco[x] + sco >= tco[y]) continue;
+
+                tco[y] = tco[x] + sco;
+                pre[y] = x;
+                idx[y] = i;
+
+                if(inq[y]) continue;
+
+                q.push(y);
+                inq[y] = true;
             }
         }
-        if(!Parent[Sink]) break;
+        if(pre[sink] == -1) break;
 
-        int Amount = INF;
-        for(int i=Sink; i!=Sour; i=Parent[i])
-            Amount = min(Amount, Capacity[Parent[i]][i] - Flow[Parent[i]][i]);
-        for(int i=Sink; i!=Sour; i=Parent[i]) {
-            CostSum += Amount*SDist[Parent[i]][i];
-            Flow[Parent[i]][i] += Amount;
-            Flow[i][Parent[i]] -= Amount;
+        int sfl = INT_MAX;
+
+        for(int i=sink; i!=sour; i=pre[i]) {
+            int a = pre[i], b = idx[i];
+
+            sfl = min(sfl, adj[a][b].cap);
         }
-        Count++;
+
+        for(int i=sink; i!=sour; i=pre[i]) {
+            int a = pre[i], b = idx[i];
+
+            adj[a][b].cap -= sfl;
+            adj[i][adj[a][b].ord].cap += sfl;
+
+            minc += sfl * adj[a][b].sco;
+        }
+
+        maxf += sfl;
     }
 }
 
-int main() {
-    int N, M, W, WNum, D;
-    scanf("%d %d", &N, &M);
-    for(int i=3; i<3+N; i++) {
-        Line[SOUR].push_back(i), Line[i].push_back(SOUR);
-        Capacity[SOUR][i] = 1;
-        scanf("%d", &W);
-        for(int j=0; j<W; j++) {
-            scanf("%d %d", &WNum, &D);
-            Line[i].push_back(2+N+WNum), Line[2+N+WNum].push_back(i);
-            SDist[i][2+N+WNum] = D, SDist[2+N+WNum][i] = -D;
-            Capacity[i][2+N+WNum] = 1;
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int T = 1;
+
+    while(T--) {
+        int N, M; cin >> N >> M;
+
+        adj.clear();
+        adj.resize(N+M+3);
+
+        int sour = N+M+1, sink = N+M+2;
+
+        for(int i=1; i<=N; i++) {
+            edge(sour, i, 1, 0);
+
+            int K; cin >> K;
+
+            while(K--) {
+                int a, b; cin >> a >> b;
+
+                edge(i, N+a, 1, b);
+            }
         }
+
+        for(int i=N+1; i<=N+M; i++) edge(i, sink, 1, 0);
+
+        maxf = 0, minc = 0;
+
+        mcmf(sour, sink);
+
+        cout << maxf << "\n";
+        cout << minc << "\n";
     }
-    for(int i=3+N; i<3+N+M; i++) {
-        Line[SINK].push_back(i), Line[i].push_back(SINK);
-        Capacity[i][SINK] = 1;
-    }
-    MaxFlow(SOUR, SINK);
-    printf("%d\n%d", Count, CostSum);
 }
