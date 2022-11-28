@@ -6,25 +6,18 @@ main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
 
+    vector<int> asum(1e6 + 1);
+
+    for(int i=1; i<=1e6; i++)
+        for(int j=i*2; j<=1e6; j+=i) asum[j] += i;
+
     int T; cin >> T;
 
     while(T--) {
         int N; cin >> N;
 
-        int sum = 0;
-
-        for(int i=1; i*i<=N; i++) {
-            if(N % i == 0) {
-                sum += i;
-
-                if(i*i < N) sum += N/i;
-            }
-        }
-
-        sum -= N;
-
-        if(sum > N) cout << "abundant\n";
-        else if(sum == N) cout << "perfect\n";
-        else if(sum < N) cout << "deficient\n";
+        if(asum[N] > N) cout << "abundant\n";
+        else if(asum[N] == N) cout << "perfect\n";
+        else if(asum[N] < N) cout << "deficient\n";
     }
 }
