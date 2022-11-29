@@ -1,4 +1,4 @@
-# [Silver II] 순열 사이클 - 10451 
+# [Silver III] 순열 사이클 - 10451 
 
 [문제 링크](https://www.acmicpc.net/problem/10451) 
 
