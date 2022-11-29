@@ -9,16 +9,12 @@ main() {
     int N; cin >> N;
 
     vector<vector<int>> adj(N+1);
-    vector<bool> v(N+1);
 
     for(int i=0; i<N-1; i++) {
         int a, b, c; cin >> a >> b >> c;
 
-        if(b == 0) v[a] = true;
-        else adj[a].push_back(b);
-
-        if(c == 0) v[a] = true;
-        else adj[a].push_back(c);
+        adj[a].push_back(b);
+        adj[a].push_back(c);
     }
 
     vector<int> dis(N+1, -1);
@@ -41,13 +37,10 @@ main() {
         }
     }
 
-    for(int i=1; i<=N; i++)
-        if(v[i]) dis[i]++;
-
     int ans = 0;
 
     for(int i=1; i<=N; i++)
-        ans = max(ans, dis[i]);
+        ans = max(ans, dis[i] + 1);
 
     cout << ans << "\n";
 }
