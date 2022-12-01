@@ -2,36 +2,34 @@
 #define int long long
 using namespace std;
 
-vector<int> v, u; // v : array, u : tree
+vector<int> v, tree;
+struct Q { int a, b, c; }; vector<Q> q;
 
-int init(int n, int b, int e) {
-    if(b == e) return u[n] = v[b];
+int init(int b, int e, int n) {
+    if(b == e) return tree[n] = v[b];
 
-    int lv = init(n*2, b, (b+e)/2);
-    int rv = init(n*2 + 1, (b+e)/2 + 1, e);
+    int l = init(b, (b+e)/2, n*2);
+    int r = init((b+e)/2 + 1, e, n*2 + 1);
 
-    return u[n] = lv + rv;
+    return tree[n] = l + r;
 }
 
-void upd(int n, int b, int e, int idx, int diff) {
-    if(idx < b || e < idx) return;
+void update(int b, int e, int n, int idx, int diff) {
+    if(idx < b || idx > e) return;
 
-    u[n] += diff;
+    tree[n] += diff;
 
     if(b < e) {
-        upd(n*2, b, (b+e)/2, idx, diff);
-        upd(n*2 + 1, (b+e)/2 + 1, e, idx, diff);
+        update(b, (b+e)/2, n*2, idx, diff);
+        update((b+e)/2 + 1, e, n*2 + 1, idx, diff);
     }
 }
 
-int sum(int n, int b, int e, int l, int r) {
-    if(r < b || e < l) return 0;
-    if(l <= b && e <= r) return u[n];
+int f(int b, int e, int n, int l, int r) {
+    if(l > e || r < b) return 0;
+    if(l <= b && r >= e) return tree[n];
 
-    int lv = sum(n*2, b, (b+e)/2, l, r);
-    int rv = sum(n*2 + 1, (b+e)/2 + 1, e, l, r);
-
-    return lv + rv;
+    return f(b, (b+e)/2, n*2, l, r) + f((b+e)/2 + 1, e, n*2 + 1, l, r);
 }
 
 main() {
@@ -43,18 +41,24 @@ main() {
     v.resize(N+1);
     for(int i=1; i<=N; i++) cin >> v[i];
 
-    u.resize(N*4);
-    init(1, 1, N);
+    for(int i=0; i<M+K; i++) {
+        int a, b, c; cin >> a >> b >> c;
+        q.push_back({a, b, c});
+    }
 
-    M += K;
-    while(M--) {
-        int Q, a, b; cin >> Q >> a >> b;
+    int h = (int)ceil(log2(N));
+    int s = (1 << (h+1));
+    tree.resize(s);
 
-        if(Q == 1) {
-            int diff = b - v[a];
-            v[a] = b;
-            upd(1, 1, N, a, diff);
+    init(1, N, 1);
+
+    for(int i=0; i<q.size(); i++) {
+        if(q[i].a == 1) {
+            int idx = q[i].b;
+            int diff = q[i].c - v[idx];
+            v[idx] = q[i].c;
+            update(1, N, 1, idx, diff);
         }
-        else if(Q == 2) cout << sum(1, 1, N, a, b) << "\n";
+        else cout << f(1, N, 1, q[i].b, q[i].c) << "\n";
     }
 }
