@@ -1,42 +1,70 @@
-#include <cstdio>
-#include <vector>
-#define MAX 1000000
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-vector<int> Tree;
+struct segmentTree {
+    vector<int> v;
 
-void updateTree(int Node, int Begin, int End, int Index, int Diff) {
-    if(Index < Begin || Index > End) return;
-    Tree[Node] += Diff;
-    if(Begin < End) {
-        int Mid = (Begin + End)/2;
-        updateTree(Node*2, Begin, Mid, Index, Diff);
-        updateTree(Node*2+1, Mid+1, End, Index, Diff);
+    int init(int n, int b, int e, vector<int> &u) {
+        if(b == e) return v[n] = u[b];
+
+        return v[n] = init(n*2, b, (b+e)/2, u)
+                       + init(n*2 + 1, (b+e)/2 + 1, e, u);
     }
-}
 
-int findNum(int Node, int Begin, int End, int Ranking) {
-    if(Begin == End) return Begin;
-    int Mid = (Begin + End)/2;
-    if(Ranking <= Tree[Node*2]) return findNum(Node*2, Begin, Mid, Ranking);
-    else return findNum(Node*2+1, Mid+1, End, Ranking-Tree[Node*2]);
-}
-
-int main() {
-    int N, Q, Ranking, Index, Diff;
-    scanf("%d", &N);
-    Tree.resize(4*MAX+1);
-    for(int i=0; i<N; i++) {
-        scanf("%d", &Q);
-        if(Q == 1) {
-            scanf("%d", &Ranking);
-            Index = findNum(1, 1, MAX, Ranking);
-            printf("%d\n", Index);
-            updateTree(1, 1, MAX, Index, -1);
+    void upd(int n, int b, int e, int idx, int val) {
+        if(b == e) {
+            v[n] += val;
+            return;
         }
-        else {
-            scanf("%d %d", &Index, &Diff);
-            updateTree(1, 1, MAX, Index, Diff);
+
+        if(idx <= (b+e)/2) upd(n*2, b, (b+e)/2, idx, val);
+        else upd(n*2 + 1, (b+e)/2 + 1, e, idx, val);
+
+        v[n] = v[n*2] + v[n*2 + 1];
+    }
+
+    int sum(int n, int b, int e, int l, int r) {
+        if(r < b || e < l) return 0;
+        if(l <= b && e <= r) return v[n];
+
+        return sum(n*2, b, (b+e)/2, l, r)
+                + sum(n*2 + 1, (b+e)/2 + 1, e, l, r);
+    }
+
+    int kth(int n, int b, int e, int ran) {
+        if(b == e) return b;
+
+        if(ran <= v[n*2]) return kth(n*2, b, (b+e)/2, ran);
+        else return kth(n*2+1, (b+e)/2+1, e, ran-v[n*2]);
+    }
+};
+
+main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    segmentTree f;
+    f.v.resize(1e6*4);
+
+    int N; cin >> N;
+
+    while(N--) {
+        int Q; cin >> Q;
+
+        if(Q == 1) {
+            int a; cin >> a;
+
+            int kth = f.kth(1, 1, 1e6, a);
+
+            cout << kth << "\n";
+
+            f.upd(1, 1, 1e6, kth, -1);
+        }
+        else if(Q == 2) {
+            int a, b; cin >> a >> b;
+
+            f.upd(1, 1, 1e6, a, b);
         }
     }
 }
