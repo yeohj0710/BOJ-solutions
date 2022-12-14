@@ -7,39 +7,16 @@ signed main() {
 
     int N; cin >> N;
 
-    vector<vector<int>> v(N, vector<int>(N));
-    vector<vector<bool>> u(N, vector<bool>(32));
-
-    for(int i=0; i<N; i++)
-        for(int j=0; j<N; j++) {
-            int x; cin >> x;
-
-            if(i == j) continue;
-
-            string str = "";
-
-            while(x > 0) {
-                str = char('0' + x % 2) + str;
-
-                x /= 2;
-            }
-
-            reverse(str.begin(), str.end());
-
-            for(int k=0; k<str.length(); k++)
-                if(str[k] == '1') u[i][k] = u[j][k] = true;
-        }
-
     for(int i=0; i<N; i++) {
-        int sum = 0;
+        int a = 0;
 
-        for(int j=31; j>=0; j--) {
-            sum = sum * 2;
+        for(int j=0; j<N; j++) {
+            int b; cin >> b;
 
-            if(u[i][j]) sum++;
+            a = (a | b);
         }
 
-        cout << sum << " ";
+        cout << a << " ";
     }
     cout << "\n";
 }
