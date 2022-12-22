@@ -1,14 +1,10 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
 
-main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
-    int N; cin >> N;
-
+int main() {
+    int N;
+    scanf("%d", &N);
     for(int i=1; i<=N; i++) {
-        for(int j=1; j<=i; j++) cout << "*";
-        cout << "\n";
+        for(int j=1; j<=i; j++) printf("*");
+        printf("\n");
     }
 }
