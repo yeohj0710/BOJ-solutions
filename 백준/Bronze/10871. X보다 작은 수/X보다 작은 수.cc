@@ -1,17 +1,10 @@
-#include <bits/stdc++.h>
-#define int long long
-using namespace std;
+#include<stdio.h>
 
-main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
-    int N, M; cin >> N >> M;
-
-    while(N--) {
-        int x; cin >> x;
-
-        if(x < M) cout << x << " ";
+int main() {
+    int N, X, digit;
+    scanf("%d %d", &N, &X);
+    for(int i=0; i<N; i++) {
+        scanf("%d", &digit);
+        if(digit < X) printf("%d ", digit);
     }
-    cout << "\n";
 }
