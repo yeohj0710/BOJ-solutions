@@ -1,19 +1,14 @@
-#include <bits/stdc++.h>
-#define int long long
-using namespace std;
+#include<stdio.h>
+#include<string.h>
 
-main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
-
-    int T; cin >> T;
-
-    while(T--) {
-        int N; cin >> N;
-        string str; cin >> str;
-
-        for(int i=0; i<str.length(); i++)
-            for(int j=0; j<N; j++) cout << str[i];
-        cout << "\n";
+int main() {
+    int T, R;
+    char str[25];
+    scanf("%d", &T);
+    for(int i=0; i<T; i++) {
+        scanf("%d %s", &R, str);
+        for(int j=0; j<strlen(str); j++)
+            for(int k=0; k<R; k++) printf("%c", str[j]);
+        printf("\n");
     }
 }
