@@ -15,10 +15,10 @@ signed main() {
         while(N--) {
             double x; cin >> x;
 
-            if(x < 0.05 || x > 0.95) cnt++;
+            if(x < 0.01 || x > 0.99) cnt++;
         }
 
-        if(cnt >= 400) cout << "A\n";
+        if(cnt >= 70) cout << "A\n";
         else cout << "B\n";
     }
 }
