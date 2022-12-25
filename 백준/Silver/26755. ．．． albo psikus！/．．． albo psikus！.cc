@@ -3,6 +3,8 @@
 using namespace std;
 
 main() {
+    ios::sync_with_stdio(0), cin.tie(0);
+    
     int N; cin >> N;
 
     int o = 0, e = 1, s = 0, a = 0;
