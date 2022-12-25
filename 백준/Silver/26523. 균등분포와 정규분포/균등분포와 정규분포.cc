@@ -18,7 +18,7 @@ signed main() {
             if(x < 0.05 || x > 0.95) cnt++;
         }
 
-        if(cnt >= 360) cout << "A\n";
+        if(cnt >= 400) cout << "A\n";
         else cout << "B\n";
     }
 }
