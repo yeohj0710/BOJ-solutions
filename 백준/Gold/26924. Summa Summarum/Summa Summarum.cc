@@ -28,13 +28,6 @@ signed main() {
 
         if(idx-1 >= 0) ans = min(ans, abs((a - b) - (v[i] - u[idx-1]) * 2));
         if(idx+1 < u.size()) ans = min(ans, abs((a - b) - (v[i] - u[idx+1]) * 2));
-
-        idx = lower_bound(u.begin(), u.end(), v[i] - (a - b + 1) / 2) - u.begin();
-
-        if(idx < u.size()) ans = min(ans, abs((a - b) - (v[i] - u[idx]) * 2));
-
-        if(idx-1 >= 0) ans = min(ans, abs((a - b) - (v[i] - u[idx-1]) * 2));
-        if(idx+1 < u.size()) ans = min(ans, abs((a - b) - (v[i] - u[idx+1]) * 2));
     }
 
     cout << ans << "\n";
