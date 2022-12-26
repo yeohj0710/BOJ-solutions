@@ -13,10 +13,7 @@ signed main() {
     for(int i=0; i<N; i++) cin >> v[i], a += v[i];
     for(int i=0; i<N; i++) cin >> u[i], b += u[i];
 
-    sort(v.begin(), v.end());
     sort(u.begin(), u.end());
-
-    v.erase(unique(v.begin(), v.end()), v.end());
     u.erase(unique(u.begin(), u.end()), u.end());
 
     int ans = LLONG_MAX;
@@ -24,7 +21,7 @@ signed main() {
     for(int i=0; i<v.size(); i++) {
         int idx = lower_bound(u.begin(), u.end(), v[i] - (a - b) / 2) - u.begin();
 
-        if(idx < u.size()) ans = min(ans, abs((a - b) - (v[i] - u[idx]) * 2));
+        ans = min(ans, abs((a - b) - (v[i] - u[idx]) * 2));
 
         if(idx-1 >= 0) ans = min(ans, abs((a - b) - (v[i] - u[idx-1]) * 2));
         if(idx+1 < u.size()) ans = min(ans, abs((a - b) - (v[i] - u[idx+1]) * 2));
