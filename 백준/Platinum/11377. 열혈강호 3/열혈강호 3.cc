@@ -1,68 +1,108 @@
-#include <cstdio>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#define MAX 2005
-#define INF 1000000000
-#define SOUR 1
-#define SINK 2
-#define NODE_K 3
+#include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-int Capacity[MAX][MAX], Flow[MAX][MAX];
-vector<int> Line[MAX];
+struct MF {
+    struct se { int num, cap, ord; };
+    vector<vector<se>> adj;
 
-int MaxFlow(int Sour, int Sink) {
-    int Sum = 0;
-    while(1) {
-        int Parent[MAX] = {};
-        queue<int> Queue;
-        Queue.push(Sour);
-        Parent[Sour] = Sour;
-        while(!Queue.empty() && !Parent[Sink]) {
-            int Cur = Queue.front();
-            Queue.pop();
-            for(int i=0; i<Line[Cur].size(); i++) {
-                int Next = Line[Cur][i];
-                if(Capacity[Cur][Next] - Flow[Cur][Next] > 0 && !Parent[Next]) {
-                    Queue.push(Next);
-                    Parent[Next] = Cur;
-                }
+    void edge(int a, int b, int c) {
+        adj[a].push_back({b, c, adj[b].size()});
+        adj[b].push_back({a, 0, adj[a].size()-1});
+    }
+
+    int sz, sour, sink;
+    vector<int> lv, idx;
+
+    void init(int sz_) { sz = sz_; adj.resize(sz); }
+
+    bool bfs() {
+        lv.clear(); lv.resize(sz, -1); lv[sour] = 0;
+
+        queue<int> q; q.push(sour);
+
+        while(!q.empty()) {
+            int x = q.front(); q.pop();
+
+            for(auto e : adj[x]) {
+                int y = e.num, cap = e.cap;
+
+                if(lv[y] != -1 || cap == 0) continue;
+
+                lv[y] = lv[x] + 1;
+                q.push(y);
             }
         }
-        if(!Parent[Sink]) break;
 
-        int Amount = INF;
-        for(int i=Sink; i!=Sour; i=Parent[i])
-            Amount = min(Amount, Capacity[Parent[i]][i] - Flow[Parent[i]][i]);
-        for(int i=Sink; i!=Sour; i=Parent[i]) {
-            Flow[Parent[i]][i] += Amount;
-            Flow[i][Parent[i]] -= Amount;
-        }
-        Sum += Amount;
+        if(lv[sink] != -1) return true;
+        else return false;
     }
-    return Sum;
-}
 
-int main() {
-    int N, M, K, W, WNum;
-    scanf("%d %d %d", &N, &M, &K);
-    Line[SOUR].push_back(NODE_K), Line[NODE_K].push_back(SOUR);
-    Capacity[SOUR][NODE_K] = K;
-    for(int i=4; i<N+4; i++) {
-        Line[SOUR].push_back(i), Line[i].push_back(SOUR);
-        Line[NODE_K].push_back(i), Line[i].push_back(NODE_K);
-        Capacity[SOUR][i] = Capacity[NODE_K][i] = 1;
-        scanf("%d", &W);
-        for(int j=0; j<W; j++) {
-            scanf("%d", &WNum);
-            Line[i].push_back(N+3+WNum), Line[N+3+WNum].push_back(i);
-            Capacity[i][N+3+WNum] = 1;
+    int dfs(int x, int flo) {
+        if(x == sink) return flo;
+
+        for(int &i=idx[x]; i<adj[x].size(); i++) {
+            int y = adj[x][i].num, cap = adj[x][i].cap;
+
+            if(lv[x] + 1 != lv[y] || cap == 0) continue;
+
+            int sfl = dfs(y, min(flo, cap));
+
+            if(sfl == 0) continue;
+
+            adj[x][i].cap -= sfl;
+            adj[y][adj[x][i].ord].cap += sfl;
+
+            return sfl;
+        }
+
+        return 0;
+    }
+
+    int mf(int sour_, int sink_) {
+        int maxf = 0; sour = sour_, sink = sink_;
+
+        while(bfs()) {
+            idx.clear(); idx.resize(sz);
+
+            while(true) {
+                int sfl = dfs(sour, INT_MAX);
+
+                if(sfl == 0) break;
+
+                maxf += sfl;
+            }
+        }
+
+        return maxf;
+    }
+};
+
+int32_t main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, M, K; cin >> N >> M >> K;
+
+    MF f; f.init(N+M+4);
+
+    int sour = N+M+1, sink = N+M+2, ext = N+M+3;
+
+    f.edge(sour, ext, K);
+
+    for(int i=1; i<=N; i++) {
+        f.edge(sour, i, 1);
+        f.edge(ext, i, 1);
+
+        int L; cin >> L;
+
+        while(L--) {
+            int x; cin >> x;
+
+            f.edge(i, N+x, 1);
         }
     }
-    for(int i=N+4; i<N+M+4; i++) {
-        Line[SINK].push_back(i), Line[i].push_back(SINK);
-        Capacity[i][SINK] = 1;
-    }
-    printf("%d", MaxFlow(SOUR, SINK));
+
+    for(int i=1; i<=M; i++) f.edge(N+i, sink, 1);
+
+    cout << f.mf(sour, sink) << "\n";
 }
