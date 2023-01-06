@@ -19,7 +19,6 @@ struct MF {
 
     void edge(int a, int b, int c) {
         adj[a].push_back(b);
-        adj[b].push_back(a);
         cap[a][b] = c;
     }
 
@@ -105,10 +104,7 @@ int32_t main() {
         for(int j=1; j<=N; j++) {
             int x; cin >> x;
 
-            if(i == j) continue;
-
-            f.adj[i].push_back(j);
-            f.cap[i][j] = x;
+            if(i != j) f.edge(i, j, x);
         }
 
     cout << f.mf(sour, sink) << "\n";
