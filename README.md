@@ -13,4 +13,4 @@ Profile Link : https://solved.ac/profile/yeohj0710 <br/>
 <br/>
 <br/>
 <br/>
-** This is a auto push repository for Baekjoon Online Judge created with BaekjoonHub<br/><br/>
+** This is auto push repository for Baekjoon Online Judge created with BaekjoonHub<br/><br/>
