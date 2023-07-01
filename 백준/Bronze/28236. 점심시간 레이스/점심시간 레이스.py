@@ -1,3 +1,7 @@
+import sys
+input = sys.stdin.readline
+print = sys.stdout.write
+
 N, M, K = map(int, input().split())
 
 ans = 0
@@ -10,4 +14,4 @@ for i in range(K):
         mn = val
         ans = i+1
 
-print(ans)
+print(f"{ans}")
