@@ -17,7 +17,4 @@ for _ in range(T):
             or r + rev(r) + tail(r) == s or r + tail(rev(r)) + tail(r) == s:
         check = True
 
-    if check:
-        print(1)
-    else:
-        print(0)
+    print(1 if check else 0)
