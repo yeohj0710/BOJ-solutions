@@ -7,16 +7,10 @@ for _ in range(T):
     N = int(input())
     A = list(map(int, input().split()))
 
-    check = True
-    flag = True
+    B = sorted(A)
+    C = sorted(A, reverse = True)
 
-    for i in range(1, len(A)):
-        if A[i-1] > A[i]:
-            check = False
-        if A[i-1] < A[i]:
-            flag = False
-
-    if check or flag:
+    if A == B or A == C:
         A[0], A[1] = A[1], A[0]
 
     print()
