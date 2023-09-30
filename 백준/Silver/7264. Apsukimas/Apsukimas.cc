@@ -9,10 +9,15 @@ int32_t main() {
 
     string a, b; cin >> a >> b;
 
-    int mn = INT_MAX, mx = INT_MIN;
+    int mn = N-1, mx = 0;
 
     for(int i=0; i<N; i++)
         if(a[i] != b[i]) mn = min(mn, i), mx = max(mx, i);
+
+    while(true) {
+        if(mn > 0 && a[mn - 1] == b[mx + 1]) mn--, mx++;
+        else break;
+    }
 
     cout << mn + 1 << " " << mx + 1 << "\n";
 }
