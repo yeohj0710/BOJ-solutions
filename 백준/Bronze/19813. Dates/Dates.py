@@ -1,7 +1,9 @@
+import sys
+
 T = int(input())
 
 for _ in range(T):
-    s = input()
+    s = sys.stdin.readline()
 
     if s.count(".") >= 1:
         a, b, c = map(int, s.split("."))
