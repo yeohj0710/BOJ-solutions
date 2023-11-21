@@ -2,7 +2,6 @@
 #define int long long
 using namespace std;
 
-const double PI = acos(-1);
 typedef complex<double> cpx;
 
 void FFT(vector<cpx> &v, bool inv) {
@@ -21,7 +20,7 @@ void FFT(vector<cpx> &v, bool inv) {
     }
 
     for(int k=1; k<S; k*=2) {
-        double angle = (inv ? PI/k : -PI/k);
+        double angle = (inv ? M_PI/k : -M_PI/k);
         cpx w(cos(angle), sin(angle));
 
         for(int i=0; i<S; i+=k*2) {
