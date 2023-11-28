@@ -1,0 +1,95 @@
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
+
+typedef complex<double> cpx;
+
+void FFT(vector<cpx> &v, bool inv) {
+    int S = v.size();
+
+    for(int i=1, j=0; i<S; i++) {
+        int bit = S/2;
+
+        while(j >= bit) {
+            j -= bit;
+            bit /= 2;
+        }
+        j += bit;
+
+        if(i < j) swap(v[i], v[j]);
+    }
+
+    for(int k=1; k<S; k*=2) {
+        double angle = (inv ? M_PI/k : -M_PI/k);
+        cpx w(cos(angle), sin(angle));
+
+        for(int i=0; i<S; i+=k*2) {
+            cpx z(1, 0);
+
+            for(int j=0; j<k; j++) {
+                cpx even = v[i+j];
+                cpx odd = v[i+j+k];
+
+                v[i+j] = even + z*odd;
+                v[i+j+k] = even - z*odd;
+
+                z *= w;
+            }
+        }
+    }
+
+    if(inv)
+        for(int i=0; i<S; i++) v[i] /= S;
+}
+
+vector<int> mul(vector<int> &v, vector<int> &u) {
+    vector<cpx> vc(v.begin(), v.end());
+    vector<cpx> uc(u.begin(), u.end());
+
+    int S = 2;
+    while(S < v.size() + u.size()) S *= 2;
+
+    vc.resize(S); FFT(vc, false);
+    uc.resize(S); FFT(uc, false);
+
+    for(int i=0; i<S; i++) vc[i] *= uc[i];
+    FFT(vc, true);
+
+    vector<int> w(v.size() + u.size() - 1);
+    for(int i=0; i<w.size(); i++) w[i] = round(vc[i].real());
+
+    return w;
+}
+
+int32_t main() {
+    cin.tie(0)->sync_with_stdio(0);
+
+    int N, L, M, W; cin >> N >> L >> M >> W;
+
+    vector<vector<int>> vv(M, vector<int>(N)), uu(M, vector<int>(L));
+
+    for(int i=0; i<M; i++)
+        for(int j=0; j<N; j++) cin >> vv[i][j];
+
+    for(int i=0; i<M; i++)
+        for(int j=0; j<L; j++) cin >> uu[i][j];
+
+    vector<int> v(M * N), u(M * L);
+
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) v[i*M + j] = vv[j][i];
+
+    for(int i=0; i<L; i++)
+        for(int j=0; j<M; j++) u[i*M + j] = uu[j][i];
+
+    reverse(u.begin(), u.end());
+
+    vector<int> w = mul(v, u);
+
+    int ans = 0;
+
+    for(int i=M*L-1; i<M*N; i+=M)
+        if(w[i] > W) ans++;
+
+    cout << ans << "\n";
+}
