@@ -21,14 +21,14 @@ int32_t main() {
         else if(a == 2) {
             while(!s.empty()) {
                 int x;
-                auto low = s.lower_bound(cur);
+                auto nex = s.lower_bound(cur);
 
-                if(low == s.end()) x = *prev(low);
-                else if(low == s.begin()) x = *low;
+                if(nex == s.end()) x = *prev(nex);
+                else if(nex == s.begin()) x = *nex;
                 else {
-                    auto pre = prev(low);
-                    if(cur - *pre <= *low - cur) x = *pre;
-                    else x = *low;
+                    auto pre = prev(nex);
+                    if(cur - *pre <= *nex - cur) x = *pre;
+                    else x = *nex;
                 }
 
                 ans += abs(cur - x);
