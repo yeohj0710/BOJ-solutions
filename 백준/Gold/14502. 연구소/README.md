@@ -1,14 +1,18 @@
-# [Gold V] 연구소 - 14502 
+# [Gold IV] 연구소 - 14502 
 
 [문제 링크](https://www.acmicpc.net/problem/14502) 
 
 ### 성능 요약
 
-메모리: 2028 KB, 시간: 268 ms
+메모리: 2024 KB, 시간: 92 ms
 
 ### 분류
 
-너비 우선 탐색(bfs), 브루트포스 알고리즘(bruteforcing), 그래프 이론(graphs), 그래프 탐색(graph_traversal), 구현(implementation)
+너비 우선 탐색, 브루트포스 알고리즘, 그래프 이론, 그래프 탐색, 구현
+
+### 제출 일자
+
+2024년 11월 20일 14:23:49
 
 ### 문제 설명
 

@@ -2,86 +2,70 @@
 #define int long long
 using namespace std;
 
-int N, M, ans = 0;
-vector<vector<int>> v, w;
-vector<pair<int, int>> u;
-vector<vector<bool>> vis;
 
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
 
-void h(int x, int y) {
-    vis[x][y] = true;
+int32_t main() {
+    cin.tie(0)->sync_with_stdio(0);
 
-    for(int i=0; i<4; i++) {
-        int nx = x + dx[i];
-        int ny = y + dy[i];
+    int n, m; cin >> n >> m;
 
-        if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-        if(w[nx][ny] != 0 || vis[nx][ny]) continue;
+    vector<vector<int>> v(n, vector<int>(m));
 
-        w[nx][ny] = 2;
-        h(nx, ny);
-    }
-}
+    struct s { int x, y; };
+    vector<s> u;
 
-void g() {
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++) w[i][j] = v[i][j];
+    for(int i=0; i<n; i++)
+        for(int j=0; j<m; j++) {
+            cin >> v[i][j];
 
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++) vis[i][j] = false;
+            if(v[i][j] == 0) u.push_back({i, j});
+        }
+
+    int ans = 0;
 
     for(int i=0; i<u.size(); i++)
-        w[u[i].first][u[i].second] = 1;
+        for(int j=i+1; j<u.size(); j++)
+            for(int k=j+1; k<u.size(); k++) {
+                vector<vector<int>> vv = v;
 
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++)
-            if(w[i][j] == 2 && !vis[i][j]) h(i, j);
+                vv[u[i].x][u[i].y] = vv[u[j].x][u[j].y] = vv[u[k].x][u[k].y] = 1;
 
-    int cnt = 0;
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++)
-            if(w[i][j] == 0) cnt++;
+                vector<vector<bool>> vis(n, vector<bool>(m));
 
-    ans = max(ans, cnt);
-}
+                for(int ii=0; ii<n; ii++)
+                    for(int jj=0; jj<m; jj++) {
+                        if(vis[ii][jj] || vv[ii][jj] != 2) continue;
 
-void f(int cnt) {
-    if(cnt == 3) {
-        g();
-        return;
-    }
+                        queue<s> q; q.push({ii, jj});
 
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++) {
-            if(v[i][j] != 0) continue;
+                        while(!q.empty()) {
+                            int x = q.front().x, y = q.front().y;
+                            q.pop();
 
-            bool check = true;
-            for(int k=0; k<u.size(); k++)
-                if(i == u[k].first && j == u[k].second) check = false;
-            if(!check) continue;
+                            int dx[4] = {1, -1, 0, 0};
+                            int dy[4] = {0, 0, 1, -1};
 
-            u.push_back({i, j});
-            f(cnt + 1);
-            u.pop_back();
-        }
-}
+                            for(int kk=0; kk<4; kk++) {
+                                int nx = x + dx[kk], ny = y + dy[kk];
 
-main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL), cout.tie(NULL);
+                                if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                                if(vis[nx][ny] || vv[nx][ny] != 0) continue;
 
-    cin >> N >> M;
+                                vv[nx][ny] = 2;
+                                vis[nx][ny] = true;
+                                q.push({nx, ny});
+                            }
+                        }
+                    }
 
-    v.resize(N, vector<int>(M));
-    for(int i=0; i<N; i++)
-        for(int j=0; j<M; j++) cin >> v[i][j];
+                int cnt = 0;
 
-    w.resize(N, vector<int>(M));
-    vis.resize(N, vector<bool>(M));
+                for(int ii=0; ii<n; ii++)
+                    for(int jj=0; jj<m; jj++)
+                        if(vv[ii][jj] == 0) cnt++;
 
-    f(0);
+                ans = max(ans, cnt);
+            }
 
     cout << ans << "\n";
 }
